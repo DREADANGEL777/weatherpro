@@ -1,0 +1,176 @@
+.home {
+  min-height: 100vh;
+
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(116, 179, 255, 0.14),
+      transparent 38%
+    ),
+    #eef4fb;
+}
+
+.home__main {
+  width: 100%;
+}
+
+.home__hero {
+  position: relative;
+
+  padding: 82px 20px 75px;
+
+  overflow: hidden;
+}
+
+.home__hero::before {
+  content: "";
+
+  position: absolute;
+
+  width: 520px;
+  height: 520px;
+
+  top: -260px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  border-radius: 50%;
+
+  background: rgba(114, 180, 255, 0.12);
+
+  filter: blur(20px);
+
+  pointer-events: none;
+}
+
+.home__hero-content {
+  position: relative;
+  z-index: 1;
+
+  width: min(900px, 100%);
+
+  margin: 0 auto;
+
+  text-align: center;
+}
+
+.home__eyebrow {
+  display: inline-flex;
+  align-items: center;
+
+  margin-bottom: 18px;
+
+  padding: 7px 12px;
+
+  color: #3987ff;
+  background: #e5f1ff;
+
+  border-radius: 999px;
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+}
+
+.home__title {
+  margin: 0;
+
+  color: #172033;
+
+  font-size: clamp(42px, 7vw, 72px);
+  line-height: 1.04;
+  letter-spacing: -3px;
+  font-weight: 800;
+}
+
+.home__title span {
+  color: #3987ff;
+}
+
+.home__description {
+  width: min(620px, 100%);
+
+  margin: 24px auto 34px;
+
+  color: #6c7b91;
+
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.home__weather {
+  width: min(1180px, calc(100% - 40px));
+
+  margin: 0 auto 70px;
+}
+
+.home__weather-placeholder {
+  min-height: 260px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 40px;
+
+  background: rgba(255, 255, 255, 0.76);
+
+  border: 1px solid rgba(220, 230, 242, 0.9);
+  border-radius: 24px;
+
+  box-shadow: 0 14px 40px rgba(45, 71, 104, 0.06);
+
+  text-align: center;
+}
+
+.home__weather-placeholder > span {
+  margin-bottom: 12px;
+
+  font-size: 42px;
+}
+
+.home__weather-placeholder h2 {
+  margin: 0 0 8px;
+
+  color: #172033;
+
+  font-size: 22px;
+}
+
+.home__weather-placeholder p {
+  max-width: 450px;
+
+  margin: 0;
+
+  color: #7c899d;
+
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .home__hero {
+    padding: 58px 16px 50px;
+  }
+
+  .home__title {
+    letter-spacing: -2px;
+  }
+
+  .home__description {
+    font-size: 14px;
+  }
+
+  .home__weather {
+    width: min(100% - 24px, 1180px);
+
+    margin-bottom: 40px;
+  }
+
+  .home__weather-placeholder {
+    min-height: 220px;
+
+    padding: 30px 20px;
+  }
+}

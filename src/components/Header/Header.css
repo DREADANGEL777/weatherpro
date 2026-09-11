@@ -1,0 +1,154 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  width: 100%;
+
+  background: rgba(255, 255, 255, 0.86);
+  border-bottom: 1px solid rgba(31, 48, 72, 0.08);
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.header__container {
+  width: min(1180px, calc(100% - 40px));
+  min-height: 72px;
+
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.header__logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: -0.5px;
+
+  white-space: nowrap;
+}
+
+.header__logo-icon {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background: #e8f2ff;
+
+  font-size: 21px;
+}
+
+.header__logo-text {
+  color: #172033;
+}
+
+.header__logo-text span {
+  color: #3987ff;
+}
+
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header__link {
+  position: relative;
+
+  padding: 10px 14px;
+
+  color: #65738b;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  border-radius: 10px;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+}
+
+.header__link:hover {
+  color: #172033;
+  background: #f2f6fb;
+}
+
+.header__link--active {
+  color: #3987ff;
+}
+
+.header__premium-button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 10px 16px;
+
+  color: #ffffff;
+  background: #3987ff;
+
+  border-radius: 11px;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  box-shadow: 0 6px 18px rgba(57, 135, 255, 0.22);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.header__premium-button:hover {
+  background: #2878ef;
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 8px 22px rgba(57, 135, 255, 0.3);
+}
+
+.header__premium-button span {
+  font-size: 13px;
+}
+
+@media (max-width: 700px) {
+  .header__container {
+    width: min(100% - 24px, 1180px);
+    min-height: 64px;
+    gap: 12px;
+  }
+
+  .header__nav {
+    display: none;
+  }
+
+  .header__premium-button {
+    padding: 9px 13px;
+  }
+
+  .header__logo-text {
+    font-size: 18px;
+  }
+
+  .header__logo-icon {
+    width: 34px;
+    height: 34px;
+
+    border-radius: 10px;
+  }
+}

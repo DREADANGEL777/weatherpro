@@ -1,0 +1,300 @@
+.current-weather {
+  position: relative;
+
+  padding: 30px;
+
+  background: #ffffff;
+
+  border: 1px solid #dce6f2;
+  border-radius: 24px;
+
+  box-shadow: 0 16px 45px rgba(42, 68, 102, 0.08);
+
+  overflow: hidden;
+}
+
+.current-weather::before {
+  content: "";
+
+  position: absolute;
+
+  width: 260px;
+  height: 260px;
+
+  top: -150px;
+  right: -80px;
+
+  border-radius: 50%;
+
+  background: rgba(86, 164, 255, 0.1);
+
+  filter: blur(8px);
+
+  pointer-events: none;
+}
+
+.current-weather__header {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.current-weather__location {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  color: #172033;
+
+  font-size: 19px;
+}
+
+.current-weather__location > span:first-child {
+  font-size: 17px;
+}
+
+.current-weather__country {
+  color: #8794a7;
+
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.current-weather__updated {
+  margin: 7px 0 0;
+
+  color: #8b98aa;
+
+  font-size: 12px;
+}
+
+.current-weather__status {
+  padding: 7px 11px;
+
+  color: #35a36c;
+  background: #ecfaf3;
+
+  border-radius: 999px;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.current-weather__main {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 42px 15px 38px;
+}
+
+.current-weather__temperature {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.current-weather__icon {
+  font-size: 82px;
+  line-height: 1;
+}
+
+.current-weather__value {
+  color: #172033;
+
+  font-size: 82px;
+  line-height: 0.9;
+  letter-spacing: -5px;
+  font-weight: 800;
+}
+
+.current-weather__value span {
+  color: #718198;
+
+  font-size: 42px;
+  vertical-align: top;
+  letter-spacing: -2px;
+}
+
+.current-weather__condition {
+  margin-top: 12px;
+
+  color: #65738b;
+
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.current-weather__feels {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  text-align: right;
+}
+
+.current-weather__feels span {
+  color: #8b98aa;
+
+  font-size: 12px;
+}
+
+.current-weather__feels strong {
+  color: #34445b;
+
+  font-size: 18px;
+}
+
+.current-weather__stats {
+  position: relative;
+  z-index: 1;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+
+  padding-top: 22px;
+
+  border-top: 1px solid #edf1f6;
+}
+
+.current-weather__stat {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  min-width: 0;
+
+  padding: 13px;
+
+  background: #f7faff;
+
+  border: 1px solid #edf2f8;
+  border-radius: 13px;
+}
+
+.current-weather__stat-icon {
+  width: 36px;
+  height: 36px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #ffffff;
+
+  border-radius: 10px;
+
+  font-size: 16px;
+}
+
+.current-weather__stat div:last-child {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.current-weather__stat span {
+  color: #8a97a9;
+
+  font-size: 11px;
+}
+
+.current-weather__stat strong {
+  overflow: hidden;
+
+  color: #26364d;
+
+  font-size: 13px;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 800px) {
+  .current-weather__main {
+    padding: 35px 5px;
+  }
+
+  .current-weather__icon {
+    font-size: 65px;
+  }
+
+  .current-weather__value {
+    font-size: 68px;
+  }
+
+  .current-weather__stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .current-weather {
+    padding: 20px;
+    border-radius: 19px;
+  }
+
+  .current-weather__header {
+    align-items: flex-start;
+  }
+
+  .current-weather__country {
+    display: none;
+  }
+
+  .current-weather__status {
+    padding: 6px 8px;
+
+    font-size: 9px;
+  }
+
+  .current-weather__main {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+
+    padding: 35px 0;
+  }
+
+  .current-weather__temperature {
+    gap: 16px;
+  }
+
+  .current-weather__icon {
+    font-size: 58px;
+  }
+
+  .current-weather__value {
+    font-size: 62px;
+  }
+
+  .current-weather__value span {
+    font-size: 32px;
+  }
+
+  .current-weather__feels {
+    text-align: left;
+  }
+
+  .current-weather__stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .current-weather__stat {
+    padding: 10px;
+  }
+}
