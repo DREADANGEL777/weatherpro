@@ -1,13 +1,17 @@
 .language-switcher {
   position: relative;
+
+  flex: 0 0 auto;
 }
 
 .language-switcher__button {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 7px;
 
   min-height: 42px;
+
   padding: 0 12px;
 
   border: 1px solid rgba(30, 48, 82, 0.1);
@@ -18,6 +22,8 @@
 
   font-size: 12px;
   font-weight: 800;
+
+  white-space: nowrap;
 
   transition:
     background 0.2s ease,
@@ -34,12 +40,17 @@
 }
 
 .language-switcher__flag {
+  flex: 0 0 auto;
+
   font-size: 18px;
   line-height: 1;
 }
 
 .language-switcher__arrow {
+  flex: 0 0 auto;
+
   font-size: 12px;
+
   transition: transform 0.2s ease;
 }
 
@@ -55,6 +66,7 @@
   right: 0;
 
   width: 190px;
+  max-width: calc(100vw - 16px);
 
   padding: 6px;
 
@@ -65,6 +77,8 @@
 
   box-shadow: 0 18px 45px rgba(30, 48, 82, 0.14);
 
+  overflow: hidden;
+
   animation: languageMenuIn 0.15s ease;
 }
 
@@ -74,6 +88,7 @@
   gap: 10px;
 
   width: 100%;
+  min-width: 0;
 
   padding: 10px 11px;
 
@@ -99,6 +114,8 @@
 }
 
 .language-switcher__check {
+  flex: 0 0 auto;
+
   margin-left: auto;
 
   font-size: 14px;
@@ -117,13 +134,157 @@
   }
 }
 
+/* ========================================
+   TABLET / MOBILE
+======================================== */
+
 @media (max-width: 600px) {
   .language-switcher__button {
     min-height: 40px;
+
     padding: 0 9px;
   }
 
   .language-switcher__menu {
     width: 175px;
+  }
+}
+
+/* ========================================
+   SMALL MOBILE
+======================================== */
+
+@media (max-width: 480px) {
+  .language-switcher__button {
+    min-height: 38px;
+
+    gap: 5px;
+
+    padding: 0 8px;
+
+    border-radius: 10px;
+
+    font-size: 11px;
+  }
+
+  .language-switcher__flag {
+    font-size: 16px;
+  }
+
+  .language-switcher__arrow {
+    font-size: 10px;
+  }
+
+  .language-switcher__menu {
+    top: calc(100% + 6px);
+
+    width: 170px;
+
+    padding: 5px;
+
+    border-radius: 12px;
+  }
+
+  .language-switcher__option {
+    gap: 8px;
+
+    padding: 9px 10px;
+
+    font-size: 12px;
+  }
+}
+
+/* ========================================
+   VERY SMALL MOBILE
+======================================== */
+
+@media (max-width: 380px) {
+  .language-switcher__button {
+    min-height: 34px;
+
+    gap: 4px;
+
+    padding: 0 7px;
+
+    border-radius: 9px;
+
+    font-size: 10px;
+  }
+
+  .language-switcher__flag {
+    font-size: 15px;
+  }
+
+  .language-switcher__arrow {
+    font-size: 9px;
+  }
+
+  .language-switcher__menu {
+    width: 165px;
+
+    max-width: calc(100vw - 12px);
+  }
+
+  .language-switcher__option {
+    gap: 7px;
+
+    padding: 8px 9px;
+
+    font-size: 11px;
+  }
+
+  .language-switcher__check {
+    font-size: 12px;
+  }
+}
+
+/* ========================================
+   320px
+======================================== */
+
+@media (max-width: 340px) {
+  .language-switcher__button {
+    min-height: 32px;
+
+    gap: 3px;
+
+    padding: 0 6px;
+
+    border-radius: 8px;
+
+    font-size: 9px;
+  }
+
+  .language-switcher__flag {
+    font-size: 14px;
+  }
+
+  .language-switcher__arrow {
+    font-size: 8px;
+  }
+
+  .language-switcher__menu {
+    top: calc(100% + 5px);
+    right: -2px;
+
+    width: 158px;
+
+    max-width: calc(100vw - 10px);
+
+    padding: 4px;
+
+    border-radius: 11px;
+  }
+
+  .language-switcher__option {
+    gap: 6px;
+
+    padding: 7px 8px;
+
+    font-size: 10px;
+  }
+
+  .language-switcher__check {
+    font-size: 11px;
   }
 }

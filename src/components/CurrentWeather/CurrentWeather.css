@@ -1,6 +1,9 @@
 .current-weather {
   position: relative;
 
+  width: 100%;
+  min-width: 0;
+
   padding: 30px;
 
   background: #ffffff;
@@ -33,6 +36,10 @@
   pointer-events: none;
 }
 
+/* =========================
+   HEADER
+   ========================= */
+
 .current-weather__header {
   position: relative;
   z-index: 1;
@@ -40,12 +47,22 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+
   gap: 20px;
+
+  min-width: 0;
+}
+
+.current-weather__header > div:first-child {
+  min-width: 0;
 }
 
 .current-weather__location {
   display: flex;
   align-items: center;
+
+  min-width: 0;
+
   gap: 7px;
 
   color: #172033;
@@ -54,14 +71,29 @@
 }
 
 .current-weather__location > span:first-child {
+  flex: 0 0 auto;
+
   font-size: 17px;
 }
 
+.current-weather__location strong {
+  min-width: 0;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .current-weather__country {
+  flex: 0 0 auto;
+
   color: #8794a7;
 
   font-size: 13px;
   font-weight: 500;
+
+  white-space: nowrap;
 }
 
 .current-weather__updated {
@@ -73,6 +105,8 @@
 }
 
 .current-weather__status {
+  flex: 0 0 auto;
+
   padding: 7px 11px;
 
   color: #35a36c;
@@ -86,6 +120,10 @@
   white-space: nowrap;
 }
 
+/* =========================
+   MAIN WEATHER
+   ========================= */
+
 .current-weather__main {
   position: relative;
   z-index: 1;
@@ -94,16 +132,25 @@
   align-items: center;
   justify-content: space-between;
 
+  gap: 24px;
+
   padding: 42px 15px 38px;
+
+  min-width: 0;
 }
 
 .current-weather__temperature {
   display: flex;
   align-items: center;
+
+  min-width: 0;
+
   gap: 24px;
 }
 
 .current-weather__icon {
+  flex: 0 0 auto;
+
   font-size: 82px;
   line-height: 1;
 }
@@ -115,6 +162,8 @@
   line-height: 0.9;
   letter-spacing: -5px;
   font-weight: 800;
+
+  white-space: nowrap;
 }
 
 .current-weather__value span {
@@ -137,6 +186,9 @@
 .current-weather__feels {
   display: flex;
   flex-direction: column;
+
+  flex: 0 0 auto;
+
   gap: 5px;
 
   text-align: right;
@@ -152,14 +204,21 @@
   color: #34445b;
 
   font-size: 18px;
+
+  white-space: nowrap;
 }
+
+/* =========================
+   STATS
+   ========================= */
 
 .current-weather__stats {
   position: relative;
   z-index: 1;
 
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
   gap: 12px;
 
   padding-top: 22px;
@@ -170,9 +229,10 @@
 .current-weather__stat {
   display: flex;
   align-items: center;
-  gap: 11px;
 
   min-width: 0;
+
+  gap: 11px;
 
   padding: 13px;
 
@@ -186,7 +246,7 @@
   width: 36px;
   height: 36px;
 
-  flex-shrink: 0;
+  flex: 0 0 36px;
 
   display: flex;
   align-items: center;
@@ -204,16 +264,24 @@
 
   display: flex;
   flex-direction: column;
+
   gap: 3px;
 }
 
 .current-weather__stat span {
+  overflow: hidden;
+
   color: #8a97a9;
 
   font-size: 11px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .current-weather__stat strong {
+  min-width: 0;
+
   overflow: hidden;
 
   color: #26364d;
@@ -224,7 +292,45 @@
   text-overflow: ellipsis;
 }
 
+/* =========================
+   TABLET
+   ========================= */
+
+@media (max-width: 900px) {
+  .current-weather {
+    padding: 26px;
+  }
+
+  .current-weather__main {
+    padding: 36px 8px;
+  }
+
+  .current-weather__temperature {
+    gap: 18px;
+  }
+
+  .current-weather__icon {
+    font-size: 70px;
+  }
+
+  .current-weather__value {
+    font-size: 72px;
+  }
+
+  .current-weather__value span {
+    font-size: 37px;
+  }
+}
+
+/* =========================
+   SMALL TABLET
+   ========================= */
+
 @media (max-width: 800px) {
+  .current-weather__stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .current-weather__main {
     padding: 35px 5px;
   }
@@ -237,23 +343,44 @@
     font-size: 68px;
   }
 
-  .current-weather__stats {
-    grid-template-columns: repeat(2, 1fr);
+  .current-weather__value span {
+    font-size: 35px;
   }
 }
+
+/* =========================
+   MOBILE
+   ========================= */
 
 @media (max-width: 560px) {
   .current-weather {
     padding: 20px;
+
     border-radius: 19px;
   }
 
   .current-weather__header {
-    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .current-weather__location {
+    gap: 5px;
+
+    font-size: 16px;
+  }
+
+  .current-weather__location > span:first-child {
+    font-size: 15px;
   }
 
   .current-weather__country {
     display: none;
+  }
+
+  .current-weather__updated {
+    margin-top: 6px;
+
+    font-size: 11px;
   }
 
   .current-weather__status {
@@ -265,12 +392,15 @@
   .current-weather__main {
     flex-direction: column;
     align-items: flex-start;
+
     gap: 20px;
 
-    padding: 35px 0;
+    padding: 32px 0;
   }
 
   .current-weather__temperature {
+    width: 100%;
+
     gap: 16px;
   }
 
@@ -280,10 +410,17 @@
 
   .current-weather__value {
     font-size: 62px;
+    letter-spacing: -4px;
   }
 
   .current-weather__value span {
     font-size: 32px;
+  }
+
+  .current-weather__condition {
+    margin-top: 10px;
+
+    font-size: 14px;
   }
 
   .current-weather__feels {
@@ -291,10 +428,345 @@
   }
 
   .current-weather__stats {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 8px;
+
+    padding-top: 18px;
   }
 
   .current-weather__stat {
-    padding: 10px;
+    gap: 8px;
+
+    padding: 9px;
+  }
+
+  .current-weather__stat-icon {
+    width: 32px;
+    height: 32px;
+
+    flex-basis: 32px;
+
+    border-radius: 9px;
+
+    font-size: 14px;
+  }
+
+  .current-weather__stat span {
+    font-size: 10px;
+  }
+
+  .current-weather__stat strong {
+    font-size: 12px;
+  }
+}
+
+/* =========================
+   SMALL MOBILE
+   ========================= */
+
+@media (max-width: 480px) {
+  .current-weather {
+    padding: 17px;
+
+    border-radius: 17px;
+  }
+
+  .current-weather__header {
+    gap: 8px;
+  }
+
+  .current-weather__location {
+    font-size: 15px;
+  }
+
+  .current-weather__updated {
+    font-size: 10px;
+  }
+
+  .current-weather__status {
+    padding: 5px 7px;
+
+    font-size: 8px;
+  }
+
+  .current-weather__main {
+    gap: 17px;
+
+    padding: 27px 0;
+  }
+
+  .current-weather__temperature {
+    gap: 13px;
+  }
+
+  .current-weather__icon {
+    font-size: 50px;
+  }
+
+  .current-weather__value {
+    font-size: 55px;
+    letter-spacing: -3px;
+  }
+
+  .current-weather__value span {
+    font-size: 28px;
+  }
+
+  .current-weather__condition {
+    margin-top: 8px;
+
+    font-size: 12px;
+  }
+
+  .current-weather__feels {
+    gap: 4px;
+  }
+
+  .current-weather__feels span {
+    font-size: 10px;
+  }
+
+  .current-weather__feels strong {
+    font-size: 16px;
+  }
+
+  .current-weather__stats {
+    gap: 7px;
+
+    padding-top: 16px;
+  }
+
+  .current-weather__stat {
+    gap: 7px;
+
+    padding: 8px;
+  }
+
+  .current-weather__stat-icon {
+    width: 30px;
+    height: 30px;
+
+    flex-basis: 30px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+  }
+
+  .current-weather__stat span {
+    font-size: 9px;
+  }
+
+  .current-weather__stat strong {
+    font-size: 11px;
+  }
+}
+
+/* =========================
+   VERY SMALL MOBILE
+   ========================= */
+
+@media (max-width: 380px) {
+  .current-weather {
+    padding: 14px;
+
+    border-radius: 15px;
+  }
+
+  .current-weather__header {
+    gap: 6px;
+  }
+
+  .current-weather__location {
+    gap: 4px;
+
+    font-size: 14px;
+  }
+
+  .current-weather__location > span:first-child {
+    font-size: 13px;
+  }
+
+  .current-weather__updated {
+    margin-top: 5px;
+
+    font-size: 9px;
+  }
+
+  .current-weather__status {
+    padding: 5px 6px;
+
+    font-size: 7px;
+  }
+
+  .current-weather__main {
+    gap: 15px;
+
+    padding: 23px 0;
+  }
+
+  .current-weather__temperature {
+    gap: 10px;
+  }
+
+  .current-weather__icon {
+    font-size: 44px;
+  }
+
+  .current-weather__value {
+    font-size: 49px;
+    letter-spacing: -3px;
+  }
+
+  .current-weather__value span {
+    font-size: 25px;
+  }
+
+  .current-weather__condition {
+    margin-top: 7px;
+
+    font-size: 11px;
+  }
+
+  .current-weather__feels span {
+    font-size: 9px;
+  }
+
+  .current-weather__feels strong {
+    font-size: 15px;
+  }
+
+  .current-weather__stats {
+    gap: 6px;
+
+    padding-top: 14px;
+  }
+
+  .current-weather__stat {
+    gap: 6px;
+
+    padding: 7px;
+  }
+
+  .current-weather__stat-icon {
+    width: 27px;
+    height: 27px;
+
+    flex-basis: 27px;
+
+    border-radius: 7px;
+
+    font-size: 12px;
+  }
+
+  .current-weather__stat span {
+    font-size: 8px;
+  }
+
+  .current-weather__stat strong {
+    font-size: 10px;
+  }
+}
+
+/* =========================
+   320px
+   ========================= */
+
+@media (max-width: 340px) {
+  .current-weather {
+    padding: 12px;
+
+    border-radius: 14px;
+  }
+
+  .current-weather__location {
+    font-size: 13px;
+  }
+
+  .current-weather__location > span:first-child {
+    font-size: 12px;
+  }
+
+  .current-weather__updated {
+    font-size: 8px;
+  }
+
+  .current-weather__status {
+    padding: 4px 5px;
+
+    font-size: 6px;
+  }
+
+  .current-weather__main {
+    gap: 13px;
+
+    padding: 20px 0;
+  }
+
+  .current-weather__temperature {
+    gap: 8px;
+  }
+
+  .current-weather__icon {
+    font-size: 38px;
+  }
+
+  .current-weather__value {
+    font-size: 43px;
+    letter-spacing: -2px;
+  }
+
+  .current-weather__value span {
+    font-size: 22px;
+  }
+
+  .current-weather__condition {
+    margin-top: 6px;
+
+    font-size: 10px;
+  }
+
+  .current-weather__feels {
+    gap: 3px;
+  }
+
+  .current-weather__feels span {
+    font-size: 8px;
+  }
+
+  .current-weather__feels strong {
+    font-size: 14px;
+  }
+
+  .current-weather__stats {
+    gap: 5px;
+
+    padding-top: 12px;
+  }
+
+  .current-weather__stat {
+    gap: 5px;
+
+    padding: 6px;
+  }
+
+  .current-weather__stat-icon {
+    width: 25px;
+    height: 25px;
+
+    flex-basis: 25px;
+
+    border-radius: 6px;
+
+    font-size: 11px;
+  }
+
+  .current-weather__stat span {
+    font-size: 7px;
+  }
+
+  .current-weather__stat strong {
+    font-size: 9px;
   }
 }
