@@ -1,0 +1,129 @@
+.language-switcher {
+  position: relative;
+}
+
+.language-switcher__button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  min-height: 42px;
+  padding: 0 12px;
+
+  border: 1px solid rgba(30, 48, 82, 0.1);
+  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.8);
+  color: #172033;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.language-switcher__button:hover {
+  border-color: rgba(56, 103, 214, 0.25);
+
+  background: #ffffff;
+
+  box-shadow: 0 8px 20px rgba(30, 48, 82, 0.08);
+}
+
+.language-switcher__flag {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.language-switcher__arrow {
+  font-size: 12px;
+  transition: transform 0.2s ease;
+}
+
+.language-switcher__arrow--open {
+  transform: rotate(180deg);
+}
+
+.language-switcher__menu {
+  position: absolute;
+  z-index: 100;
+
+  top: calc(100% + 8px);
+  right: 0;
+
+  width: 190px;
+
+  padding: 6px;
+
+  border: 1px solid rgba(30, 48, 82, 0.1);
+  border-radius: 14px;
+
+  background: rgba(255, 255, 255, 0.98);
+
+  box-shadow: 0 18px 45px rgba(30, 48, 82, 0.14);
+
+  animation: languageMenuIn 0.15s ease;
+}
+
+.language-switcher__option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: 100%;
+
+  padding: 10px 11px;
+
+  border: 0;
+  border-radius: 9px;
+
+  background: transparent;
+  color: #344054;
+
+  text-align: left;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.language-switcher__option:hover {
+  background: #f1f5fb;
+}
+
+.language-switcher__option--active {
+  background: #eef4ff;
+  color: #3867d6;
+}
+
+.language-switcher__check {
+  margin-left: auto;
+
+  font-size: 14px;
+  font-weight: 800;
+}
+
+@keyframes languageMenuIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  .language-switcher__button {
+    min-height: 40px;
+    padding: 0 9px;
+  }
+
+  .language-switcher__menu {
+    width: 175px;
+  }
+}

@@ -8,6 +8,8 @@ import {
   YAxis,
 } from "recharts";
 
+import { useTranslation } from "react-i18next";
+
 import type { WeatherResponse } from "../../types/weather";
 import { getWeatherDescription } from "../../utils/weatherCode";
 
@@ -27,20 +29,22 @@ interface ChartPoint {
   icon: string;
 }
 
-function formatHour(time: string) {
-  return new Intl.DateTimeFormat("uk-UA", {
+function formatHour(time: string, language: string) {
+  return new Intl.DateTimeFormat(language, {
     hour: "2-digit",
   }).format(new Date(time));
 }
 
-function formatTooltipTime(time: string) {
-  return new Intl.DateTimeFormat("uk-UA", {
+function formatTooltipTime(time: string, language: string) {
+  return new Intl.DateTimeFormat(language, {
     hour: "2-digit",
     minute: "2-digit",
   }).format(new Date(time));
 }
 
 export function WeatherChart({ weather }: WeatherChartProps) {
+  const { t, i18n } = useTranslation();
+
   const hourly = weather.hourly;
 
   const currentTime = new Date(weather.current.time).getTime();
@@ -61,7 +65,7 @@ export function WeatherChart({ weather }: WeatherChartProps) {
       );
 
       return {
-        time: formatHour(time),
+        time: formatHour(time, i18n.language),
         fullTime: time,
         temperature: Math.round(hourly.temperature_2m[actualIndex]),
         feelsLike: Math.round(hourly.apparent_temperature[actualIndex]),
@@ -75,20 +79,22 @@ export function WeatherChart({ weather }: WeatherChartProps) {
     <section className="weather-chart">
       <div className="weather-chart__heading">
         <div>
-          <span className="weather-chart__eyebrow">HOURLY FORECAST</span>
+          <span className="weather-chart__eyebrow">
+            {t("weatherChart.eyebrow")}
+          </span>
 
-          <h2 className="weather-chart__title">Погода по годинах</h2>
+          <h2 className="weather-chart__title">{t("weatherChart.title")}</h2>
         </div>
 
         <div className="weather-chart__legend">
           <span className="weather-chart__legend-item">
             <i className="weather-chart__legend-dot" />
-            Температура
+            {t("weatherChart.temperature")}
           </span>
 
           <span className="weather-chart__legend-item">
             <i className="weather-chart__legend-dot weather-chart__legend-dot--secondary" />
-            Відчувається
+            {t("weatherChart.feelsLike")}
           </span>
         </div>
       </div>
@@ -96,13 +102,13 @@ export function WeatherChart({ weather }: WeatherChartProps) {
       <div className="weather-chart__card">
         <div className="weather-chart__top">
           <div>
-            <strong>Найближчі 24 години</strong>
+            <strong>{t("weatherChart.next24Hours")}</strong>
 
-            <span>Температура та відчуття на вулиці</span>
+            <span>{t("weatherChart.temperatureDescription")}</span>
           </div>
 
           <div className="weather-chart__current">
-            <span>Зараз</span>
+            <span>{t("weatherChart.now")}</span>
 
             <strong>{Math.round(weather.current.temperature_2m)}°</strong>
           </div>
@@ -163,23 +169,26 @@ export function WeatherChart({ weather }: WeatherChartProps) {
                   return (
                     <div className="weather-chart__tooltip">
                       <div className="weather-chart__tooltip-time">
-                        {formatTooltipTime(point.fullTime)} {point.icon}
+                        {formatTooltipTime(point.fullTime, i18n.language)}{" "}
+                        {point.icon}
                       </div>
 
                       <div className="weather-chart__tooltip-row">
-                        <span>Температура</span>
+                        <span>{t("weatherChart.temperature")}</span>
 
                         <strong>{point.temperature}°</strong>
                       </div>
 
                       <div className="weather-chart__tooltip-row">
-                        <span>Відчувається</span>
+                        <span>{t("weatherChart.feelsLike")}</span>
 
                         <strong>{point.feelsLike}°</strong>
                       </div>
 
                       <div className="weather-chart__tooltip-row">
-                        <span>Ймовірність опадів</span>
+                        <span>
+                          {t("weatherChart.precipitationProbability")}
+                        </span>
 
                         <strong>{point.precipitationProbability}%</strong>
                       </div>

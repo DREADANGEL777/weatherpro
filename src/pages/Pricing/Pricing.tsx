@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { Header } from "../../components/Header/Header";
 
@@ -9,37 +10,37 @@ type BillingPeriod = "monthly" | "yearly";
 
 const features = [
   {
-    name: "Поточна погода",
+    key: "currentWeather",
     free: true,
     premium: true,
   },
   {
-    name: "Пошук міст",
+    key: "citySearch",
     free: true,
     premium: true,
   },
   {
-    name: "Детальні погодні показники",
+    key: "detailedWeather",
     free: true,
     premium: true,
   },
   {
-    name: "Прогноз на 7 днів",
+    key: "sevenDayForecast",
     free: false,
     premium: true,
   },
   {
-    name: "Погодинний графік",
+    key: "hourlyChart",
     free: false,
     premium: true,
   },
   {
-    name: "Ймовірність опадів",
+    key: "precipitationProbability",
     free: false,
     premium: true,
   },
   {
-    name: "Розширені показники вітру",
+    key: "advancedWind",
     free: false,
     premium: true,
   },
@@ -47,33 +48,27 @@ const features = [
 
 const faqs = [
   {
-    question: "Що входить у WeatherPro Premium?",
-    answer:
-      "Premium відкриває розширений прогноз на 7 днів, погодинні графіки, ймовірність опадів та додаткові погодні показники.",
+    key: "premium",
   },
   {
-    question: "Чи можна скасувати підписку?",
-    answer:
-      "Так. Після підключення підписку можна скасувати в будь-який момент. Доступ залишиться активним до завершення оплаченого періоду.",
+    key: "cancel",
   },
   {
-    question: "Чим відрізняється річний план?",
-    answer:
-      "Річний план оплачується один раз на рік і має нижчу середню вартість на місяць порівняно з місячною підпискою.",
+    key: "yearly",
   },
   {
-    question: "Чи є приховані платежі?",
-    answer: "Ні. Перед оплатою ви побачите повну вартість вибраного плану.",
+    key: "hiddenFees",
   },
 ];
 
 export function Pricing() {
+  const { t } = useTranslation();
+
   const [billingPeriod, setBillingPeriod] = useState<BillingPeriod>("monthly");
 
   const isYearly = billingPeriod === "yearly";
 
   const price = isYearly ? 799 : 99;
-  const period = isYearly ? "рік" : "місяць";
 
   return (
     <div className="pricing">
@@ -81,17 +76,16 @@ export function Pricing() {
 
       <main className="pricing__main">
         <section className="pricing__hero">
-          <span className="pricing__eyebrow">WEATHERPRO PREMIUM</span>
+          <span className="pricing__eyebrow">{t("pricing.hero.eyebrow")}</span>
 
           <h1 className="pricing__title">
-            Обери свій
+            {t("pricing.hero.titleFirst")}
             <br />
-            <span>рівень погоди</span>
+            <span>{t("pricing.hero.titleSecond")}</span>
           </h1>
 
           <p className="pricing__description">
-            Отримуй більше даних, більше прогнозів та більше контролю над
-            погодою.
+            {t("pricing.hero.description")}
           </p>
 
           <div className="pricing__toggle">
@@ -104,7 +98,7 @@ export function Pricing() {
               }
               onClick={() => setBillingPeriod("monthly")}
             >
-              Щомісяця
+              {t("pricing.billing.monthly")}
             </button>
 
             <button
@@ -116,8 +110,8 @@ export function Pricing() {
               }
               onClick={() => setBillingPeriod("yearly")}
             >
-              Щороку
-              <span>−33%</span>
+              {t("pricing.billing.yearly")}
+              <span>{t("pricing.billing.discount")}</span>
             </button>
           </div>
         </section>
@@ -129,44 +123,44 @@ export function Pricing() {
 
               <span className="pricing-card__label">FREE</span>
 
-              <h2 className="pricing-card__name">Безкоштовний</h2>
+              <h2 className="pricing-card__name">{t("pricing.free.name")}</h2>
 
               <p className="pricing-card__description">
-                Основна інформація про погоду без щомісячної оплати.
+                {t("pricing.free.description")}
               </p>
 
               <div className="pricing-card__price">
                 <strong>0</strong>
-                <span>грн</span>
+                <span>{t("pricing.currency")}</span>
               </div>
 
-              <p className="pricing-card__period">назавжди</p>
+              <p className="pricing-card__period">{t("pricing.free.period")}</p>
             </div>
 
             <ul className="pricing-card__features">
               <li>
                 <span>✓</span>
-                Поточна погода
+                {t("pricing.features.currentWeather")}
               </li>
 
               <li>
                 <span>✓</span>
-                Пошук міст
+                {t("pricing.features.citySearch")}
               </li>
 
               <li>
                 <span>✓</span>
-                Основні погодні показники
+                {t("pricing.features.basicWeather")}
               </li>
 
               <li className="pricing-card__feature--disabled">
                 <span>×</span>
-                Прогноз на 7 днів
+                {t("pricing.features.sevenDayForecast")}
               </li>
 
               <li className="pricing-card__feature--disabled">
                 <span>×</span>
-                Погодинний графік
+                {t("pricing.features.hourlyChart")}
               </li>
             </ul>
 
@@ -174,14 +168,14 @@ export function Pricing() {
               to="/"
               className="pricing-card__button pricing-card__button--secondary"
             >
-              Почати безкоштовно
+              {t("pricing.free.button")}
             </Link>
           </article>
 
           <article className="pricing-card pricing-card--premium">
             <div className="pricing-card__popular">
               <span>✦</span>
-              НАЙПОПУЛЯРНІШИЙ
+              {t("pricing.premium.popular")}
             </div>
 
             <div className="pricing-card__top">
@@ -192,19 +186,27 @@ export function Pricing() {
               <h2 className="pricing-card__name">WeatherPro Premium</h2>
 
               <p className="pricing-card__description">
-                Повний доступ до розширених даних та прогнозів.
+                {t("pricing.premium.description")}
               </p>
 
               <div className="pricing-card__price">
                 <strong>{price}</strong>
-                <span>грн</span>
+                <span>{t("pricing.currency")}</span>
               </div>
 
               <p className="pricing-card__period">
-                за {period}
+                {t("pricing.premium.per", {
+                  period: isYearly
+                    ? t("pricing.period.year")
+                    : t("pricing.period.month"),
+                })}
+
                 {isYearly && (
                   <span className="pricing-card__saving">
-                    · економія 389 грн
+                    ·{" "}
+                    {t("pricing.premium.saving", {
+                      amount: 389,
+                    })}
                   </span>
                 )}
               </p>
@@ -213,27 +215,27 @@ export function Pricing() {
             <ul className="pricing-card__features">
               <li>
                 <span>✓</span>
-                Усе з безкоштовного плану
+                {t("pricing.premium.allFree")}
               </li>
 
               <li>
                 <span>✓</span>
-                Прогноз на 7 днів
+                {t("pricing.features.sevenDayForecast")}
               </li>
 
               <li>
                 <span>✓</span>
-                Погодинний графік
+                {t("pricing.features.hourlyChart")}
               </li>
 
               <li>
                 <span>✓</span>
-                Ймовірність опадів
+                {t("pricing.features.precipitationProbability")}
               </li>
 
               <li>
                 <span>✓</span>
-                Розширені показники вітру
+                {t("pricing.features.advancedWind")}
               </li>
             </ul>
 
@@ -241,41 +243,40 @@ export function Pricing() {
               type="button"
               className="pricing-card__button pricing-card__button--premium"
               onClick={() => {
-                alert(
-                  "Підключення RevenueCat буде додано на наступному етапі.",
-                );
+                alert(t("pricing.premium.alert"));
               }}
             >
-              Отримати Premium
+              {t("pricing.premium.button")}
               <span>→</span>
             </button>
 
-            <p className="pricing-card__note">
-              Без прихованих платежів · Скасування будь-коли
-            </p>
+            <p className="pricing-card__note">{t("pricing.premium.note")}</p>
           </article>
         </section>
 
         <section className="pricing__comparison">
           <div className="pricing__section-heading">
-            <span>ПОРІВНЯННЯ</span>
+            <span>{t("pricing.comparison.eyebrow")}</span>
 
             <h2>
-              Що ти отримуєш
-              <br />з Premium?
+              {t("pricing.comparison.titleFirst")}
+              <br />
+              {t("pricing.comparison.titleSecond")}
             </h2>
           </div>
 
           <div className="comparison-table">
             <div className="comparison-table__header">
-              <span>Можливість</span>
+              <span>{t("pricing.comparison.feature")}</span>
+
               <span>Free</span>
+
               <span>Premium</span>
             </div>
 
             {features.map((feature) => (
-              <div className="comparison-table__row" key={feature.name}>
-                <span>{feature.name}</span>
+              <div className="comparison-table__row" key={feature.key}>
+                <span>{t(`pricing.features.${feature.key}`)}</span>
 
                 <span>{feature.free ? "✓" : "—"}</span>
 
@@ -287,20 +288,21 @@ export function Pricing() {
 
         <section className="pricing__faq">
           <div className="pricing__section-heading">
-            <span>FAQ</span>
+            <span>{t("pricing.faq.eyebrow")}</span>
 
-            <h2>Часті запитання</h2>
+            <h2>{t("pricing.faq.title")}</h2>
           </div>
 
           <div className="pricing__faq-list">
             {faqs.map((faq) => (
-              <details className="pricing__faq-item" key={faq.question}>
+              <details className="pricing__faq-item" key={faq.key}>
                 <summary>
-                  <span>{faq.question}</span>
+                  <span>{t(`pricing.faq.items.${faq.key}.question`)}</span>
+
                   <span className="pricing__faq-plus">+</span>
                 </summary>
 
-                <p>{faq.answer}</p>
+                <p>{t(`pricing.faq.items.${faq.key}.answer`)}</p>
               </details>
             ))}
           </div>
@@ -308,15 +310,17 @@ export function Pricing() {
 
         <section className="pricing__bottom-cta">
           <div>
-            <span className="pricing__bottom-badge">✦ WEATHERPRO PREMIUM</span>
+            <span className="pricing__bottom-badge">
+              ✦ {t("pricing.bottom.badge")}
+            </span>
 
             <h2>
-              Погода стає
+              {t("pricing.bottom.titleFirst")}
               <br />
-              <span>набагато цікавішою.</span>
+              <span>{t("pricing.bottom.titleSecond")}</span>
             </h2>
 
-            <p>Спробуй Premium та отримуй максимум інформації про погоду.</p>
+            <p>{t("pricing.bottom.description")}</p>
           </div>
 
           <button
@@ -329,7 +333,7 @@ export function Pricing() {
               });
             }}
           >
-            Обрати Premium
+            {t("pricing.bottom.button")}
             <span>→</span>
           </button>
         </section>

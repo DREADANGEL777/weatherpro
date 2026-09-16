@@ -1,4 +1,7 @@
+import { useTranslation } from "react-i18next";
+
 import type { Location, WeatherResponse } from "../../types/weather";
+
 import { getWeatherDescription } from "../../utils/weatherCode";
 
 import "./CurrentWeather.css";
@@ -9,28 +12,28 @@ interface CurrentWeatherProps {
   loading: boolean;
 }
 
-function formatTime(time: string) {
-  return new Intl.DateTimeFormat("uk-UA", {
+function formatTime(time: string, language: string) {
+  return new Intl.DateTimeFormat(language, {
     hour: "2-digit",
     minute: "2-digit",
   }).format(new Date(time));
 }
 
-function getWindDirection(degrees: number) {
+function getWindDirection(degrees: number, t: (key: string) => string) {
   const directions = [
-    "Пн",
-    "Пн-Сх",
-    "Сх",
-    "Пд-Сх",
-    "Пд",
-    "Пд-Зх",
-    "Зх",
-    "Пн-Зх",
+    "weather.directions.north",
+    "weather.directions.northEast",
+    "weather.directions.east",
+    "weather.directions.southEast",
+    "weather.directions.south",
+    "weather.directions.southWest",
+    "weather.directions.west",
+    "weather.directions.northWest",
   ];
 
   const index = Math.round(degrees / 45) % 8;
 
-  return directions[index];
+  return t(directions[index]);
 }
 
 export function CurrentWeather({
@@ -38,11 +41,11 @@ export function CurrentWeather({
   location,
   loading,
 }: CurrentWeatherProps) {
+  const { t, i18n } = useTranslation();
+
   const current = weather.current;
 
-  const weatherDescription = getWeatherDescription(
-    current.weather_code,
-  );
+  const weatherDescription = getWeatherDescription(current.weather_code);
 
   return (
     <section className="current-weather">
@@ -53,18 +56,16 @@ export function CurrentWeather({
 
             <strong>{location.name}</strong>
 
-            <span className="current-weather__country">
-              {location.country}
-            </span>
+            <span className="current-weather__country">{location.country}</span>
           </div>
 
           <p className="current-weather__updated">
-            Оновлено о {formatTime(current.time)}
+            {t("weather.updatedAt")} {formatTime(current.time, i18n.language)}
           </p>
         </div>
 
         <div className="current-weather__status">
-          {loading ? "Оновлення..." : "● Дані актуальні"}
+          {loading ? t("weather.updating") : `● ${t("weather.currentData")}`}
         </div>
       </div>
 
@@ -81,72 +82,58 @@ export function CurrentWeather({
             </div>
 
             <div className="current-weather__condition">
-              {weatherDescription.label}
+              {t(`weather.conditions.${weatherDescription.key}`)}
             </div>
           </div>
         </div>
 
         <div className="current-weather__feels">
-          <span>Відчувається як</span>
+          <span>{t("weather.feelsLike")}</span>
 
-          <strong>
-            {Math.round(current.apparent_temperature)}°
-          </strong>
+          <strong>{Math.round(current.apparent_temperature)}°</strong>
         </div>
       </div>
 
       <div className="current-weather__stats">
         <div className="current-weather__stat">
-          <div className="current-weather__stat-icon">
-            💧
-          </div>
+          <div className="current-weather__stat-icon">💧</div>
 
           <div>
-            <span>Вологість</span>
+            <span>{t("weather.humidity")}</span>
+
+            <strong>{Math.round(current.relative_humidity_2m)}%</strong>
+          </div>
+        </div>
+
+        <div className="current-weather__stat">
+          <div className="current-weather__stat-icon">💨</div>
+
+          <div>
+            <span>{t("weather.wind")}</span>
+
             <strong>
-              {Math.round(current.relative_humidity_2m)}%
+              {Math.round(current.wind_speed_10m)} {t("weather.windUnit")}
             </strong>
           </div>
         </div>
 
         <div className="current-weather__stat">
-          <div className="current-weather__stat-icon">
-            💨
-          </div>
+          <div className="current-weather__stat-icon">🧭</div>
 
           <div>
-            <span>Вітер</span>
-            <strong>
-              {Math.round(current.wind_speed_10m)} км/год
-            </strong>
+            <span>{t("weather.direction")}</span>
+
+            <strong>{getWindDirection(current.wind_direction_10m, t)}</strong>
           </div>
         </div>
 
         <div className="current-weather__stat">
-          <div className="current-weather__stat-icon">
-            🧭
-          </div>
+          <div className="current-weather__stat-icon">☁️</div>
 
           <div>
-            <span>Напрямок</span>
-            <strong>
-              {getWindDirection(
-                current.wind_direction_10m,
-              )}
-            </strong>
-          </div>
-        </div>
+            <span>{t("weather.cloudiness")}</span>
 
-        <div className="current-weather__stat">
-          <div className="current-weather__stat-icon">
-            ☁️
-          </div>
-
-          <div>
-            <span>Хмарність</span>
-            <strong>
-              {Math.round(current.cloud_cover)}%
-            </strong>
+            <strong>{Math.round(current.cloud_cover)}%</strong>
           </div>
         </div>
       </div>

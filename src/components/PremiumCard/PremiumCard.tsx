@@ -1,31 +1,34 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import "./PremiumCard.css";
 
 const features = [
   {
     icon: "📅",
-    title: "Прогноз на 7 днів",
-    description: "Детальний прогноз на весь тиждень",
+    titleKey: "premiumCard.features.forecast.title",
+    descriptionKey: "premiumCard.features.forecast.description",
   },
   {
     icon: "📈",
-    title: "Погодинні графіки",
-    description: "Температура та погодні зміни по годинах",
+    titleKey: "premiumCard.features.hourly.title",
+    descriptionKey: "premiumCard.features.hourly.description",
   },
   {
     icon: "🌧️",
-    title: "Ймовірність опадів",
-    description: "Точна інформація про можливі опади",
+    titleKey: "premiumCard.features.precipitation.title",
+    descriptionKey: "premiumCard.features.precipitation.description",
   },
   {
     icon: "💨",
-    title: "Розширені дані",
-    description: "Пориви вітру, тиск та додаткові показники",
+    titleKey: "premiumCard.features.advanced.title",
+    descriptionKey: "premiumCard.features.advanced.description",
   },
 ];
 
 export function PremiumCard() {
+  const { t } = useTranslation();
+
   return (
     <section className="premium-card">
       <div className="premium-card__glow premium-card__glow--one" />
@@ -34,54 +37,39 @@ export function PremiumCard() {
       <div className="premium-card__content">
         <div className="premium-card__badge">
           <span>✦</span>
-          WEATHERPRO PREMIUM
+          {t("premiumCard.badge")}
         </div>
 
         <h2 className="premium-card__title">
-          Більше можливостей.
+          {t("premiumCard.titleFirst")}
           <br />
-          <span>Більше контролю.</span>
+          <span>{t("premiumCard.titleSecond")}</span>
         </h2>
 
         <p className="premium-card__description">
-          Отримуйте максимум інформації про погоду
-          завдяки розширеним прогнозам, графікам та
-          додатковим погодним показникам.
+          {t("premiumCard.description")}
         </p>
 
-        <Link
-          to="/pricing"
-          className="premium-card__button"
-        >
-          Переглянути Premium
+        <Link to="/pricing" className="premium-card__button">
+          {t("premiumCard.button")}
           <span>→</span>
         </Link>
 
-        <p className="premium-card__note">
-          Без прихованих платежів · Скасувати можна
-          будь-коли
-        </p>
+        <p className="premium-card__note">{t("premiumCard.note")}</p>
       </div>
 
       <div className="premium-card__features">
         {features.map((feature) => (
-          <div
-            className="premium-card__feature"
-            key={feature.title}
-          >
-            <div className="premium-card__feature-icon">
-              {feature.icon}
-            </div>
+          <div className="premium-card__feature" key={feature.titleKey}>
+            <div className="premium-card__feature-icon">{feature.icon}</div>
 
             <div className="premium-card__feature-content">
-              <strong>{feature.title}</strong>
+              <strong>{t(feature.titleKey)}</strong>
 
-              <span>{feature.description}</span>
+              <span>{t(feature.descriptionKey)}</span>
             </div>
 
-            <span className="premium-card__check">
-              ✓
-            </span>
+            <span className="premium-card__check">✓</span>
           </div>
         ))}
       </div>

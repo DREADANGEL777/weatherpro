@@ -174,3 +174,143 @@
     padding: 30px 20px;
   }
 }
+
+.home__premium-lock {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 24px;
+
+  margin-top: 24px;
+  padding: 28px 30px;
+
+  border: 1px solid rgba(74, 122, 255, 0.16);
+  border-radius: 24px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.98),
+    rgba(239, 245, 255, 0.96)
+  );
+
+  box-shadow: 0 18px 50px rgba(38, 77, 140, 0.08);
+}
+
+.home__premium-lock-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 58px;
+  height: 58px;
+
+  border-radius: 18px;
+
+  background: #172b55;
+  color: #ffffff;
+
+  font-size: 24px;
+
+  box-shadow: 0 10px 25px rgba(23, 43, 85, 0.2);
+}
+
+.home__premium-lock-content {
+  min-width: 0;
+}
+
+.home__premium-lock-label {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #4b72d9;
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.home__premium-lock-content h2 {
+  margin: 0 0 6px;
+
+  color: #172033;
+
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.home__premium-lock-content p {
+  max-width: 650px;
+
+  margin: 0;
+
+  color: #6d7890;
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.home__premium-lock-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 13px 20px;
+
+  border-radius: 12px;
+
+  background: #3867d6;
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  white-space: nowrap;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.home__premium-lock-button:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 10px 24px rgba(56, 103, 214, 0.25);
+}
+
+.home__subscription-error {
+  margin: 16px 0 0;
+
+  color: #c44747;
+
+  font-size: 13px;
+  text-align: center;
+}
+
+@media (max-width: 800px) {
+  .home__premium-lock {
+    grid-template-columns: auto 1fr;
+  }
+
+  .home__premium-lock-button {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  .home__premium-lock {
+    grid-template-columns: 1fr;
+    padding: 22px;
+  }
+
+  .home__premium-lock-icon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .home__premium-lock-content h2 {
+    font-size: 20px;
+  }
+}

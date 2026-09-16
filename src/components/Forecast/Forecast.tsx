@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import type { WeatherResponse } from "../../types/weather";
 import { getWeatherDescription } from "../../utils/weatherCode";
 
@@ -7,24 +9,30 @@ interface ForecastProps {
   weather: WeatherResponse;
 }
 
-function formatDay(date: string, index: number) {
+function formatDay(
+  date: string,
+  index: number,
+  language: string,
+  todayLabel: string,
+  tomorrowLabel: string,
+) {
   if (index === 0) {
-    return "Сьогодні";
+    return todayLabel;
   }
 
   if (index === 1) {
-    return "Завтра";
+    return tomorrowLabel;
   }
 
-  return new Intl.DateTimeFormat("uk-UA", {
+  return new Intl.DateTimeFormat(language, {
     weekday: "short",
   })
     .format(new Date(`${date}T12:00:00`))
     .replace(".", "");
 }
 
-function formatDate(date: string) {
-  return new Intl.DateTimeFormat("uk-UA", {
+function formatDate(date: string, language: string) {
+  return new Intl.DateTimeFormat(language, {
     day: "numeric",
     month: "short",
   })
@@ -32,70 +40,65 @@ function formatDate(date: string) {
     .replace(".", "");
 }
 
-function getWindDirection(degrees: number) {
+function getWindDirection(degrees: number, t: (key: string) => string) {
   const directions = [
-    "Пн",
-    "Пн-Сх",
-    "Сх",
-    "Пд-Сх",
-    "Пд",
-    "Пд-Зх",
-    "Зх",
-    "Пн-Зх",
+    "weather.directions.north",
+    "weather.directions.northEast",
+    "weather.directions.east",
+    "weather.directions.southEast",
+    "weather.directions.south",
+    "weather.directions.southWest",
+    "weather.directions.west",
+    "weather.directions.northWest",
   ];
 
   const index = Math.round(degrees / 45) % 8;
 
-  return directions[index];
+  return t(directions[index]);
 }
 
-export function Forecast({
-  weather,
-}: ForecastProps) {
+export function Forecast({ weather }: ForecastProps) {
+  const { t, i18n } = useTranslation();
+
   const daily = weather.daily;
 
   return (
     <section className="forecast">
       <div className="forecast__heading">
         <div>
-          <span className="forecast__eyebrow">
-            7 DAY FORECAST
-          </span>
+          <span className="forecast__eyebrow">{t("forecast.eyebrow")}</span>
 
-          <h2 className="forecast__title">
-            Прогноз на 7 днів
-          </h2>
+          <h2 className="forecast__title">{t("forecast.title")}</h2>
         </div>
 
-        <p className="forecast__subtitle">
-          Детальний прогноз погоди на найближчий тиждень
-        </p>
+        <p className="forecast__subtitle">{t("forecast.subtitle")}</p>
       </div>
 
       <div className="forecast__list">
         {daily.time.map((date, index) => {
-          const weatherDescription =
-            getWeatherDescription(
-              daily.weather_code[index],
-            );
+          const weatherDescription = getWeatherDescription(
+            daily.weather_code[index],
+          );
 
           return (
             <article
               className={`forecast__day ${
-                index === 0
-                  ? "forecast__day--today"
-                  : ""
+                index === 0 ? "forecast__day--today" : ""
               }`}
               key={date}
             >
               <div className="forecast__date">
                 <strong>
-                  {formatDay(date, index)}
+                  {formatDay(
+                    date,
+                    index,
+                    i18n.language,
+                    t("forecast.today"),
+                    t("forecast.tomorrow"),
+                  )}
                 </strong>
 
-                <span>
-                  {formatDate(date)}
-                </span>
+                <span>{formatDate(date, i18n.language)}</span>
               </div>
 
               <div className="forecast__weather">
@@ -104,40 +107,22 @@ export function Forecast({
                 </span>
 
                 <span className="forecast__condition">
-                  {weatherDescription.label}
+                  {t(`weather.conditions.${weatherDescription.key}`)}
                 </span>
               </div>
 
               <div className="forecast__temperature">
-                <strong>
-                  {Math.round(
-                    daily.temperature_2m_max[index],
-                  )}
-                  °
-                </strong>
+                <strong>{Math.round(daily.temperature_2m_max[index])}°</strong>
 
-                <span>
-                  {Math.round(
-                    daily.temperature_2m_min[index],
-                  )}
-                  °
-                </span>
+                <span>{Math.round(daily.temperature_2m_min[index])}°</span>
               </div>
 
               <div className="forecast__precipitation">
                 <span>💧</span>
 
-                <strong>
-                  {
-                    daily
-                      .precipitation_probability_max[
-                      index
-                    ]
-                  }
-                  %
-                </strong>
+                <strong>{daily.precipitation_probability_max[index]}%</strong>
 
-                <small>опадів</small>
+                <small>{t("forecast.precipitation")}</small>
               </div>
 
               <div className="forecast__wind">
@@ -145,26 +130,20 @@ export function Forecast({
 
                 <div>
                   <strong>
-                    {Math.round(
-                      daily.wind_speed_10m_max[index],
-                    )}{" "}
-                    км/год
+                    {Math.round(daily.wind_speed_10m_max[index])}{" "}
+                    {t("weather.units.wind")}
                   </strong>
 
                   <small>
                     {getWindDirection(
-                      daily
-                        .wind_direction_10m_dominant[
-                        index
-                      ],
+                      daily.wind_direction_10m_dominant[index],
+                      t,
                     )}
                   </small>
                 </div>
               </div>
 
-              <div className="forecast__arrow">
-                →
-              </div>
+              <div className="forecast__arrow">→</div>
             </article>
           );
         })}

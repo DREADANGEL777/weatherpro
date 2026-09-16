@@ -1,5 +1,5 @@
 export interface WeatherDescription {
-  label: string;
+  key: string;
   icon: string;
 }
 
@@ -9,32 +9,32 @@ export function getWeatherDescription(
   switch (code) {
     case 0:
       return {
-        label: "Ясно",
+        key: "clear",
         icon: "☀️",
       };
 
     case 1:
       return {
-        label: "Переважно ясно",
+        key: "mainlyClear",
         icon: "🌤️",
       };
 
     case 2:
       return {
-        label: "Мінлива хмарність",
+        key: "partlyCloudy",
         icon: "⛅",
       };
 
     case 3:
       return {
-        label: "Похмуро",
+        key: "overcast",
         icon: "☁️",
       };
 
     case 45:
     case 48:
       return {
-        label: "Туман",
+        key: "fog",
         icon: "🌫️",
       };
 
@@ -42,14 +42,14 @@ export function getWeatherDescription(
     case 53:
     case 55:
       return {
-        label: "Мряка",
+        key: "drizzle",
         icon: "🌦️",
       };
 
     case 56:
     case 57:
       return {
-        label: "Крижана мряка",
+        key: "freezingDrizzle",
         icon: "🌧️",
       };
 
@@ -57,14 +57,14 @@ export function getWeatherDescription(
     case 63:
     case 65:
       return {
-        label: "Дощ",
+        key: "rain",
         icon: "🌧️",
       };
 
     case 66:
     case 67:
       return {
-        label: "Крижаний дощ",
+        key: "freezingRain",
         icon: "🌧️",
       };
 
@@ -72,13 +72,13 @@ export function getWeatherDescription(
     case 73:
     case 75:
       return {
-        label: "Сніг",
+        key: "snow",
         icon: "🌨️",
       };
 
     case 77:
       return {
-        label: "Снігові зерна",
+        key: "snowGrains",
         icon: "🌨️",
       };
 
@@ -86,33 +86,33 @@ export function getWeatherDescription(
     case 81:
     case 82:
       return {
-        label: "Зливи",
+        key: "rainShowers",
         icon: "🌦️",
       };
 
     case 85:
     case 86:
       return {
-        label: "Снігові зливи",
+        key: "snowShowers",
         icon: "🌨️",
       };
 
     case 95:
       return {
-        label: "Гроза",
+        key: "thunderstorm",
         icon: "⛈️",
       };
 
     case 96:
     case 99:
       return {
-        label: "Гроза з градом",
+        key: "thunderstormHail",
         icon: "⛈️",
       };
 
     default:
       return {
-        label: "Невідомо",
+        key: "unknown",
         icon: "🌡️",
       };
   }

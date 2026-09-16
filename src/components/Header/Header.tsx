@@ -1,8 +1,13 @@
 import { Link, NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
+import { LanguageSwitcher } from "../LanguageSwitcher/LanguageSwitcher";
 
 import "./Header.css";
 
 export function Header() {
+  const { t } = useTranslation();
+
   return (
     <header className="header">
       <div className="header__container">
@@ -21,22 +26,16 @@ export function Header() {
               `header__link ${isActive ? "header__link--active" : ""}`
             }
           >
-            Погода
-          </NavLink>
-
-          <NavLink
-            to="/pricing"
-            className={({ isActive }) =>
-              `header__link ${isActive ? "header__link--active" : ""}`
-            }
-          >
-            Premium
+            {t("header.weather")}
           </NavLink>
         </nav>
 
+        <LanguageSwitcher />
+
         <Link to="/pricing" className="header__premium-button">
           <span>✦</span>
-          Premium
+
+          {t("header.premiumButton")}
         </Link>
       </div>
     </header>

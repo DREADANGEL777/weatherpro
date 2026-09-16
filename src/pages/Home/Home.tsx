@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import { Header } from "../../components/Header/Header";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { CurrentWeather } from "../../components/CurrentWeather/CurrentWeather";
@@ -5,11 +7,16 @@ import { WeatherDetails } from "../../components/WeatherDetails/WeatherDetails";
 import { Forecast } from "../../components/Forecast/Forecast";
 import { WeatherChart } from "../../components/WeatherChart/WeatherChart";
 import { PremiumCard } from "../../components/PremiumCard/PremiumCard";
+
 import { useWeather } from "../../hooks/useWeather";
 
 import "./Home.css";
 
 export function Home() {
+  const { t } = useTranslation();
+
+  const isPremium = true;
+
   const {
     location,
     weather,
@@ -27,18 +34,15 @@ export function Home() {
       <main className="home__main">
         <section className="home__hero">
           <div className="home__hero-content">
-            <span className="home__eyebrow">YOUR PERSONAL WEATHER</span>
+            <span className="home__eyebrow">{t("home.eyebrow")}</span>
 
             <h1 className="home__title">
-              Погода без
+              {t("home.titleFirst")}
               <br />
-              <span>зайвих складнощів</span>
+              <span>{t("home.titleSecond")}</span>
             </h1>
 
-            <p className="home__description">
-              Отримуйте точні дані про погоду, температуру, вітер, вологість та
-              інші важливі параметри в одному місці.
-            </p>
+            <p className="home__description">{t("home.description")}</p>
 
             <SearchBar
               locations={locations}
@@ -61,9 +65,34 @@ export function Home() {
 
               <WeatherDetails weather={weather} />
 
-              <Forecast weather={weather} />
+              {isPremium && (
+                <>
+                  <Forecast weather={weather} />
 
-              <WeatherChart weather={weather} />
+                  <WeatherChart weather={weather} />
+                </>
+              )}
+
+              {!isPremium && (
+                <section className="home__premium-lock">
+                  <div className="home__premium-lock-icon">✦</div>
+
+                  <div className="home__premium-lock-content">
+                    <span className="home__premium-lock-label">
+                      {t("home.premiumLock.label")}
+                    </span>
+
+                    <h2>{t("home.premiumLock.title")}</h2>
+
+                    <p>{t("home.premiumLock.description")}</p>
+                  </div>
+
+                  <a href="/pricing" className="home__premium-lock-button">
+                    {t("home.premiumLock.button")}
+                    <span>→</span>
+                  </a>
+                </section>
+              )}
 
               <PremiumCard />
             </>
@@ -71,11 +100,9 @@ export function Home() {
             <div className="home__weather-placeholder">
               <span>☀️</span>
 
-              <h2>Завантажуємо погоду...</h2>
+              <h2>{t("home.loading.title")}</h2>
 
-              <p>
-                Дані про поточну погоду з'являться тут через декілька секунд.
-              </p>
+              <p>{t("home.loading.description")}</p>
             </div>
           )}
         </section>
