@@ -5,10 +5,17 @@
   max-width: 760px;
 
   margin-top: 28px;
+
+  animation: searchBarAppear 0.75s 0.45s ease both;
 }
 
+/* ========================================
+   SEARCH FORM
+======================================== */
 
 .search-bar__form {
+  position: relative;
+
   display: flex;
   align-items: stretch;
   gap: 10px;
@@ -21,20 +28,29 @@
 
   background: rgba(255, 255, 255, 0.94);
 
-  box-shadow: 0 18px 45px rgba(31, 61, 105, 0.1);
+  box-shadow:
+    0 18px 45px rgba(31, 61, 105, 0.1),
+    0 0 0 0 rgba(56, 103, 214, 0);
 
   transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
 }
 
 .search-bar__form:focus-within {
-  border-color: rgba(56, 103, 214, 0.25);
+  border-color: rgba(56, 103, 214, 0.28);
 
   box-shadow:
-    0 18px 45px rgba(31, 61, 105, 0.14),
-    0 0 0 4px rgba(56, 103, 214, 0.06);
+    0 20px 50px rgba(31, 61, 105, 0.14),
+    0 0 0 4px rgba(56, 103, 214, 0.07);
+
+  transform: translateY(-1px);
 }
+
+/* ========================================
+   INPUT
+======================================== */
 
 .search-bar__input-wrapper {
   position: relative;
@@ -60,6 +76,14 @@
   line-height: 1;
 
   pointer-events: none;
+
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.search-bar__form:focus-within .search-bar__icon {
+  transform: rotate(-8deg) scale(1.08);
 }
 
 .search-bar__input {
@@ -81,7 +105,19 @@
 
 .search-bar__input::placeholder {
   color: #98a2b3;
+
+  transition:
+    color 0.25s ease,
+    opacity 0.25s ease;
 }
+
+.search-bar__input:focus::placeholder {
+  color: #b1bac8;
+}
+
+/* ========================================
+   LOADER
+======================================== */
 
 .search-bar__loader {
   position: absolute;
@@ -95,10 +131,19 @@
 
   pointer-events: none;
 
-  animation: searchBarSpin 1s linear infinite;
+  animation:
+    searchLoaderSpin 1s linear infinite,
+    searchLoaderAppear 0.2s ease both;
 }
 
+/* ========================================
+   SEARCH BUTTON
+======================================== */
+
 .search-bar__button {
+  position: relative;
+  overflow: hidden;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -121,28 +166,64 @@
 
   white-space: nowrap;
 
+  box-shadow: 0 5px 14px rgba(56, 103, 214, 0.12);
+
   transition:
-    background 0.2s ease,
+    background 0.25s ease,
     transform 0.2s ease,
-    box-shadow 0.2s ease;
+    box-shadow 0.25s ease,
+    opacity 0.25s ease;
+}
+
+/* Світловий відблиск кнопки */
+.search-bar__button::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: -130%;
+
+  width: 70%;
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+
+  transform: skewX(-20deg);
+
+  transition: left 0.55s ease;
+}
+
+.search-bar__button:hover:not(:disabled)::before {
+  left: 140%;
 }
 
 .search-bar__button:hover:not(:disabled) {
   background: #2f59c2;
 
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 
-  box-shadow: 0 8px 20px rgba(56, 103, 214, 0.25);
+  box-shadow: 0 9px 22px rgba(56, 103, 214, 0.27);
 }
 
 .search-bar__button:active:not(:disabled) {
-  transform: translateY(0);
+  transform: translateY(0) scale(0.98);
+
+  box-shadow: 0 4px 10px rgba(56, 103, 214, 0.2);
 }
 
 .search-bar__button:disabled {
   opacity: 0.55;
   cursor: not-allowed;
 }
+
+/* ========================================
+   DROPDOWN
+======================================== */
 
 .search-bar__dropdown {
   position: absolute;
@@ -164,10 +245,18 @@
 
   background: rgba(255, 255, 255, 0.98);
 
-  box-shadow: 0 20px 50px rgba(31, 61, 105, 0.15);
+  box-shadow:
+    0 20px 50px rgba(31, 61, 105, 0.15),
+    0 4px 12px rgba(31, 61, 105, 0.04);
 
-  animation: searchDropdownIn 0.16s ease;
+  transform-origin: top center;
+
+  animation: searchDropdownIn 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
+
+/* ========================================
+   SEARCH RESULT
+======================================== */
 
 .search-bar__result {
   display: flex;
@@ -187,18 +276,57 @@
 
   text-align: left;
 
+  opacity: 0;
+  transform: translateY(-8px);
+
+  animation: searchResultAppear 0.35s ease forwards;
+
   transition:
-    background 0.15s ease,
-    transform 0.15s ease;
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* Послідовна поява результатів */
+.search-bar__result:nth-child(1) {
+  animation-delay: 0.04s;
+}
+
+.search-bar__result:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.search-bar__result:nth-child(3) {
+  animation-delay: 0.12s;
+}
+
+.search-bar__result:nth-child(4) {
+  animation-delay: 0.16s;
+}
+
+.search-bar__result:nth-child(5) {
+  animation-delay: 0.2s;
+}
+
+.search-bar__result:nth-child(6) {
+  animation-delay: 0.24s;
 }
 
 .search-bar__result:hover {
   background: #f1f5fb;
+
+  transform: translateX(3px);
+
+  box-shadow: 0 4px 12px rgba(31, 61, 105, 0.04);
 }
 
 .search-bar__result:active {
-  transform: scale(0.99);
+  transform: scale(0.985);
 }
+
+/* ========================================
+   RESULT ICON
+======================================== */
 
 .search-bar__result-icon {
   display: flex;
@@ -215,7 +343,21 @@
   background: #eef4ff;
 
   font-size: 17px;
+
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease;
 }
+
+.search-bar__result:hover .search-bar__result-icon {
+  background: #e3edff;
+
+  transform: translateY(-2px) rotate(-5deg);
+}
+
+/* ========================================
+   RESULT TEXT
+======================================== */
 
 .search-bar__result-content {
   display: flex;
@@ -237,6 +379,12 @@
 
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  transition: color 0.2s ease;
+}
+
+.search-bar__result:hover .search-bar__result-content strong {
+  color: #3867d6;
 }
 
 .search-bar__result-content small {
@@ -251,6 +399,10 @@
   white-space: nowrap;
 }
 
+/* ========================================
+   EMPTY STATE
+======================================== */
+
 .search-bar__empty {
   padding: 18px 14px;
 
@@ -260,9 +412,51 @@
   font-weight: 500;
 
   text-align: center;
+
+  animation: searchEmptyAppear 0.25s ease both;
+}
+
+/* ========================================
+   ANIMATIONS
+======================================== */
+
+@keyframes searchBarAppear {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 @keyframes searchDropdownIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scaleY(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+}
+
+@keyframes searchResultAppear {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes searchEmptyAppear {
   from {
     opacity: 0;
     transform: translateY(-5px);
@@ -274,7 +468,7 @@
   }
 }
 
-@keyframes searchBarSpin {
+@keyframes searchLoaderSpin {
   from {
     transform: rotate(0deg);
   }
@@ -283,6 +477,22 @@
     transform: rotate(360deg);
   }
 }
+
+@keyframes searchLoaderAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ========================================
+   TABLET
+======================================== */
 
 @media (max-width: 700px) {
   .search-bar {
@@ -337,6 +547,9 @@
   }
 }
 
+/* ========================================
+   MOBILE
+======================================== */
 
 @media (max-width: 520px) {
   .search-bar {
@@ -404,6 +617,10 @@
   }
 }
 
+/* ========================================
+   SMALL MOBILE
+======================================== */
+
 @media (max-width: 480px) {
   .search-bar {
     margin-top: 18px;
@@ -467,6 +684,10 @@
     font-size: 15px;
   }
 }
+
+/* ========================================
+   VERY SMALL MOBILE
+======================================== */
 
 @media (max-width: 380px) {
   .search-bar {
@@ -554,6 +775,9 @@
   }
 }
 
+/* ========================================
+   320px
+======================================== */
 
 @media (max-width: 340px) {
   .search-bar {
@@ -634,5 +858,27 @@
     padding: 13px 8px;
 
     font-size: 10px;
+  }
+}
+
+/* ========================================
+   REDUCED MOTION
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .search-bar,
+  .search-bar__dropdown,
+  .search-bar__result,
+  .search-bar__empty,
+  .search-bar__loader {
+    animation: none;
+  }
+
+  .search-bar__form,
+  .search-bar__button,
+  .search-bar__result,
+  .search-bar__result-icon,
+  .search-bar__input::placeholder {
+    transition: none;
   }
 }

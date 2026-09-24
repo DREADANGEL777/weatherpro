@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Header } from "../../components/Header/Header";
@@ -17,6 +18,8 @@ export function Home() {
 
   const isPremium = true;
 
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
   const {
     location,
     weather,
@@ -26,6 +29,38 @@ export function Home() {
     search,
     selectLocation,
   } = useWeather();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const scrollHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+
+      if (scrollHeight <= 0) {
+        setShowScrollTop(false);
+        return;
+      }
+
+      const scrollProgress = scrollTop / scrollHeight;
+
+      setShowScrollTop(scrollProgress >= 0.5);
+    };
+
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   return (
     <div className="home">
@@ -107,6 +142,18 @@ export function Home() {
           )}
         </section>
       </main>
+
+      {/* Scroll to top */}
+      <button
+        type="button"
+        className={`home__scroll-top ${
+          showScrollTop ? "home__scroll-top--visible" : ""
+        }`}
+        onClick={scrollToTop}
+        aria-label="Scroll to top"
+      >
+        <span className="home__scroll-top-arrow">↑</span>
+      </button>
     </div>
   );
 }

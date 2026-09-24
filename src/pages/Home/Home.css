@@ -8,11 +8,17 @@
       transparent 38%
     ),
     #eef4fb;
+
+  overflow-x: hidden;
 }
 
 .home__main {
   width: 100%;
 }
+
+/* ========================================
+   HERO
+======================================== */
 
 .home__hero {
   position: relative;
@@ -22,6 +28,7 @@
   overflow: hidden;
 }
 
+/* Основне світіння */
 .home__hero::before {
   content: "";
 
@@ -42,6 +49,33 @@
   filter: blur(20px);
 
   pointer-events: none;
+
+  animation: heroGlow 10s ease-in-out infinite alternate;
+}
+
+/* Додаткове дуже легке світіння */
+.home__hero::after {
+  content: "";
+
+  position: absolute;
+
+  width: 260px;
+  height: 260px;
+
+  top: 120px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.5);
+
+  filter: blur(80px);
+
+  pointer-events: none;
+
+  animation: heroGlowSecondary 8s ease-in-out infinite alternate;
 }
 
 .home__hero-content {
@@ -53,7 +87,13 @@
   margin: 0 auto;
 
   text-align: center;
+
+  animation: heroContentAppear 0.8s ease both;
 }
+
+/* ========================================
+   HERO EYEBROW
+======================================== */
 
 .home__eyebrow {
   display: inline-flex;
@@ -71,7 +111,15 @@
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 1.2px;
+
+  animation: heroItemAppear 0.65s 0.1s ease both;
+
+  box-shadow: 0 5px 18px rgba(57, 135, 255, 0.07);
 }
+
+/* ========================================
+   HERO TITLE
+======================================== */
 
 .home__title {
   margin: 0;
@@ -82,11 +130,19 @@
   line-height: 1.04;
   letter-spacing: -3px;
   font-weight: 800;
+
+  animation: heroTitleAppear 0.8s 0.18s ease both;
 }
 
 .home__title span {
   color: #3987ff;
+
+  animation: titleAccentAppear 0.8s 0.3s ease both;
 }
+
+/* ========================================
+   HERO DESCRIPTION
+======================================== */
 
 .home__description {
   width: min(620px, 100%);
@@ -97,13 +153,25 @@
 
   font-size: 16px;
   line-height: 1.7;
+
+  animation: heroDescriptionAppear 0.7s 0.32s ease both;
 }
+
+/* ========================================
+   WEATHER CONTENT
+======================================== */
 
 .home__weather {
   width: min(1180px, calc(100% - 40px));
 
   margin: 0 auto 70px;
+
+  animation: weatherSectionAppear 0.8s 0.1s ease both;
 }
+
+/* ========================================
+   WEATHER PLACEHOLDER
+======================================== */
 
 .home__weather-placeholder {
   min-height: 260px;
@@ -123,12 +191,16 @@
   box-shadow: 0 14px 40px rgba(45, 71, 104, 0.06);
 
   text-align: center;
+
+  animation: placeholderAppear 0.7s ease both;
 }
 
 .home__weather-placeholder > span {
   margin-bottom: 12px;
 
   font-size: 42px;
+
+  animation: weatherIconFloat 3s ease-in-out infinite;
 }
 
 .home__weather-placeholder h2 {
@@ -149,31 +221,9 @@
   line-height: 1.6;
 }
 
-@media (max-width: 600px) {
-  .home__hero {
-    padding: 58px 16px 50px;
-  }
-
-  .home__title {
-    letter-spacing: -2px;
-  }
-
-  .home__description {
-    font-size: 14px;
-  }
-
-  .home__weather {
-    width: min(100% - 24px, 1180px);
-
-    margin-bottom: 40px;
-  }
-
-  .home__weather-placeholder {
-    min-height: 220px;
-
-    padding: 30px 20px;
-  }
-}
+/* ========================================
+   PREMIUM LOCK
+======================================== */
 
 .home__premium-lock {
   display: grid;
@@ -194,6 +244,8 @@
   );
 
   box-shadow: 0 18px 50px rgba(38, 77, 140, 0.08);
+
+  animation: premiumLockAppear 0.7s ease both;
 }
 
 .home__premium-lock-icon {
@@ -212,6 +264,8 @@
   font-size: 24px;
 
   box-shadow: 0 10px 25px rgba(23, 43, 85, 0.2);
+
+  animation: premiumIconFloat 3s ease-in-out infinite;
 }
 
 .home__premium-lock-content {
@@ -279,6 +333,14 @@
   box-shadow: 0 10px 24px rgba(56, 103, 214, 0.25);
 }
 
+.home__premium-lock-button span {
+  transition: transform 0.25s ease;
+}
+
+.home__premium-lock-button:hover span {
+  transform: translateX(4px);
+}
+
 .home__subscription-error {
   margin: 16px 0 0;
 
@@ -287,6 +349,284 @@
   font-size: 13px;
   text-align: center;
 }
+
+/* ========================================
+   SCROLL TO TOP
+======================================== */
+
+.home__scroll-top {
+  position: fixed;
+
+  right: 28px;
+  bottom: 28px;
+
+  z-index: 90;
+
+  width: 52px;
+  height: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 1px solid rgba(57, 135, 255, 0.16);
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, 0.9);
+  color: #3987ff;
+
+  box-shadow:
+    0 10px 30px rgba(40, 78, 120, 0.14),
+    0 0 0 0 rgba(57, 135, 255, 0.12);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  cursor: pointer;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transform: translateY(20px) scale(0.8);
+
+  transition:
+    opacity 0.35s ease,
+    visibility 0.35s ease,
+    transform 0.35s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.home__scroll-top--visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+
+  transform: translateY(0) scale(1);
+
+  animation:
+    scrollTopAppear 0.45s ease both,
+    scrollTopGlow 3s ease-in-out 0.45s infinite;
+}
+
+.home__scroll-top:hover {
+  background: #3987ff;
+  color: #ffffff;
+
+  transform: translateY(-4px) scale(1.05);
+
+  box-shadow: 0 14px 32px rgba(57, 135, 255, 0.28);
+}
+
+.home__scroll-top:active {
+  transform: translateY(-1px) scale(0.96);
+}
+
+.home__scroll-top-arrow {
+  display: block;
+
+  font-size: 24px;
+  line-height: 1;
+  font-weight: 700;
+
+  animation: arrowFloat 1.8s ease-in-out infinite;
+}
+
+/* ========================================
+   ANIMATIONS
+======================================== */
+
+@keyframes heroGlow {
+  0% {
+    transform: translateX(-50%) scale(0.92);
+    opacity: 0.65;
+  }
+
+  50% {
+    transform: translateX(-50%) scale(1.04);
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: translateX(-50%) scale(0.96);
+    opacity: 0.7;
+  }
+}
+
+@keyframes heroGlowSecondary {
+  0% {
+    transform: translateX(-50%) translateY(10px);
+    opacity: 0.3;
+  }
+
+  100% {
+    transform: translateX(-50%) translateY(-20px);
+    opacity: 0.55;
+  }
+}
+
+@keyframes heroContentAppear {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes heroItemAppear {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes heroTitleAppear {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes titleAccentAppear {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroDescriptionAppear {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes weatherSectionAppear {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes placeholderAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes weatherIconFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes premiumLockAppear {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes premiumIconFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-4px) rotate(4deg);
+  }
+}
+
+@keyframes scrollTopAppear {
+  from {
+    opacity: 0;
+    transform: translateY(25px) scale(0.75);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes scrollTopGlow {
+  0%,
+  100% {
+    box-shadow:
+      0 10px 30px rgba(40, 78, 120, 0.14),
+      0 0 0 0 rgba(57, 135, 255, 0.08);
+  }
+
+  50% {
+    box-shadow:
+      0 12px 32px rgba(40, 78, 120, 0.17),
+      0 0 0 7px rgba(57, 135, 255, 0.04);
+  }
+}
+
+@keyframes arrowFloat {
+  0%,
+  100% {
+    transform: translateY(2px);
+  }
+
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+/* ========================================
+   TABLET
+======================================== */
 
 @media (max-width: 800px) {
   .home__premium-lock {
@@ -297,11 +637,65 @@
     grid-column: 1 / -1;
     width: 100%;
   }
+
+  .home__scroll-top {
+    right: 20px;
+    bottom: 20px;
+  }
 }
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 600px) {
+  .home__hero {
+    padding: 58px 16px 50px;
+  }
+
+  .home__title {
+    letter-spacing: -2px;
+  }
+
+  .home__description {
+    font-size: 14px;
+  }
+
+  .home__weather {
+    width: min(100% - 24px, 1180px);
+
+    margin-bottom: 40px;
+  }
+
+  .home__weather-placeholder {
+    min-height: 220px;
+
+    padding: 30px 20px;
+  }
+
+  .home__scroll-top {
+    width: 48px;
+    height: 48px;
+
+    right: 16px;
+    bottom: 16px;
+
+    border-radius: 14px;
+  }
+
+  .home__scroll-top-arrow {
+    font-size: 22px;
+  }
+}
+
+/* ========================================
+   SMALL MOBILE
+======================================== */
 
 @media (max-width: 520px) {
   .home__premium-lock {
     grid-template-columns: 1fr;
+
     padding: 22px;
   }
 
@@ -312,5 +706,142 @@
 
   .home__premium-lock-content h2 {
     font-size: 20px;
+  }
+}
+
+/* ========================================
+   400px
+======================================== */
+
+@media (max-width: 400px) {
+  .home__hero {
+    padding: 48px 14px 42px;
+  }
+
+  .home__eyebrow {
+    margin-bottom: 14px;
+    padding: 6px 10px;
+
+    font-size: 10px;
+  }
+
+  .home__title {
+    font-size: clamp(36px, 11vw, 46px);
+
+    letter-spacing: -1.8px;
+  }
+
+  .home__description {
+    margin: 18px auto 28px;
+
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .home__weather {
+    width: calc(100% - 20px);
+  }
+
+  .home__weather-placeholder {
+    padding: 26px 16px;
+  }
+
+  .home__weather-placeholder > span {
+    font-size: 36px;
+  }
+
+  .home__weather-placeholder h2 {
+    font-size: 20px;
+  }
+
+  .home__premium-lock {
+    padding: 18px;
+    border-radius: 20px;
+  }
+
+  .home__premium-lock-content p {
+    font-size: 13px;
+  }
+
+  .home__scroll-top {
+    width: 44px;
+    height: 44px;
+
+    right: 12px;
+    bottom: 12px;
+
+    border-radius: 13px;
+  }
+
+  .home__scroll-top-arrow {
+    font-size: 20px;
+  }
+}
+
+/* ========================================
+   340px
+======================================== */
+
+@media (max-width: 340px) {
+  .home__hero {
+    padding: 42px 12px 38px;
+  }
+
+  .home__title {
+    font-size: 34px;
+    letter-spacing: -1.5px;
+  }
+
+  .home__description {
+    font-size: 12.5px;
+  }
+
+  .home__weather {
+    width: calc(100% - 16px);
+  }
+
+  .home__premium-lock {
+    padding: 16px;
+  }
+
+  .home__scroll-top {
+    width: 42px;
+    height: 42px;
+
+    right: 10px;
+    bottom: 10px;
+  }
+
+  .home__scroll-top-arrow {
+    font-size: 19px;
+  }
+}
+
+/* ========================================
+   REDUCED MOTION
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .home__hero::before,
+  .home__hero::after,
+  .home__hero-content,
+  .home__eyebrow,
+  .home__title,
+  .home__title span,
+  .home__description,
+  .home__weather,
+  .home__weather-placeholder,
+  .home__weather-placeholder > span,
+  .home__premium-lock,
+  .home__premium-lock-icon,
+  .home__scroll-top,
+  .home__scroll-top-arrow {
+    animation: none;
+  }
+
+  .home__scroll-top {
+    transition:
+      opacity 0.2s ease,
+      visibility 0.2s ease;
   }
 }

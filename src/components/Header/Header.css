@@ -5,14 +5,63 @@
 
   width: 100%;
 
-  background: rgba(255, 255, 255, 0.86);
+  background:
+    radial-gradient(
+      circle at 15% 50%,
+      rgba(57, 135, 255, 0.07),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 85% 20%,
+      rgba(110, 180, 255, 0.08),
+      transparent 25%
+    ),
+    rgba(255, 255, 255, 0.86);
+
+  background-size:
+    140% 140%,
+    120% 120%,
+    auto;
+
   border-bottom: 1px solid rgba(31, 48, 72, 0.08);
 
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+
+  animation: headerAppear 0.7s ease both;
+}
+
+/* Легкий рух фонового glow */
+.header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at 20% 50%,
+      rgba(57, 135, 255, 0.08),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 80% 50%,
+      rgba(120, 190, 255, 0.07),
+      transparent 28%
+    );
+
+  background-size:
+    180% 180%,
+    160% 160%;
+
+  pointer-events: none;
+
+  animation: headerGlow 12s ease-in-out infinite alternate;
 }
 
 .header__container {
+  position: relative;
+  z-index: 1;
+
   width: min(1180px, calc(100% - 40px));
   min-height: 72px;
 
@@ -23,6 +72,10 @@
   justify-content: space-between;
   gap: 30px;
 }
+
+/* ========================================
+   LOGO
+======================================== */
 
 .header__logo {
   display: flex;
@@ -36,6 +89,16 @@
   letter-spacing: -0.5px;
 
   white-space: nowrap;
+
+  animation: headerItemAppear 0.65s 0.08s ease both;
+
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.header__logo:hover {
+  transform: translateY(-1px);
 }
 
 .header__logo-icon {
@@ -50,23 +113,59 @@
 
   border-radius: 12px;
 
-  background: #e8f2ff;
+  background: linear-gradient(
+    145deg,
+    rgba(232, 242, 255, 1),
+    rgba(220, 237, 255, 0.85)
+  );
 
   font-size: 21px;
+
+  box-shadow:
+    0 5px 16px rgba(57, 135, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.header__logo:hover .header__logo-icon {
+  transform: translateY(-2px) rotate(-3deg) scale(1.04);
+
+  box-shadow:
+    0 8px 20px rgba(57, 135, 255, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
 }
 
 .header__logo-text {
   color: #172033;
+
+  animation: logoTextAppear 0.65s 0.16s ease both;
 }
 
 .header__logo-text span {
   color: #3987ff;
+
+  transition:
+    color 0.25s ease,
+    text-shadow 0.25s ease;
 }
+
+.header__logo:hover .header__logo-text span {
+  text-shadow: 0 0 18px rgba(57, 135, 255, 0.25);
+}
+
+/* ========================================
+   NAVIGATION
+======================================== */
 
 .header__nav {
   display: flex;
   align-items: center;
   gap: 8px;
+
+  animation: headerItemAppear 0.65s 0.18s ease both;
 }
 
 .header__link {
@@ -82,20 +181,66 @@
   border-radius: 10px;
 
   transition:
-    color 0.2s ease,
-    background 0.2s ease;
+    color 0.25s ease,
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.header__link::after {
+  content: "";
+
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 5px;
+
+  height: 2px;
+
+  border-radius: 999px;
+
+  background: #3987ff;
+
+  transform: scaleX(0);
+  transform-origin: center;
+
+  transition: transform 0.25s ease;
 }
 
 .header__link:hover {
   color: #172033;
-  background: #f2f6fb;
+  background: rgba(242, 246, 251, 0.9);
+
+  transform: translateY(-1px);
+}
+
+.header__link:hover::after {
+  transform: scaleX(1);
 }
 
 .header__link--active {
   color: #3987ff;
 }
 
+.header__link--active::after {
+  transform: scaleX(0.7);
+}
+
+/* ========================================
+   LANGUAGE SWITCHER
+======================================== */
+
+.header__container > *:nth-child(3) {
+  animation: headerItemAppear 0.65s 0.24s ease both;
+}
+
+/* ========================================
+   PREMIUM BUTTON
+======================================== */
+
 .header__premium-button {
+  position: relative;
+  overflow: hidden;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -117,22 +262,142 @@
 
   box-shadow: 0 6px 18px rgba(57, 135, 255, 0.22);
 
+  animation:
+    headerItemAppear 0.65s 0.3s ease both,
+    premiumGlow 4s 1.5s ease-in-out infinite;
+
   transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    background 0.2s ease;
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+/* Світловий відблиск при hover */
+.header__premium-button::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: -120%;
+
+  width: 70%;
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.22),
+    transparent
+  );
+
+  transform: skewX(-20deg);
+
+  transition: left 0.55s ease;
+}
+
+.header__premium-button:hover::before {
+  left: 140%;
 }
 
 .header__premium-button:hover {
   background: #2878ef;
 
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 
-  box-shadow: 0 8px 22px rgba(57, 135, 255, 0.3);
+  box-shadow: 0 9px 25px rgba(57, 135, 255, 0.32);
+}
+
+.header__premium-button:active {
+  transform: translateY(0) scale(0.98);
+
+  box-shadow: 0 5px 14px rgba(57, 135, 255, 0.22);
 }
 
 .header__premium-button span {
+  position: relative;
+  z-index: 1;
+
   font-size: 13px;
+
+  transition: transform 0.3s ease;
+}
+
+.header__premium-button:hover span {
+  transform: rotate(12deg) scale(1.1);
+}
+
+/* ========================================
+   ANIMATIONS
+======================================== */
+
+@keyframes headerAppear {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes headerItemAppear {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes logoTextAppear {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes headerGlow {
+  0% {
+    background-position:
+      0% 50%,
+      100% 50%;
+    opacity: 0.7;
+  }
+
+  50% {
+    background-position:
+      50% 40%,
+      50% 60%;
+    opacity: 1;
+  }
+
+  100% {
+    background-position:
+      100% 50%,
+      0% 50%;
+    opacity: 0.7;
+  }
+}
+
+@keyframes premiumGlow {
+  0%,
+  100% {
+    box-shadow: 0 6px 18px rgba(57, 135, 255, 0.22);
+  }
+
+  50% {
+    box-shadow: 0 8px 24px rgba(57, 135, 255, 0.29);
+  }
 }
 
 /* ========================================
@@ -295,5 +560,29 @@
 
   .header__premium-button span {
     font-size: 9px;
+  }
+}
+
+/* ========================================
+   REDUCED MOTION
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .header::before,
+  .header__logo,
+  .header__logo-text,
+  .header__nav,
+  .header__container > *:nth-child(3),
+  .header__premium-button {
+    animation: none;
+  }
+
+  .header__logo,
+  .header__logo-icon,
+  .header__link,
+  .header__premium-button,
+  .header__premium-button span {
+    transition: none;
   }
 }
