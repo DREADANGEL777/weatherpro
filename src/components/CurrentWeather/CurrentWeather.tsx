@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import type { Location, WeatherResponse } from "../../types/weather";
 
 import { getWeatherDescription } from "../../utils/weatherCode";
+import { translateCountry } from "../../utils/countryTranslation";
 
 import "./CurrentWeather.css";
 
@@ -53,10 +54,10 @@ export function CurrentWeather({
         <div>
           <div className="current-weather__location">
             <span>📍</span>
-
             <strong>{location.name}</strong>
-
-            <span className="current-weather__country">{location.country}</span>
+            <span className="current-weather__country">
+              {translateCountry(location.country_code, i18n.language)}
+            </span>
           </div>
 
           <p className="current-weather__updated">

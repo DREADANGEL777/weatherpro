@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -70,12 +70,90 @@ export function Pricing() {
 
   const price = isYearly ? 799 : 99;
 
+  const heroRef = useRef<HTMLElement | null>(null);
+  const plansRef = useRef<HTMLElement | null>(null);
+  const comparisonRef = useRef<HTMLElement | null>(null);
+  const faqRef = useRef<HTMLElement | null>(null);
+  const ctaRef = useRef<HTMLElement | null>(null);
+
+  const [visibleSections, setVisibleSections] = useState({
+    hero: false,
+    plans: false,
+    comparison: false,
+    faq: false,
+    cta: false,
+  });
+
+  useEffect(() => {
+    const elements = [
+      {
+        element: heroRef.current,
+        key: "hero" as const,
+      },
+      {
+        element: plansRef.current,
+        key: "plans" as const,
+      },
+      {
+        element: comparisonRef.current,
+        key: "comparison" as const,
+      },
+      {
+        element: faqRef.current,
+        key: "faq" as const,
+      },
+      {
+        element: ctaRef.current,
+        key: "cta" as const,
+      },
+    ];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          const key = elements.find(
+            (item) => item.element === entry.target,
+          )?.key;
+
+          if (!key) return;
+
+          setVisibleSections((prev) => ({
+            ...prev,
+            [key]: true,
+          }));
+
+          observer.unobserve(entry.target);
+        });
+      },
+      {
+        threshold: 0.12,
+      },
+    );
+
+    elements.forEach(({ element }) => {
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <div className="pricing">
       <Header />
 
       <main className="pricing__main">
-        <section className="pricing__hero">
+        <section
+          ref={heroRef}
+          className={`pricing__hero ${
+            visibleSections.hero ? "pricing__section--visible" : ""
+          }`}
+        >
           <span className="pricing__eyebrow">{t("pricing.hero.eyebrow")}</span>
 
           <h1 className="pricing__title">
@@ -116,7 +194,12 @@ export function Pricing() {
           </div>
         </section>
 
-        <section className="pricing__plans">
+        <section
+          ref={plansRef}
+          className={`pricing__plans ${
+            visibleSections.plans ? "pricing__section--visible" : ""
+          }`}
+        >
           <article className="pricing-card pricing-card--free">
             <div className="pricing-card__top">
               <div className="pricing-card__icon">☁️</div>
@@ -254,7 +337,12 @@ export function Pricing() {
           </article>
         </section>
 
-        <section className="pricing__comparison">
+        <section
+          ref={comparisonRef}
+          className={`pricing__comparison ${
+            visibleSections.comparison ? "pricing__section--visible" : ""
+          }`}
+        >
           <div className="pricing__section-heading">
             <span>{t("pricing.comparison.eyebrow")}</span>
 
@@ -286,7 +374,12 @@ export function Pricing() {
           </div>
         </section>
 
-        <section className="pricing__faq">
+        <section
+          ref={faqRef}
+          className={`pricing__faq ${
+            visibleSections.faq ? "pricing__section--visible" : ""
+          }`}
+        >
           <div className="pricing__section-heading">
             <span>{t("pricing.faq.eyebrow")}</span>
 
@@ -308,7 +401,12 @@ export function Pricing() {
           </div>
         </section>
 
-        <section className="pricing__bottom-cta">
+        <section
+          ref={ctaRef}
+          className={`pricing__bottom-cta ${
+            visibleSections.cta ? "pricing__section--visible" : ""
+          }`}
+        >
           <div>
             <span className="pricing__bottom-badge">
               ✦ {t("pricing.bottom.badge")}

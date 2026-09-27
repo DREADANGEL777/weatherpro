@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import type { WeatherResponse } from "../../types/weather";
@@ -60,6 +61,33 @@ function getWindDirection(degrees: number, t: (key: string) => string) {
 export function Forecast({ weather }: ForecastProps) {
   const { t, i18n } = useTranslation();
 
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const element = document.querySelector(".forecast");
+
+    if (!element) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.15,
+      },
+    );
+
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, []);
+
   const daily = weather.daily;
 
   return (
@@ -84,7 +112,7 @@ export function Forecast({ weather }: ForecastProps) {
             <article
               className={`forecast__day ${
                 index === 0 ? "forecast__day--today" : ""
-              }`}
+              } ${isVisible ? "forecast__day--visible" : ""}`}
               key={date}
             >
               <div className="forecast__date">

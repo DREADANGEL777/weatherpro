@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -29,8 +30,38 @@ const features = [
 export function PremiumCard() {
   const { t } = useTranslation();
 
+  const cardRef = useRef<HTMLElement | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const card = cardRef.current;
+
+    if (!card) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(card);
+        }
+      },
+      {
+        threshold: 0.15,
+      },
+    );
+
+    observer.observe(card);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
-    <section className="premium-card">
+    <section
+      ref={cardRef}
+      className={`premium-card ${isVisible ? "premium-card--visible" : ""}`}
+    >
       <div className="premium-card__glow premium-card__glow--one" />
       <div className="premium-card__glow premium-card__glow--two" />
 
@@ -55,13 +86,23 @@ export function PremiumCard() {
           <span>→</span>
         </Link>
 
-        <p className="premium-card__note">{t("premiumCard.note")}</p>
+        <p className="premium-card__note">
+          {t("premiumCard.note")}
+        </p>
       </div>
 
       <div className="premium-card__features">
-        {features.map((feature) => (
-          <div className="premium-card__feature" key={feature.titleKey}>
-            <div className="premium-card__feature-icon">{feature.icon}</div>
+        {features.map((feature, index) => (
+          <div
+            className="premium-card__feature"
+            key={feature.titleKey}
+            style={{
+              transitionDelay: isVisible ? `${index * 0.1}s` : "0s",
+            }}
+          >
+            <div className="premium-card__feature-icon">
+              {feature.icon}
+            </div>
 
             <div className="premium-card__feature-content">
               <strong>{t(feature.titleKey)}</strong>

@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import {
   CartesianGrid,
   Line,
@@ -45,6 +47,30 @@ function formatTooltipTime(time: string, language: string) {
 export function WeatherChart({ weather }: WeatherChartProps) {
   const { t, i18n } = useTranslation();
 
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const element = document.querySelector(".weather-chart");
+
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.25,
+      },
+    );
+
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, []);
+
   const hourly = weather.hourly;
 
   const currentTime = new Date(weather.current.time).getTime();
@@ -79,10 +105,6 @@ export function WeatherChart({ weather }: WeatherChartProps) {
     <section className="weather-chart">
       <div className="weather-chart__heading">
         <div>
-          <span className="weather-chart__eyebrow">
-            {t("weatherChart.eyebrow")}
-          </span>
-
           <h2 className="weather-chart__title">{t("weatherChart.title")}</h2>
         </div>
 
@@ -103,13 +125,11 @@ export function WeatherChart({ weather }: WeatherChartProps) {
         <div className="weather-chart__top">
           <div>
             <strong>{t("weatherChart.next24Hours")}</strong>
-
             <span>{t("weatherChart.temperatureDescription")}</span>
           </div>
 
           <div className="weather-chart__current">
             <span>{t("weatherChart.now")}</span>
-
             <strong>{Math.round(weather.current.temperature_2m)}°</strong>
           </div>
         </div>
@@ -202,19 +222,34 @@ export function WeatherChart({ weather }: WeatherChartProps) {
                 dataKey="temperature"
                 stroke="#3987ff"
                 strokeWidth={3}
-                dot={{
-                  r: 3,
-                  fill: "#ffffff",
-                  stroke: "#3987ff",
-                  strokeWidth: 2,
+                dot={(props) => {
+                  const { cx, cy } = props;
+
+                  if (cx === undefined || cy === undefined) {
+                    return null;
+                  }
+
+                  return (
+                    <circle
+                      cx={cx}
+                      cy={cy}
+                      r={4}
+                      className={`weather-chart__point ${
+                        isVisible ? "weather-chart__point--visible" : ""
+                      }`}
+                    />
+                  );
                 }}
                 activeDot={{
-                  r: 6,
+                  r: 7,
                   fill: "#3987ff",
                   stroke: "#ffffff",
                   strokeWidth: 3,
                 }}
-                animationDuration={700}
+                isAnimationActive={isVisible}
+                animationBegin={0}
+                animationDuration={1200}
+                animationEasing="ease-out"
               />
 
               <Line
@@ -223,17 +258,44 @@ export function WeatherChart({ weather }: WeatherChartProps) {
                 stroke="#a9b9cb"
                 strokeWidth={2}
                 strokeDasharray="5 5"
-                dot={false}
-                animationDuration={700}
+                dot={(props) => {
+                  const { cx, cy } = props;
+
+                  if (cx === undefined || cy === undefined) {
+                    return null;
+                  }
+
+                  return (
+                    <circle
+                      cx={cx}
+                      cy={cy}
+                      r={3}
+                      className={`weather-chart__point weather-chart__point--secondary ${
+                        isVisible ? "weather-chart__point--visible" : ""
+                      }`}
+                    />
+                  );
+                }}
+                isAnimationActive={isVisible}
+                animationBegin={150}
+                animationDuration={1200}
+                animationEasing="ease-out"
               />
             </LineChart>
           </ResponsiveContainer>
         </div>
 
         <div className="weather-chart__precipitation">
-          {data.map((point) => (
+          {data.map((point, index) => (
             <div
-              className="weather-chart__precipitation-item"
+              className={`weather-chart__precipitation-item ${
+                isVisible ? "weather-chart__precipitation-item--visible" : ""
+              }`}
+              style={
+                {
+                  "--delay": `${index * 40}ms`,
+                } as React.CSSProperties
+              }
               key={point.fullTime}
             >
               <span>{point.precipitationProbability > 0 ? "💧" : ""}</span>

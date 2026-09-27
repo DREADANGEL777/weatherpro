@@ -1,16 +1,12 @@
-import type {
-  Location,
-  WeatherResponse,
-} from "../types/weather";
+import type { Location, WeatherResponse } from "../types/weather";
 
-const WEATHER_API_URL =
-  "https://api.open-meteo.com/v1/forecast";
+const WEATHER_API_URL = "https://api.open-meteo.com/v1/forecast";
 
-const GEOCODING_API_URL =
-  "https://geocoding-api.open-meteo.com/v1/search";
+const GEOCODING_API_URL = "https://geocoding-api.open-meteo.com/v1/search";
 
 export async function searchLocation(
   query: string,
+  language: string,
 ): Promise<Location[]> {
   const trimmedQuery = query.trim();
 
@@ -21,13 +17,11 @@ export async function searchLocation(
   const params = new URLSearchParams({
     name: trimmedQuery,
     count: "5",
-    language: "en",
+    language,
     format: "json",
   });
 
-  const response = await fetch(
-    `${GEOCODING_API_URL}?${params.toString()}`,
-  );
+  const response = await fetch(`${GEOCODING_API_URL}?${params.toString()}`);
 
   if (!response.ok) {
     throw new Error("Failed to search location");
@@ -107,9 +101,7 @@ export async function getWeather(
     precipitation_unit: "mm",
   });
 
-  const response = await fetch(
-    `${WEATHER_API_URL}?${params.toString()}`,
-  );
+  const response = await fetch(`${WEATHER_API_URL}?${params.toString()}`);
 
   if (!response.ok) {
     throw new Error("Failed to fetch weather");

@@ -75,5 +75,6 @@ export interface Location {
   longitude: number;
   country: string;
   country_code: string;
+
   admin1?: string;
 }

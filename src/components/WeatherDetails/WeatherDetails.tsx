@@ -66,9 +66,9 @@ export function WeatherDetails({ weather }: WeatherDetailsProps) {
     <section className="weather-details">
       <div className="weather-details__heading">
         <div>
-          <span className="weather-details__eyebrow">
+          {/* <span className="weather-details__eyebrow">
             {t("weather.details.eyebrow")}
-          </span>
+          </span> */}
 
           <h2 className="weather-details__title">
             {t("weather.details.title")}
