@@ -69,8 +69,6 @@ export function Home() {
       <main className="home__main">
         <section className="home__hero">
           <div className="home__hero-content">
-            <span className="home__eyebrow">{t("home.eyebrow")}</span>
-
             <h1 className="home__title">
               {t("home.titleFirst")}
               <br />
