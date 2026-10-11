@@ -3,6 +3,8 @@ export const uk = {
     weather: "Погода",
     premium: "Premium",
     premiumButton: "Premium",
+    signIn: "Увійти",
+    signOut: "Вийти",
   },
 
   home: {
@@ -18,6 +20,13 @@ export const uk = {
       description:
         "Прогноз на 7 днів, погодинний графік та ймовірність опадів доступні з WeatherPro Premium.",
       button: "Відкрити Premium",
+    },
+
+    proPlusLock: {
+      label: "PRO+",
+      title: "Можливості Pro+",
+      description: "Погодинний графік і ймовірність опадів по годинах доступні в WeatherPro Pro+.",
+      button: "Перейти на Pro+",
     },
 
     loading: {
@@ -197,10 +206,22 @@ export const uk = {
         "Отримуй більше даних, більше прогнозів та більше контролю над погодою.",
     },
 
-    billing: {
-      monthly: "Щомісяця",
-      yearly: "Щороку",
-      discount: "−33%",
+    plans: {
+      current: "Поточний план",
+      included: "Включено",
+      perMonth: "на місяць",
+      includedFree: "Усе з Free",
+      includedPro: "Усе з Pro",
+      pro: {
+        name: "Pro",
+        description: "Розширений прогноз для планування тижня.",
+        button: "Обрати Pro",
+      },
+      proPlus: {
+        name: "Pro+",
+        description: "Погодинна деталізація та повний набір даних.",
+        button: "Обрати Pro+",
+      },
     },
 
     currency: "грн",
@@ -225,7 +246,14 @@ export const uk = {
       allFree: "Усе з безкоштовного плану",
       button: "Отримати Premium",
       note: "Без прихованих платежів · Скасування будь-коли",
-      alert: "Підключення RevenueCat буде додано на наступному етапі.",
+      active: "У вас є Premium",
+      processing: "Обробка...",
+      signIn: "Увійдіть, щоб підписатися",
+      error: {
+        config: "Оплата не налаштована.",
+        load: "Не вдалося завантажити дані підписки.",
+        purchase: "Не вдалося завершити оплату. Спробуйте ще раз.",
+      },
     },
 
     features: {
@@ -237,12 +265,14 @@ export const uk = {
       hourlyChart: "Погодинний графік",
       precipitationProbability: "Ймовірність опадів",
       advancedWind: "Розширені показники вітру",
+      dailyPrecipitation: "Ймовірність опадів по днях",
+      hourlyPrecipitation: "Ймовірність опадів по годинах",
     },
 
     comparison: {
       eyebrow: "ПОРІВНЯННЯ",
       titleFirst: "Що ти отримуєш",
-      titleSecond: "з Premium?",
+      titleSecond: "з Pro і Pro+?",
       feature: "Можливість",
     },
 
@@ -263,10 +293,10 @@ export const uk = {
             "Так. Після підключення підписку можна скасувати в будь-який момент. Доступ залишиться активним до завершення оплаченого періоду.",
         },
 
-        yearly: {
-          question: "Чим відрізняється річний план?",
+        difference: {
+          question: "Яка різниця між Pro і Pro+?",
           answer:
-            "Річний план оплачується один раз на рік і має нижчу середню вартість на місяць порівняно з місячною підпискою.",
+            "Pro відкриває 7-денний прогноз з опадами та вітром по днях. Pro+ додає погодинний графік і ймовірність опадів по годинах.",
         },
 
         hiddenFees: {

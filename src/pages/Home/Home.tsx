@@ -9,6 +9,7 @@ import { Forecast } from "../../components/Forecast/Forecast";
 import { WeatherChart } from "../../components/WeatherChart/WeatherChart";
 import { PremiumCard } from "../../components/PremiumCard/PremiumCard";
 
+import { useSubscription } from "../../hooks/useSubscription";
 import { useWeather } from "../../hooks/useWeather";
 
 import "./Home.css";
@@ -16,7 +17,9 @@ import "./Home.css";
 export function Home() {
   const { t } = useTranslation();
 
-  const isPremium = true;
+  const { hasPro, hasProPlus } = useSubscription()
+
+  const lockKey = !hasPro ? "premiumLock" : !hasProPlus ? "proPlusLock" : null;
 
   const [showScrollTop, setShowScrollTop] = useState(false);
 
@@ -98,30 +101,26 @@ export function Home() {
 
               <WeatherDetails weather={weather} />
 
-              {isPremium && (
-                <>
-                  <Forecast weather={weather} />
+              {hasPro && <Forecast weather={weather} />}
 
-                  <WeatherChart weather={weather} />
-                </>
-              )}
+              {hasProPlus && <WeatherChart weather={weather} />}
 
-              {!isPremium && (
+              {lockKey && (
                 <section className="home__premium-lock">
                   <div className="home__premium-lock-icon">✦</div>
 
                   <div className="home__premium-lock-content">
                     <span className="home__premium-lock-label">
-                      {t("home.premiumLock.label")}
+                      {t(`home.${lockKey}.label`)}
                     </span>
 
-                    <h2>{t("home.premiumLock.title")}</h2>
+                    <h2>{t(`home.${lockKey}.title`)}</h2>
 
-                    <p>{t("home.premiumLock.description")}</p>
+                    <p>{t(`home.${lockKey}.description`)}</p>
                   </div>
 
                   <a href="/pricing" className="home__premium-lock-button">
-                    {t("home.premiumLock.button")}
+                    {t(`home.${lockKey}.button`)}
                     <span>→</span>
                   </a>
                 </section>

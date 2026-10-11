@@ -3,48 +3,44 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import { Header } from "../../components/Header/Header";
+import { useAuth } from "../../hooks/useAuth";
+import { useSubscription } from "../../hooks/useSubscription";
 
 import "./Pricing.css";
 
-type BillingPeriod = "monthly" | "yearly";
-
 const features = [
-  {
-    key: "currentWeather",
-    free: true,
-    premium: true,
-  },
-  {
-    key: "citySearch",
-    free: true,
-    premium: true,
-  },
-  {
-    key: "detailedWeather",
-    free: true,
-    premium: true,
-  },
-  {
-    key: "sevenDayForecast",
-    free: false,
-    premium: true,
-  },
-  {
-    key: "hourlyChart",
-    free: false,
-    premium: true,
-  },
-  {
-    key: "precipitationProbability",
-    free: false,
-    premium: true,
-  },
-  {
-    key: "advancedWind",
-    free: false,
-    premium: true,
-  },
+  { key: "currentWeather", free: true, pro: true, proPlus: true },
+  { key: "citySearch", free: true, pro: true, proPlus: true },
+  { key: "detailedWeather", free: true, pro: true, proPlus: true },
+  { key: "sevenDayForecast", free: false, pro: true, proPlus: true },
+  { key: "dailyPrecipitation", free: false, pro: true, proPlus: true },
+  { key: "advancedWind", free: false, pro: true, proPlus: true },
+  { key: "hourlyChart", free: false, pro: false, proPlus: true },
+  { key: "hourlyPrecipitation", free: false, pro: false, proPlus: true },
 ];
+
+const plans = [
+  {
+    id: "pro",
+    tier: "pro",
+    packageId: "pro",
+    fallbackPrice: 99,
+    popular: false,
+    includes: "includedFree",
+    features: ["sevenDayForecast", "dailyPrecipitation", "advancedWind"],
+  },
+  {
+    id: "proPlus",
+    tier: "pro_plus",
+    packageId: "pro_plus",
+    fallbackPrice: 199,
+    popular: true,
+    includes: "includedPro",
+    features: ["hourlyChart", "hourlyPrecipitation"],
+  },
+] as const;
+
+const tierRank = { free: 0, pro: 1, pro_plus: 2 } as const;
 
 const faqs = [
   {
@@ -54,7 +50,7 @@ const faqs = [
     key: "cancel",
   },
   {
-    key: "yearly",
+    key: "difference",
   },
   {
     key: "hiddenFees",
@@ -64,11 +60,25 @@ const faqs = [
 export function Pricing() {
   const { t } = useTranslation();
 
-  const [billingPeriod, setBillingPeriod] = useState<BillingPeriod>("monthly");
+  const { user, signInWithGoogle } = useAuth();
+  const { tier, loading, purchasing, error, packages, purchasePackage } =
+    useSubscription();
 
-  const isYearly = billingPeriod === "yearly";
+  const handleSubscribe = async (packageId: string) => {
+    if (!user) {
+      await signInWithGoogle();
 
-  const price = isYearly ? 799 : 99;
+      return;
+    }
+
+    const selectedPackage = packages.find(
+      (item) => item.identifier === packageId,
+    );
+
+    if (selectedPackage) {
+      await purchasePackage(selectedPackage);
+    }
+  };
 
   const heroRef = useRef<HTMLElement | null>(null);
   const plansRef = useRef<HTMLElement | null>(null);
@@ -165,33 +175,6 @@ export function Pricing() {
           <p className="pricing__description">
             {t("pricing.hero.description")}
           </p>
-
-          <div className="pricing__toggle">
-            <button
-              type="button"
-              className={
-                !isYearly
-                  ? "pricing__toggle-button pricing__toggle-button--active"
-                  : "pricing__toggle-button"
-              }
-              onClick={() => setBillingPeriod("monthly")}
-            >
-              {t("pricing.billing.monthly")}
-            </button>
-
-            <button
-              type="button"
-              className={
-                isYearly
-                  ? "pricing__toggle-button pricing__toggle-button--active"
-                  : "pricing__toggle-button"
-              }
-              onClick={() => setBillingPeriod("yearly")}
-            >
-              {t("pricing.billing.yearly")}
-              <span>{t("pricing.billing.discount")}</span>
-            </button>
-          </div>
         </section>
 
         <section
@@ -255,86 +238,113 @@ export function Pricing() {
             </Link>
           </article>
 
-          <article className="pricing-card pricing-card--premium">
-            <div className="pricing-card__popular">
-              <span>✦</span>
-              {t("pricing.premium.popular")}
-            </div>
+          {plans.map((plan) => {
+            const selectedPackage = packages.find(
+              (item) => item.identifier === plan.packageId,
+            );
 
-            <div className="pricing-card__top">
-              <div className="pricing-card__icon">✦</div>
+            const price = selectedPackage?.webBillingProduct.currentPrice;
 
-              <span className="pricing-card__label">PREMIUM</span>
+            const owned = tierRank[tier] >= tierRank[plan.tier];
 
-              <h2 className="pricing-card__name">WeatherPro Premium</h2>
+            const label = tier === plan.tier
+              ? t("pricing.plans.current")
+              : owned
+                ? t("pricing.plans.included")
+                : purchasing
+                  ? t("pricing.premium.processing")
+                  : !user
+                    ? t("pricing.premium.signIn")
+                    : t(`pricing.plans.${plan.id}.button`);
 
-              <p className="pricing-card__description">
-                {t("pricing.premium.description")}
-              </p>
+            const disabled =
+              owned ||
+              purchasing ||
+              (Boolean(user) && (loading || !selectedPackage));
 
-              <div className="pricing-card__price">
-                <strong>{price}</strong>
-                <span>{t("pricing.currency")}</span>
-              </div>
-
-              <p className="pricing-card__period">
-                {t("pricing.premium.per", {
-                  period: isYearly
-                    ? t("pricing.period.year")
-                    : t("pricing.period.month"),
-                })}
-
-                {isYearly && (
-                  <span className="pricing-card__saving">
-                    ·{" "}
-                    {t("pricing.premium.saving", {
-                      amount: 389,
-                    })}
-                  </span>
+            return (
+              <article
+                key={plan.id}
+                className={`pricing-card ${
+                  plan.popular ? "pricing-card--premium" : "pricing-card--pro"
+                }`}
+              >
+                {plan.popular && (
+                  <div className="pricing-card__popular">
+                    <span>✦</span>
+                    {t("pricing.premium.popular")}
+                  </div>
                 )}
-              </p>
-            </div>
 
-            <ul className="pricing-card__features">
-              <li>
-                <span>✓</span>
-                {t("pricing.premium.allFree")}
-              </li>
+                <div className="pricing-card__top">
+                  <div className="pricing-card__icon">✦</div>
 
-              <li>
-                <span>✓</span>
-                {t("pricing.features.sevenDayForecast")}
-              </li>
+                  <span className="pricing-card__label">
+                    {t(`pricing.plans.${plan.id}.name`).toUpperCase()}
+                  </span>
 
-              <li>
-                <span>✓</span>
-                {t("pricing.features.hourlyChart")}
-              </li>
+                  <h2 className="pricing-card__name">
+                    WeatherPro {t(`pricing.plans.${plan.id}.name`)}
+                  </h2>
 
-              <li>
-                <span>✓</span>
-                {t("pricing.features.precipitationProbability")}
-              </li>
+                  <p className="pricing-card__description">
+                    {t(`pricing.plans.${plan.id}.description`)}
+                  </p>
 
-              <li>
-                <span>✓</span>
-                {t("pricing.features.advancedWind")}
-              </li>
-            </ul>
+                  <div className="pricing-card__price">
+                    {price ? (
+                      <strong>{price.formattedPrice}</strong>
+                    ) : (
+                      <>
+                        <strong>{plan.fallbackPrice}</strong>
+                        <span>{t("pricing.currency")}</span>
+                      </>
+                    )}
+                  </div>
 
-            <button
-              type="button"
-              className="pricing-card__button pricing-card__button--premium"
-              onClick={() => {
-                alert(t("pricing.premium.alert"));
-              }}
-            >
-              {t("pricing.premium.button")}
-              <span>→</span>
-            </button>
+                  <p className="pricing-card__period">
+                    {t("pricing.plans.perMonth")}
+                  </p>
+                </div>
 
-            <p className="pricing-card__note">{t("pricing.premium.note")}</p>
-          </article>
+                <ul className="pricing-card__features">
+                  <li>
+                    <span>✓</span>
+                    {t(`pricing.plans.${plan.includes}`)}
+                  </li>
+
+                  {plan.features.map((feature) => (
+                    <li key={feature}>
+                      <span>✓</span>
+                      {t(`pricing.features.${feature}`)}
+                    </li>
+                  ))}
+                </ul>
+
+                <button
+                  type="button"
+                  className={`pricing-card__button ${
+                    plan.popular
+                      ? "pricing-card__button--premium"
+                      : "pricing-card__button--secondary"
+                  }`}
+                  disabled={disabled}
+                  onClick={() => void handleSubscribe(plan.packageId)}
+                >
+                  {label}
+                  <span>→</span>
+                </button>
+
+                {error && plan.popular && (
+                  <p className="pricing-card__error" role="alert">
+                    {t(`pricing.premium.error.${error}`)}
+                  </p>
+                )}
+
+                <p className="pricing-card__note">{t("pricing.premium.note")}</p>
+              </article>
+            );
+          })}
         </section>
 
         <section
@@ -359,7 +369,9 @@ export function Pricing() {
 
               <span>Free</span>
 
-              <span>Premium</span>
+              <span>Pro</span>
+
+              <span>Pro+</span>
             </div>
 
             {features.map((feature) => (
@@ -368,7 +380,9 @@ export function Pricing() {
 
                 <span>{feature.free ? "✓" : "—"}</span>
 
-                <span>{feature.premium ? "✓" : "—"}</span>
+                <span>{feature.pro ? "✓" : "—"}</span>
+
+                <span>{feature.proPlus ? "✓" : "—"}</span>
               </div>
             ))}
           </div>

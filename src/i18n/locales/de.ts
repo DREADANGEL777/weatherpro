@@ -3,6 +3,8 @@ export const de = {
     weather: "Wetter",
     premium: "Premium",
     premiumButton: "Premium",
+    signIn: "Anmelden",
+    signOut: "Abmelden",
   },
 
   home: {
@@ -18,6 +20,13 @@ export const de = {
       description:
         "7-Tage-Prognose, stündliche Diagramme und Niederschlagswahrscheinlichkeit sind mit WeatherPro Premium verfügbar.",
       button: "Premium öffnen",
+    },
+
+    proPlusLock: {
+      label: "PRO+",
+      title: "Pro+-Funktionen",
+      description: "Das Stundendiagramm und die stündliche Niederschlagswahrscheinlichkeit gibt es mit WeatherPro Pro+.",
+      button: "Auf Pro+ upgraden",
     },
 
     loading: {
@@ -202,10 +211,22 @@ export const de = {
         "Erhalte mehr Daten, mehr Vorhersagen und mehr Kontrolle über das Wetter.",
     },
 
-    billing: {
-      monthly: "Monatlich",
-      yearly: "Jährlich",
-      discount: "−33%",
+    plans: {
+      current: "Aktueller Plan",
+      included: "Enthalten",
+      perMonth: "pro Monat",
+      includedFree: "Alles aus Free",
+      includedPro: "Alles aus Pro",
+      pro: {
+        name: "Pro",
+        description: "Erweiterte Vorhersage zur Wochenplanung.",
+        button: "Pro wählen",
+      },
+      proPlus: {
+        name: "Pro+",
+        description: "Stündliche Details und das volle Wetterdatenpaket.",
+        button: "Pro+ wählen",
+      },
     },
 
     currency: "UAH",
@@ -231,7 +252,14 @@ export const de = {
       allFree: "Alles aus dem kostenlosen Plan",
       button: "Premium erhalten",
       note: "Keine versteckten Gebühren · Jederzeit kündbar",
-      alert: "Die RevenueCat-Integration wird im nächsten Schritt hinzugefügt.",
+      active: "Du hast Premium",
+      processing: "Wird verarbeitet...",
+      signIn: "Zum Abonnieren anmelden",
+      error: {
+        config: "Abrechnung ist nicht konfiguriert.",
+        load: "Abodaten konnten nicht geladen werden.",
+        purchase: "Zahlung fehlgeschlagen. Bitte erneut versuchen.",
+      },
     },
 
     features: {
@@ -243,12 +271,14 @@ export const de = {
       hourlyChart: "Stündliches Diagramm",
       precipitationProbability: "Niederschlagswahrscheinlichkeit",
       advancedWind: "Erweiterte Winddaten",
+      dailyPrecipitation: "Tägliche Niederschlagswahrscheinlichkeit",
+      hourlyPrecipitation: "Stündliche Niederschlagswahrscheinlichkeit",
     },
 
     comparison: {
       eyebrow: "VERGLEICH",
       titleFirst: "Was bekommst du",
-      titleSecond: "mit Premium?",
+      titleSecond: "mit Pro und Pro+?",
       feature: "Funktion",
     },
 
@@ -269,10 +299,10 @@ export const de = {
             "Ja. Du kannst dein Abonnement jederzeit kündigen. Der Zugriff bleibt bis zum Ende des bezahlten Zeitraums aktiv.",
         },
 
-        yearly: {
-          question: "Was ist beim Jahresplan anders?",
+        difference: {
+          question: "Was ist der Unterschied zwischen Pro und Pro+?",
           answer:
-            "Der Jahresplan wird einmal pro Jahr bezahlt und hat im Vergleich zum Monatsabo niedrigere durchschnittliche monatliche Kosten.",
+            "Pro schaltet die 7-Tage-Vorhersage mit täglichem Niederschlag und Wind frei. Pro+ ergänzt das Stundendiagramm und die stündliche Niederschlagswahrscheinlichkeit.",
         },
 
         hiddenFees: {

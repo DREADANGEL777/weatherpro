@@ -3,6 +3,8 @@ export const en = {
     weather: "Weather",
     premium: "Premium",
     premiumButton: "Premium",
+    signIn: "Sign in",
+    signOut: "Sign out",
   },
 
   home: {
@@ -18,6 +20,13 @@ export const en = {
       description:
         "7-day forecast, hourly charts, and precipitation probability are available with WeatherPro Premium.",
       button: "Open Premium",
+    },
+
+    proPlusLock: {
+      label: "PRO+",
+      title: "Pro+ features",
+      description: "The hourly chart and hourly precipitation probability are available with WeatherPro Pro+.",
+      button: "Upgrade to Pro+",
     },
 
     loading: {
@@ -202,10 +211,22 @@ export const en = {
         "Get more data, more forecasts, and more control over the weather.",
     },
 
-    billing: {
-      monthly: "Monthly",
-      yearly: "Yearly",
-      discount: "−33%",
+    plans: {
+      current: "Current plan",
+      included: "Included",
+      perMonth: "per month",
+      includedFree: "Everything in Free",
+      includedPro: "Everything in Pro",
+      pro: {
+        name: "Pro",
+        description: "Extended forecast for planning your week.",
+        button: "Get Pro",
+      },
+      proPlus: {
+        name: "Pro+",
+        description: "Hourly detail and the full set of weather data.",
+        button: "Get Pro+",
+      },
     },
 
     currency: "UAH",
@@ -230,7 +251,14 @@ export const en = {
       allFree: "Everything in the free plan",
       button: "Get Premium",
       note: "No hidden fees · Cancel anytime",
-      alert: "RevenueCat integration will be added at the next stage.",
+      active: "You are Premium",
+      processing: "Processing...",
+      signIn: "Sign in to subscribe",
+      error: {
+        config: "Billing is not configured.",
+        load: "Could not load subscription data.",
+        purchase: "Payment failed. Please try again.",
+      },
     },
 
     features: {
@@ -242,12 +270,14 @@ export const en = {
       hourlyChart: "Hourly chart",
       precipitationProbability: "Precipitation probability",
       advancedWind: "Advanced wind data",
+      dailyPrecipitation: "Daily precipitation probability",
+      hourlyPrecipitation: "Hourly precipitation probability",
     },
 
     comparison: {
       eyebrow: "COMPARISON",
       titleFirst: "What do you get",
-      titleSecond: "with Premium?",
+      titleSecond: "with Pro and Pro+?",
       feature: "Feature",
     },
 
@@ -268,10 +298,10 @@ export const en = {
             "Yes. You can cancel your subscription at any time. Your access will remain active until the end of the paid period.",
         },
 
-        yearly: {
-          question: "What is different about the yearly plan?",
+        difference: {
+          question: "What is the difference between Pro and Pro+?",
           answer:
-            "The yearly plan is paid once per year and has a lower average monthly cost compared with the monthly subscription.",
+            "Pro unlocks the 7-day forecast with daily precipitation and wind. Pro+ adds the hourly chart and hourly precipitation probability.",
         },
 
         hiddenFees: {

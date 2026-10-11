@@ -586,3 +586,24 @@
     transition: none;
   }
 }
+
+.header__auth-button {
+  padding: 9px 14px;
+
+  color: #65738b;
+  background: transparent;
+
+  border: 1px solid rgba(31, 48, 72, 0.12);
+  border-radius: 10px;
+
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+
+.header__auth-button:hover {
+  color: #172033;
+  background: rgba(31, 48, 72, 0.05);
+}

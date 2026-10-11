@@ -3,6 +3,8 @@ export const pl = {
     weather: "Pogoda",
     premium: "Premium",
     premiumButton: "Premium",
+    signIn: "Zaloguj się",
+    signOut: "Wyloguj się",
   },
 
   home: {
@@ -18,6 +20,13 @@ export const pl = {
       description:
         "Prognoza na 7 dni, wykres godzinowy i prawdopodobieństwo opadów są dostępne w WeatherPro Premium.",
       button: "Otwórz Premium",
+    },
+
+    proPlusLock: {
+      label: "PRO+",
+      title: "Funkcje Pro+",
+      description: "Wykres godzinowy i godzinowe prawdopodobieństwo opadów są dostępne w WeatherPro Pro+.",
+      button: "Przejdź na Pro+",
     },
 
     loading: {
@@ -200,10 +209,22 @@ export const pl = {
         "Otrzymuj więcej danych, więcej prognoz i większą kontrolę nad pogodą.",
     },
 
-    billing: {
-      monthly: "Miesięcznie",
-      yearly: "Rocznie",
-      discount: "−33%",
+    plans: {
+      current: "Aktualny plan",
+      included: "W zestawie",
+      perMonth: "miesięcznie",
+      includedFree: "Wszystko z Free",
+      includedPro: "Wszystko z Pro",
+      pro: {
+        name: "Pro",
+        description: "Rozszerzona prognoza do planowania tygodnia.",
+        button: "Wybierz Pro",
+      },
+      proPlus: {
+        name: "Pro+",
+        description: "Szczegóły godzinowe i pełen zestaw danych pogodowych.",
+        button: "Wybierz Pro+",
+      },
     },
 
     currency: "UAH",
@@ -228,7 +249,14 @@ export const pl = {
       allFree: "Wszystko z planu darmowego",
       button: "Uzyskaj Premium",
       note: "Bez ukrytych opłat · Anuluj w dowolnym momencie",
-      alert: "Integracja RevenueCat zostanie dodana na następnym etapie.",
+      active: "Masz Premium",
+      processing: "Przetwarzanie...",
+      signIn: "Zaloguj się, aby subskrybować",
+      error: {
+        config: "Płatności nie są skonfigurowane.",
+        load: "Nie udało się wczytać danych subskrypcji.",
+        purchase: "Płatność nie powiodła się. Spróbuj ponownie.",
+      },
     },
 
     features: {
@@ -240,12 +268,14 @@ export const pl = {
       hourlyChart: "Wykres godzinowy",
       precipitationProbability: "Prawdopodobieństwo opadów",
       advancedWind: "Rozszerzone dane o wietrze",
+      dailyPrecipitation: "Dzienne prawdopodobieństwo opadów",
+      hourlyPrecipitation: "Godzinowe prawdopodobieństwo opadów",
     },
 
     comparison: {
       eyebrow: "PORÓWNANIE",
       titleFirst: "Co otrzymujesz",
-      titleSecond: "z Premium?",
+      titleSecond: "z Pro i Pro+?",
       feature: "Funkcja",
     },
 
@@ -266,10 +296,10 @@ export const pl = {
             "Tak. Możesz anulować subskrypcję w dowolnym momencie. Dostęp pozostanie aktywny do końca opłaconego okresu.",
         },
 
-        yearly: {
-          question: "Czym różni się plan roczny?",
+        difference: {
+          question: "Jaka jest różnica między Pro a Pro+?",
           answer:
-            "Plan roczny jest opłacany raz w roku i ma niższy średni koszt miesięczny w porównaniu z subskrypcją miesięczną.",
+            "Pro odblokowuje 7-dniową prognozę z dziennymi opadami i wiatrem. Pro+ dodaje wykres godzinowy i godzinowe prawdopodobieństwo opadów.",
         },
 
         hiddenFees: {
