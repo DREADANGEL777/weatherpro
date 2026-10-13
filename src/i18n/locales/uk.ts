@@ -48,6 +48,7 @@ export const uk = {
     humidity: "Вологість",
     wind: "Вітер",
     cloudiness: "Хмарність",
+    uvIndex: "УФ-індекс",
     pressure: "Тиск",
     gusts: "Пориви вітру",
     precipitation: "Опади",

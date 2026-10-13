@@ -1,17 +1,14 @@
-import type { Location, WeatherResponse } from "../types/weather";
+import type { Location, WeatherResponse } from "../types/weather"
 
-const WEATHER_API_URL = "https://api.open-meteo.com/v1/forecast";
+const WEATHER_API_URL = "https://api.open-meteo.com/v1/forecast"
 
-const GEOCODING_API_URL = "https://geocoding-api.open-meteo.com/v1/search";
+const GEOCODING_API_URL = "https://geocoding-api.open-meteo.com/v1/search"
 
-export async function searchLocation(
-  query: string,
-  language: string,
-): Promise<Location[]> {
-  const trimmedQuery = query.trim();
+export async function searchLocation(query: string, language: string): Promise<Location[]> {
+  const trimmedQuery = query.trim()
 
   if (!trimmedQuery) {
-    return [];
+    return []
   }
 
   const params = new URLSearchParams({
@@ -19,23 +16,20 @@ export async function searchLocation(
     count: "5",
     language,
     format: "json",
-  });
+  })
 
-  const response = await fetch(`${GEOCODING_API_URL}?${params.toString()}`);
+  const response = await fetch(`${GEOCODING_API_URL}?${params.toString()}`)
 
   if (!response.ok) {
-    throw new Error("Failed to search location");
+    throw new Error("Failed to search location")
   }
 
-  const data = await response.json();
+  const data = await response.json()
 
-  return data.results ?? [];
+  return data.results ?? []
 }
 
-export async function getWeather(
-  latitude: number,
-  longitude: number,
-): Promise<WeatherResponse> {
+export async function getWeather(latitude: number, longitude: number): Promise<WeatherResponse> {
   const params = new URLSearchParams({
     latitude: String(latitude),
     longitude: String(longitude),
@@ -44,6 +38,7 @@ export async function getWeather(
       "temperature_2m",
       "relative_humidity_2m",
       "apparent_temperature",
+      "uv_index",
       "precipitation",
       "rain",
       "showers",
@@ -99,13 +94,13 @@ export async function getWeather(
     temperature_unit: "celsius",
     wind_speed_unit: "kmh",
     precipitation_unit: "mm",
-  });
+  })
 
-  const response = await fetch(`${WEATHER_API_URL}?${params.toString()}`);
+  const response = await fetch(`${WEATHER_API_URL}?${params.toString()}`)
 
   if (!response.ok) {
-    throw new Error("Failed to fetch weather");
+    throw new Error("Failed to fetch weather")
   }
 
-  return response.json();
+  return response.json()
 }

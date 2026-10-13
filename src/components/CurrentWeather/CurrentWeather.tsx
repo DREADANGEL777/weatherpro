@@ -1,23 +1,23 @@
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next"
 
-import type { Location, WeatherResponse } from "../../types/weather";
+import type { Location, WeatherResponse } from "../../types/weather"
 
-import { getWeatherDescription } from "../../utils/weatherCode";
-import { translateCountry } from "../../utils/countryTranslation";
+import { getWeatherDescription } from "../../utils/weatherCode"
+import { translateCountry } from "../../utils/countryTranslation"
 
-import "./CurrentWeather.css";
+import "./CurrentWeather.css"
 
 interface CurrentWeatherProps {
-  weather: WeatherResponse;
-  location: Location;
-  loading: boolean;
+  weather: WeatherResponse
+  location: Location
+  loading: boolean
 }
 
 function formatTime(time: string, language: string) {
   return new Intl.DateTimeFormat(language, {
     hour: "2-digit",
     minute: "2-digit",
-  }).format(new Date(time));
+  }).format(new Date(time))
 }
 
 function getWindDirection(degrees: number, t: (key: string) => string) {
@@ -30,23 +30,19 @@ function getWindDirection(degrees: number, t: (key: string) => string) {
     "weather.directions.southWest",
     "weather.directions.west",
     "weather.directions.northWest",
-  ];
+  ]
 
-  const index = Math.round(degrees / 45) % 8;
+  const index = Math.round(degrees / 45) % 8
 
-  return t(directions[index]);
+  return t(directions[index])
 }
 
-export function CurrentWeather({
-  weather,
-  location,
-  loading,
-}: CurrentWeatherProps) {
-  const { t, i18n } = useTranslation();
+export function CurrentWeather({ weather, location, loading }: CurrentWeatherProps) {
+  const { t, i18n } = useTranslation()
 
-  const current = weather.current;
+  const current = weather.current
 
-  const weatherDescription = getWeatherDescription(current.weather_code);
+  const weatherDescription = getWeatherDescription(current.weather_code)
 
   return (
     <section className="current-weather">
@@ -72,9 +68,7 @@ export function CurrentWeather({
 
       <div className="current-weather__main">
         <div className="current-weather__temperature">
-          <span className="current-weather__icon">
-            {weatherDescription.icon}
-          </span>
+          <span className="current-weather__icon">{weatherDescription.icon}</span>
 
           <div>
             <div className="current-weather__value">
@@ -137,7 +131,17 @@ export function CurrentWeather({
             <strong>{Math.round(current.cloud_cover)}%</strong>
           </div>
         </div>
+
+        <div className="current-weather__stat">
+          <div className="current-weather__stat-icon">☀️</div>
+
+          <div>
+            <span>{t("weather.uvIndex")}</span>
+
+            <strong>{Math.round(current.uv_index)}</strong>
+          </div>
+        </div>
       </div>
     </section>
-  );
+  )
 }

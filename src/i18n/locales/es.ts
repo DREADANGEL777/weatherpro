@@ -47,6 +47,7 @@ export const es = {
     humidity: "Humedad",
     wind: "Viento",
     cloudiness: "Nubosidad",
+    uvIndex: "Índice UV",
     pressure: "Presión",
     gusts: "Ráfagas de viento",
     precipitation: "Precipitación",

@@ -48,6 +48,7 @@ export const en = {
     humidity: "Humidity",
     wind: "Wind",
     cloudiness: "Cloudiness",
+    uvIndex: "UV index",
     pressure: "Pressure",
     gusts: "Wind gusts",
     precipitation: "Precipitation",

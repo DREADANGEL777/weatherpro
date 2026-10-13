@@ -1,14 +1,9 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 
-import {
-  getWeather,
-  searchLocation,
-} from "../services/weatherApi";
+import { getWeather, searchLocation } from "../services/weatherApi"
 
-import type {
-  Location,
-  WeatherResponse,
-} from "../types/weather";
+import type { Location, WeatherResponse } from "../types/weather"
 
 const DEFAULT_LOCATION: Location = {
   name: "Ternopil",
@@ -17,87 +12,73 @@ const DEFAULT_LOCATION: Location = {
   country: "Ukraine",
   country_code: "UA",
   admin1: "Ternopil Oblast",
-};
+}
 
 export function useWeather() {
-  const [location, setLocation] =
-    useState<Location>(DEFAULT_LOCATION);
+  const { i18n } = useTranslation()
 
-  const [weather, setWeather] =
-    useState<WeatherResponse | null>(null);
+  const [location, setLocation] = useState<Location>(DEFAULT_LOCATION)
 
-  const [locations, setLocations] =
-    useState<Location[]>([]);
+  const [weather, setWeather] = useState<WeatherResponse | null>(null)
 
-  const [loading, setLoading] =
-    useState(false);
+  const [locations, setLocations] = useState<Location[]>([])
 
-  const [searchLoading, setSearchLoading] =
-    useState(false);
+  const [loading, setLoading] = useState(false)
 
-  const [error, setError] =
-    useState<string | null>(null);
+  const [searchLoading, setSearchLoading] = useState(false)
 
-  const loadWeather = useCallback(
-    async (selectedLocation: Location) => {
-      setLoading(true);
-      setError(null);
+  const [error, setError] = useState<string | null>(null)
 
-      try {
-        const data = await getWeather(
-          selectedLocation.latitude,
-          selectedLocation.longitude,
-        );
+  const loadWeather = useCallback(async (selectedLocation: Location) => {
+    setLoading(true)
+    setError(null)
 
-        setWeather(data);
-        setLocation(selectedLocation);
-      } catch {
-        setError(
-          "Не вдалося отримати дані про погоду.",
-        );
-      } finally {
-        setLoading(false);
-      }
-    },
-    [],
-  );
+    try {
+      const data = await getWeather(selectedLocation.latitude, selectedLocation.longitude)
+
+      setWeather(data)
+      setLocation(selectedLocation)
+    } catch {
+      setError("Не вдалося отримати дані про погоду.")
+    } finally {
+      setLoading(false)
+    }
+  }, [])
 
   const search = useCallback(
     async (query: string) => {
       if (!query.trim()) {
-        setLocations([]);
-        return;
+        setLocations([])
+        return
       }
 
-      setSearchLoading(true);
-      setError(null);
+      setSearchLoading(true)
+      setError(null)
 
       try {
-        const results = await searchLocation(query);
+        const results = await searchLocation(query, i18n.language)
 
-        setLocations(results);
+        setLocations(results)
       } catch {
-        setError(
-          "Не вдалося знайти це місто.",
-        );
+        setError("Не вдалося знайти це місто.")
       } finally {
-        setSearchLoading(false);
+        setSearchLoading(false)
       }
     },
-    [],
-  );
+    [i18n.language],
+  )
 
   const selectLocation = useCallback(
     async (selectedLocation: Location) => {
-      setLocations([]);
-      await loadWeather(selectedLocation);
+      setLocations([])
+      await loadWeather(selectedLocation)
     },
     [loadWeather],
-  );
+  )
 
   useEffect(() => {
-    loadWeather(DEFAULT_LOCATION);
-  }, [loadWeather]);
+    loadWeather(DEFAULT_LOCATION)
+  }, [loadWeather])
 
   return {
     location,
@@ -109,5 +90,5 @@ export function useWeather() {
     search,
     selectLocation,
     reload: () => loadWeather(location),
-  };
+  }
 }
