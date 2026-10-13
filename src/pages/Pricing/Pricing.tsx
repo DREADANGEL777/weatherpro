@@ -247,15 +247,16 @@ export function Pricing() {
 
             const owned = tierRank[tier] >= tierRank[plan.tier];
 
-            const label = tier === plan.tier
-              ? t("pricing.plans.current")
-              : owned
-                ? t("pricing.plans.included")
-                : purchasing
-                  ? t("pricing.premium.processing")
-                  : !user
-                    ? t("pricing.premium.signIn")
-                    : t(`pricing.plans.${plan.id}.button`);
+            const label =
+              tier === plan.tier
+                ? t("pricing.plans.current")
+                : owned
+                  ? t("pricing.plans.included")
+                  : purchasing
+                    ? t("pricing.premium.processing")
+                    : !user
+                      ? t("pricing.premium.signIn")
+                      : t(`pricing.plans.${plan.id}.button`);
 
             const disabled =
               owned ||
@@ -341,7 +342,9 @@ export function Pricing() {
                   </p>
                 )}
 
-                <p className="pricing-card__note">{t("pricing.premium.note")}</p>
+                <p className="pricing-card__note">
+                  {t("pricing.premium.note")}
+                </p>
               </article>
             );
           })}
