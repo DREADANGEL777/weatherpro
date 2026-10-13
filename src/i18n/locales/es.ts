@@ -23,16 +23,16 @@ export const es = {
     },
 
     proPlusLock: {
-      label: "PRO+",
-      title: "Funciones Pro+",
-      description: "El gráfico por horas y la probabilidad de precipitación por horas están disponibles con WeatherPro Pro+.",
-      button: "Pasar a Pro+",
+      label: "PREMIUM+",
+      title: "Funciones Premium+",
+      description:
+        "El gráfico por horas y la probabilidad de precipitación por horas están disponibles con WeatherPro Premium+.",
+      button: "Pasar a Premium+",
     },
 
     loading: {
       title: "Cargando el tiempo...",
-      description:
-        "Los datos meteorológicos actuales aparecerán aquí en unos segundos.",
+      description: "Los datos meteorológicos actuales aparecerán aquí en unos segundos.",
     },
   },
   search: {
@@ -93,8 +93,7 @@ export const es = {
     details: {
       eyebrow: "WEATHER DATA",
       title: "Detalles del tiempo",
-      subtitle:
-        "Información detallada sobre las condiciones meteorológicas actuales",
+      subtitle: "Información detallada sobre las condiciones meteorológicas actuales",
 
       pressure: "Presión",
       gusts: "Ráfagas de viento",
@@ -194,12 +193,10 @@ export const es = {
       chartsDescription: "Temperatura y cambios meteorológicos por hora",
 
       precipitation: "Probabilidad de precipitación",
-      precipitationDescription:
-        "Información precisa sobre posibles precipitaciones",
+      precipitationDescription: "Información precisa sobre posibles precipitaciones",
 
       advanced: "Datos avanzados",
-      advancedDescription:
-        "Rachas de viento, presión y datos meteorológicos adicionales",
+      advancedDescription: "Rachas de viento, presión y datos meteorológicos adicionales",
     },
   },
 
@@ -208,8 +205,7 @@ export const es = {
       eyebrow: "WEATHERPRO PREMIUM",
       titleFirst: "Elige tu",
       titleSecond: "nivel meteorológico",
-      description:
-        "Obtén más datos, más pronósticos y más control sobre el tiempo.",
+      description: "Obtén más datos, más pronósticos y más control sobre el tiempo.",
     },
 
     plans: {
@@ -217,16 +213,16 @@ export const es = {
       included: "Incluido",
       perMonth: "al mes",
       includedFree: "Todo lo de Free",
-      includedPro: "Todo lo de Pro",
+      includedPro: "Todo lo de Premium",
       pro: {
-        name: "Pro",
+        name: "Premium",
         description: "Pronóstico ampliado para planificar tu semana.",
-        button: "Elegir Pro",
+        button: "Elegir Premium",
       },
       proPlus: {
-        name: "Pro+",
+        name: "Premium+",
         description: "Detalle por horas y el conjunto completo de datos.",
-        button: "Elegir Pro+",
+        button: "Elegir Premium+",
       },
     },
 
@@ -246,8 +242,7 @@ export const es = {
 
     premium: {
       popular: "MÁS POPULAR",
-      description:
-        "Acceso completo a datos meteorológicos y pronósticos avanzados.",
+      description: "Acceso completo a datos meteorológicos y pronósticos avanzados.",
       per: "por {{period}}",
       saving: "ahorra {{amount}} UAH",
       allFree: "Todo lo incluido en el plan gratuito",
@@ -279,7 +274,7 @@ export const es = {
     comparison: {
       eyebrow: "COMPARACIÓN",
       titleFirst: "¿Qué obtienes",
-      titleSecond: "con Pro y Pro+?",
+      titleSecond: "con Premium y Premium+?",
       feature: "Función",
     },
 
@@ -301,15 +296,14 @@ export const es = {
         },
 
         difference: {
-          question: "¿Cuál es la diferencia entre Pro y Pro+?",
+          question: "¿Cuál es la diferencia entre Premium y Premium+?",
           answer:
-            "Pro desbloquea el pronóstico de 7 días con precipitación y viento diarios. Pro+ añade el gráfico por horas y la probabilidad de precipitación por horas.",
+            "Premium desbloquea el pronóstico de 7 días con precipitación y viento diarios. Premium+ añade el gráfico por horas y la probabilidad de precipitación por horas.",
         },
 
         hiddenFees: {
           question: "¿Hay costes ocultos?",
-          answer:
-            "No. Antes del pago verás el precio completo del plan seleccionado.",
+          answer: "No. Antes del pago verás el precio completo del plan seleccionado.",
         },
       },
     },
@@ -318,8 +312,7 @@ export const es = {
       badge: "WEATHERPRO PREMIUM",
       titleFirst: "El tiempo se vuelve",
       titleSecond: "mucho más interesante.",
-      description:
-        "Prueba Premium y obtén el máximo de información meteorológica.",
+      description: "Prueba Premium y obtén el máximo de información meteorológica.",
       button: "Elegir Premium",
     },
   },
@@ -335,8 +328,7 @@ export const es = {
   loading: {
     weather: "Cargando el tiempo...",
 
-    weatherDescription:
-      "Los datos meteorológicos actuales aparecerán aquí en unos segundos.",
+    weatherDescription: "Los datos meteorológicos actuales aparecerán aquí en unos segundos.",
   },
 
   locked: {
@@ -356,4 +348,4 @@ export const es = {
 
     button: "Volver al inicio",
   },
-} as const;
+} as const

@@ -23,16 +23,16 @@ export const uk = {
     },
 
     proPlusLock: {
-      label: "PRO+",
-      title: "Можливості Pro+",
-      description: "Погодинний графік і ймовірність опадів по годинах доступні в WeatherPro Pro+.",
-      button: "Перейти на Pro+",
+      label: "PREMIUM+",
+      title: "Можливості Premium+",
+      description:
+        "Погодинний графік і ймовірність опадів по годинах доступні в WeatherPro Premium+.",
+      button: "Перейти на Premium+",
     },
 
     loading: {
       title: "Завантажуємо погоду...",
-      description:
-        "Дані про поточну погоду з'являться тут через декілька секунд.",
+      description: "Дані про поточну погоду з'являться тут через декілька секунд.",
     },
   },
 
@@ -202,8 +202,7 @@ export const uk = {
       eyebrow: "WEATHERPRO PREMIUM",
       titleFirst: "Обери свій",
       titleSecond: "рівень погоди",
-      description:
-        "Отримуй більше даних, більше прогнозів та більше контролю над погодою.",
+      description: "Отримуй більше даних, більше прогнозів та більше контролю над погодою.",
     },
 
     plans: {
@@ -211,16 +210,16 @@ export const uk = {
       included: "Включено",
       perMonth: "на місяць",
       includedFree: "Усе з Free",
-      includedPro: "Усе з Pro",
+      includedPro: "Усе з Premium",
       pro: {
-        name: "Pro",
+        name: "Premium",
         description: "Розширений прогноз для планування тижня.",
-        button: "Обрати Pro",
+        button: "Обрати Premium",
       },
       proPlus: {
-        name: "Pro+",
+        name: "Premium+",
         description: "Погодинна деталізація та повний набір даних.",
-        button: "Обрати Pro+",
+        button: "Обрати Premium+",
       },
     },
 
@@ -272,7 +271,7 @@ export const uk = {
     comparison: {
       eyebrow: "ПОРІВНЯННЯ",
       titleFirst: "Що ти отримуєш",
-      titleSecond: "з Pro і Pro+?",
+      titleSecond: "з Premium і Premium+?",
       feature: "Можливість",
     },
 
@@ -294,15 +293,14 @@ export const uk = {
         },
 
         difference: {
-          question: "Яка різниця між Pro і Pro+?",
+          question: "Яка різниця між Premium і Premium+?",
           answer:
-            "Pro відкриває 7-денний прогноз з опадами та вітром по днях. Pro+ додає погодинний графік і ймовірність опадів по годинах.",
+            "Premium відкриває 7-денний прогноз з опадами та вітром по днях. Premium+ додає погодинний графік і ймовірність опадів по годинах.",
         },
 
         hiddenFees: {
           question: "Чи є приховані платежі?",
-          answer:
-            "Ні. Перед оплатою ви побачите повну вартість вибраного плану.",
+          answer: "Ні. Перед оплатою ви побачите повну вартість вибраного плану.",
         },
       },
     },
@@ -333,8 +331,7 @@ export const uk = {
   loading: {
     weather: "Завантажуємо погоду...",
 
-    weatherDescription:
-      "Дані про поточну погоду з'являться тут через декілька секунд.",
+    weatherDescription: "Дані про поточну погоду з'являться тут через декілька секунд.",
   },
 
   locked: {
@@ -354,4 +351,4 @@ export const uk = {
 
     button: "Повернутися на головну",
   },
-} as const;
+} as const

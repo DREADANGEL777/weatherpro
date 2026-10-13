@@ -23,16 +23,16 @@ export const de = {
     },
 
     proPlusLock: {
-      label: "PRO+",
-      title: "Pro+-Funktionen",
-      description: "Das Stundendiagramm und die stündliche Niederschlagswahrscheinlichkeit gibt es mit WeatherPro Pro+.",
-      button: "Auf Pro+ upgraden",
+      label: "PREMIUM+",
+      title: "Premium+-Funktionen",
+      description:
+        "Das Stundendiagramm und die stündliche Niederschlagswahrscheinlichkeit gibt es mit WeatherPro Premium+.",
+      button: "Auf Premium+ upgraden",
     },
 
     loading: {
       title: "Wetter wird geladen...",
-      description:
-        "Die aktuellen Wetterdaten werden in wenigen Sekunden hier angezeigt.",
+      description: "Die aktuellen Wetterdaten werden in wenigen Sekunden hier angezeigt.",
     },
   },
 
@@ -194,8 +194,7 @@ export const de = {
       chartsDescription: "Temperatur und Wetterveränderungen nach Stunden",
 
       precipitation: "Niederschlagswahrscheinlichkeit",
-      precipitationDescription:
-        "Genaue Informationen über mögliche Niederschläge",
+      precipitationDescription: "Genaue Informationen über mögliche Niederschläge",
 
       advanced: "Erweiterte Daten",
       advancedDescription: "Windböen, Luftdruck und zusätzliche Wetterdaten",
@@ -207,8 +206,7 @@ export const de = {
       eyebrow: "WEATHERPRO PREMIUM",
       titleFirst: "Wähle dein",
       titleSecond: "Wetter-Level",
-      description:
-        "Erhalte mehr Daten, mehr Vorhersagen und mehr Kontrolle über das Wetter.",
+      description: "Erhalte mehr Daten, mehr Vorhersagen und mehr Kontrolle über das Wetter.",
     },
 
     plans: {
@@ -216,16 +214,16 @@ export const de = {
       included: "Enthalten",
       perMonth: "pro Monat",
       includedFree: "Alles aus Free",
-      includedPro: "Alles aus Pro",
+      includedPro: "Alles aus Premium",
       pro: {
-        name: "Pro",
+        name: "Premium",
         description: "Erweiterte Vorhersage zur Wochenplanung.",
-        button: "Pro wählen",
+        button: "Premium wählen",
       },
       proPlus: {
-        name: "Pro+",
+        name: "Premium+",
         description: "Stündliche Details und das volle Wetterdatenpaket.",
-        button: "Pro+ wählen",
+        button: "Premium+ wählen",
       },
     },
 
@@ -245,8 +243,7 @@ export const de = {
 
     premium: {
       popular: "AM BELIEBTESTEN",
-      description:
-        "Vollständiger Zugriff auf erweiterte Wetterdaten und Vorhersagen.",
+      description: "Vollständiger Zugriff auf erweiterte Wetterdaten und Vorhersagen.",
       per: "pro {{period}}",
       saving: "{{amount}} UAH sparen",
       allFree: "Alles aus dem kostenlosen Plan",
@@ -278,7 +275,7 @@ export const de = {
     comparison: {
       eyebrow: "VERGLEICH",
       titleFirst: "Was bekommst du",
-      titleSecond: "mit Pro und Pro+?",
+      titleSecond: "mit Premium und Premium+?",
       feature: "Funktion",
     },
 
@@ -300,15 +297,14 @@ export const de = {
         },
 
         difference: {
-          question: "Was ist der Unterschied zwischen Pro und Pro+?",
+          question: "Was ist der Unterschied zwischen Premium und Premium+?",
           answer:
-            "Pro schaltet die 7-Tage-Vorhersage mit täglichem Niederschlag und Wind frei. Pro+ ergänzt das Stundendiagramm und die stündliche Niederschlagswahrscheinlichkeit.",
+            "Premium schaltet die 7-Tage-Vorhersage mit täglichem Niederschlag und Wind frei. Premium+ ergänzt das Stundendiagramm und die stündliche Niederschlagswahrscheinlichkeit.",
         },
 
         hiddenFees: {
           question: "Gibt es versteckte Gebühren?",
-          answer:
-            "Nein. Vor der Zahlung siehst du den vollständigen Preis des ausgewählten Plans.",
+          answer: "Nein. Vor der Zahlung siehst du den vollständigen Preis des ausgewählten Plans.",
         },
       },
     },
@@ -317,8 +313,7 @@ export const de = {
       badge: "WEATHERPRO PREMIUM",
       titleFirst: "Das Wetter wird",
       titleSecond: "viel interessanter.",
-      description:
-        "Probiere Premium aus und erhalte maximale Wetterinformationen.",
+      description: "Probiere Premium aus und erhalte maximale Wetterinformationen.",
       button: "Premium auswählen",
     },
   },
@@ -335,8 +330,7 @@ export const de = {
   loading: {
     weather: "Wetter wird geladen...",
 
-    weatherDescription:
-      "Die aktuellen Wetterdaten werden in wenigen Sekunden hier angezeigt.",
+    weatherDescription: "Die aktuellen Wetterdaten werden in wenigen Sekunden hier angezeigt.",
   },
 
   locked: {
@@ -356,4 +350,4 @@ export const de = {
 
     button: "Zur Startseite",
   },
-} as const;
+} as const

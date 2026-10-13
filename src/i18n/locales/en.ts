@@ -23,10 +23,11 @@ export const en = {
     },
 
     proPlusLock: {
-      label: "PRO+",
-      title: "Pro+ features",
-      description: "The hourly chart and hourly precipitation probability are available with WeatherPro Pro+.",
-      button: "Upgrade to Pro+",
+      label: "PREMIUM+",
+      title: "Premium+ features",
+      description:
+        "The hourly chart and hourly precipitation probability are available with WeatherPro Premium+.",
+      button: "Upgrade to Premium+",
     },
 
     loading: {
@@ -194,8 +195,7 @@ export const en = {
       chartsDescription: "Temperature and weather changes by hour",
 
       precipitation: "Precipitation probability",
-      precipitationDescription:
-        "Accurate information about possible precipitation",
+      precipitationDescription: "Accurate information about possible precipitation",
 
       advanced: "Advanced data",
       advancedDescription: "Wind gusts, pressure and additional weather data",
@@ -207,8 +207,7 @@ export const en = {
       eyebrow: "WEATHERPRO PREMIUM",
       titleFirst: "Choose your",
       titleSecond: "weather level",
-      description:
-        "Get more data, more forecasts, and more control over the weather.",
+      description: "Get more data, more forecasts, and more control over the weather.",
     },
 
     plans: {
@@ -216,16 +215,16 @@ export const en = {
       included: "Included",
       perMonth: "per month",
       includedFree: "Everything in Free",
-      includedPro: "Everything in Pro",
+      includedPro: "Everything in Premium",
       pro: {
-        name: "Pro",
+        name: "Premium",
         description: "Extended forecast for planning your week.",
-        button: "Get Pro",
+        button: "Get Premium",
       },
       proPlus: {
-        name: "Pro+",
+        name: "Premium+",
         description: "Hourly detail and the full set of weather data.",
-        button: "Get Pro+",
+        button: "Get Premium+",
       },
     },
 
@@ -277,7 +276,7 @@ export const en = {
     comparison: {
       eyebrow: "COMPARISON",
       titleFirst: "What do you get",
-      titleSecond: "with Pro and Pro+?",
+      titleSecond: "with Premium and Premium+?",
       feature: "Feature",
     },
 
@@ -299,15 +298,14 @@ export const en = {
         },
 
         difference: {
-          question: "What is the difference between Pro and Pro+?",
+          question: "What is the difference between Premium and Premium+?",
           answer:
-            "Pro unlocks the 7-day forecast with daily precipitation and wind. Pro+ adds the hourly chart and hourly precipitation probability.",
+            "Premium unlocks the 7-day forecast with daily precipitation and wind. Premium+ adds the hourly chart and hourly precipitation probability.",
         },
 
         hiddenFees: {
           question: "Are there any hidden fees?",
-          answer:
-            "No. You will see the full price of the selected plan before payment.",
+          answer: "No. You will see the full price of the selected plan before payment.",
         },
       },
     },
@@ -333,8 +331,7 @@ export const en = {
   loading: {
     weather: "Loading weather...",
 
-    weatherDescription:
-      "Current weather data will appear here in a few seconds.",
+    weatherDescription: "Current weather data will appear here in a few seconds.",
   },
 
   locked: {
@@ -354,4 +351,4 @@ export const en = {
 
     button: "Back to home",
   },
-} as const;
+} as const

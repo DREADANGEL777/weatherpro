@@ -1,12 +1,12 @@
-import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import { useEffect, useRef, useState } from "react"
+import { Link } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
-import { Header } from "../../components/Header/Header";
-import { useAuth } from "../../hooks/useAuth";
-import { useSubscription } from "../../hooks/useSubscription";
+import { Header } from "../../components/Header/Header"
+import { useAuth } from "../../hooks/useAuth"
+import { useSubscription } from "../../hooks/useSubscription"
 
-import "./Pricing.css";
+import "./Pricing.css"
 
 const features = [
   { key: "currentWeather", free: true, pro: true, proPlus: true },
@@ -17,7 +17,7 @@ const features = [
   { key: "advancedWind", free: false, pro: true, proPlus: true },
   { key: "hourlyChart", free: false, pro: false, proPlus: true },
   { key: "hourlyPrecipitation", free: false, pro: false, proPlus: true },
-];
+]
 
 const plans = [
   {
@@ -38,9 +38,9 @@ const plans = [
     includes: "includedPro",
     features: ["hourlyChart", "hourlyPrecipitation"],
   },
-] as const;
+] as const
 
-const tierRank = { free: 0, pro: 1, pro_plus: 2 } as const;
+const tierRank = { free: 0, pro: 1, pro_plus: 2 } as const
 
 const faqs = [
   {
@@ -55,36 +55,33 @@ const faqs = [
   {
     key: "hiddenFees",
   },
-];
+]
 
 export function Pricing() {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
-  const { user, signInWithGoogle } = useAuth();
-  const { tier, loading, purchasing, error, packages, purchasePackage } =
-    useSubscription();
+  const { user, signInWithGoogle } = useAuth()
+  const { tier, loading, purchasing, error, packages, purchasePackage } = useSubscription()
 
   const handleSubscribe = async (packageId: string) => {
     if (!user) {
-      await signInWithGoogle();
+      await signInWithGoogle()
 
-      return;
+      return
     }
 
-    const selectedPackage = packages.find(
-      (item) => item.identifier === packageId,
-    );
+    const selectedPackage = packages.find((item) => item.identifier === packageId)
 
     if (selectedPackage) {
-      await purchasePackage(selectedPackage);
+      await purchasePackage(selectedPackage)
     }
-  };
+  }
 
-  const heroRef = useRef<HTMLElement | null>(null);
-  const plansRef = useRef<HTMLElement | null>(null);
-  const comparisonRef = useRef<HTMLElement | null>(null);
-  const faqRef = useRef<HTMLElement | null>(null);
-  const ctaRef = useRef<HTMLElement | null>(null);
+  const heroRef = useRef<HTMLElement | null>(null)
+  const plansRef = useRef<HTMLElement | null>(null)
+  const comparisonRef = useRef<HTMLElement | null>(null)
+  const faqRef = useRef<HTMLElement | null>(null)
+  const ctaRef = useRef<HTMLElement | null>(null)
 
   const [visibleSections, setVisibleSections] = useState({
     hero: false,
@@ -92,7 +89,7 @@ export function Pricing() {
     comparison: false,
     faq: false,
     cta: false,
-  });
+  })
 
   useEffect(() => {
     const elements = [
@@ -116,42 +113,40 @@ export function Pricing() {
         element: ctaRef.current,
         key: "cta" as const,
       },
-    ];
+    ]
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
+          if (!entry.isIntersecting) return
 
-          const key = elements.find(
-            (item) => item.element === entry.target,
-          )?.key;
+          const key = elements.find((item) => item.element === entry.target)?.key
 
-          if (!key) return;
+          if (!key) return
 
           setVisibleSections((prev) => ({
             ...prev,
             [key]: true,
-          }));
+          }))
 
-          observer.unobserve(entry.target);
-        });
+          observer.unobserve(entry.target)
+        })
       },
       {
         threshold: 0.12,
       },
-    );
+    )
 
     elements.forEach(({ element }) => {
       if (element) {
-        observer.observe(element);
+        observer.observe(element)
       }
-    });
+    })
 
     return () => {
-      observer.disconnect();
-    };
-  }, []);
+      observer.disconnect()
+    }
+  }, [])
 
   return (
     <div className="pricing">
@@ -160,9 +155,7 @@ export function Pricing() {
       <main className="pricing__main">
         <section
           ref={heroRef}
-          className={`pricing__hero ${
-            visibleSections.hero ? "pricing__section--visible" : ""
-          }`}
+          className={`pricing__hero ${visibleSections.hero ? "pricing__section--visible" : ""}`}
         >
           <span className="pricing__eyebrow">{t("pricing.hero.eyebrow")}</span>
 
@@ -172,16 +165,12 @@ export function Pricing() {
             <span>{t("pricing.hero.titleSecond")}</span>
           </h1>
 
-          <p className="pricing__description">
-            {t("pricing.hero.description")}
-          </p>
+          <p className="pricing__description">{t("pricing.hero.description")}</p>
         </section>
 
         <section
           ref={plansRef}
-          className={`pricing__plans ${
-            visibleSections.plans ? "pricing__section--visible" : ""
-          }`}
+          className={`pricing__plans ${visibleSections.plans ? "pricing__section--visible" : ""}`}
         >
           <article className="pricing-card pricing-card--free">
             <div className="pricing-card__top">
@@ -191,9 +180,7 @@ export function Pricing() {
 
               <h2 className="pricing-card__name">{t("pricing.free.name")}</h2>
 
-              <p className="pricing-card__description">
-                {t("pricing.free.description")}
-              </p>
+              <p className="pricing-card__description">{t("pricing.free.description")}</p>
 
               <div className="pricing-card__price">
                 <strong>0</strong>
@@ -230,22 +217,17 @@ export function Pricing() {
               </li>
             </ul>
 
-            <Link
-              to="/"
-              className="pricing-card__button pricing-card__button--secondary"
-            >
+            <Link to="/" className="pricing-card__button pricing-card__button--secondary">
               {t("pricing.free.button")}
             </Link>
           </article>
 
           {plans.map((plan) => {
-            const selectedPackage = packages.find(
-              (item) => item.identifier === plan.packageId,
-            );
+            const selectedPackage = packages.find((item) => item.identifier === plan.packageId)
 
-            const price = selectedPackage?.webBillingProduct.currentPrice;
+            const price = selectedPackage?.webBillingProduct.currentPrice
 
-            const owned = tierRank[tier] >= tierRank[plan.tier];
+            const owned = tierRank[tier] >= tierRank[plan.tier]
 
             const label =
               tier === plan.tier
@@ -256,12 +238,9 @@ export function Pricing() {
                     ? t("pricing.premium.processing")
                     : !user
                       ? t("pricing.premium.signIn")
-                      : t(`pricing.plans.${plan.id}.button`);
+                      : t(`pricing.plans.${plan.id}.button`)
 
-            const disabled =
-              owned ||
-              purchasing ||
-              (Boolean(user) && (loading || !selectedPackage));
+            const disabled = owned || purchasing || (Boolean(user) && (loading || !selectedPackage))
 
             return (
               <article
@@ -303,9 +282,7 @@ export function Pricing() {
                     )}
                   </div>
 
-                  <p className="pricing-card__period">
-                    {t("pricing.plans.perMonth")}
-                  </p>
+                  <p className="pricing-card__period">{t("pricing.plans.perMonth")}</p>
                 </div>
 
                 <ul className="pricing-card__features">
@@ -342,11 +319,9 @@ export function Pricing() {
                   </p>
                 )}
 
-                <p className="pricing-card__note">
-                  {t("pricing.premium.note")}
-                </p>
+                <p className="pricing-card__note">{t("pricing.premium.note")}</p>
               </article>
-            );
+            )
           })}
         </section>
 
@@ -372,9 +347,9 @@ export function Pricing() {
 
               <span>Free</span>
 
-              <span>Pro</span>
+              <span>Premium</span>
 
-              <span>Pro+</span>
+              <span>Premium+</span>
             </div>
 
             {features.map((feature) => (
@@ -393,9 +368,7 @@ export function Pricing() {
 
         <section
           ref={faqRef}
-          className={`pricing__faq ${
-            visibleSections.faq ? "pricing__section--visible" : ""
-          }`}
+          className={`pricing__faq ${visibleSections.faq ? "pricing__section--visible" : ""}`}
         >
           <div className="pricing__section-heading">
             <span>{t("pricing.faq.eyebrow")}</span>
@@ -425,9 +398,7 @@ export function Pricing() {
           }`}
         >
           <div>
-            <span className="pricing__bottom-badge">
-              ✦ {t("pricing.bottom.badge")}
-            </span>
+            <span className="pricing__bottom-badge">✦ {t("pricing.bottom.badge")}</span>
 
             <h2>
               {t("pricing.bottom.titleFirst")}
@@ -445,7 +416,7 @@ export function Pricing() {
               window.scrollTo({
                 top: 0,
                 behavior: "smooth",
-              });
+              })
             }}
           >
             {t("pricing.bottom.button")}
@@ -454,5 +425,5 @@ export function Pricing() {
         </section>
       </main>
     </div>
-  );
+  )
 }

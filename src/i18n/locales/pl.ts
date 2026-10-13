@@ -23,10 +23,11 @@ export const pl = {
     },
 
     proPlusLock: {
-      label: "PRO+",
-      title: "Funkcje Pro+",
-      description: "Wykres godzinowy i godzinowe prawdopodobieństwo opadów są dostępne w WeatherPro Pro+.",
-      button: "Przejdź na Pro+",
+      label: "PREMIUM+",
+      title: "Funkcje Premium+",
+      description:
+        "Wykres godzinowy i godzinowe prawdopodobieństwo opadów są dostępne w WeatherPro Premium+.",
+      button: "Przejdź na Premium+",
     },
 
     loading: {
@@ -205,8 +206,7 @@ export const pl = {
       eyebrow: "WEATHERPRO PREMIUM",
       titleFirst: "Wybierz swój",
       titleSecond: "poziom pogody",
-      description:
-        "Otrzymuj więcej danych, więcej prognoz i większą kontrolę nad pogodą.",
+      description: "Otrzymuj więcej danych, więcej prognoz i większą kontrolę nad pogodą.",
     },
 
     plans: {
@@ -214,16 +214,16 @@ export const pl = {
       included: "W zestawie",
       perMonth: "miesięcznie",
       includedFree: "Wszystko z Free",
-      includedPro: "Wszystko z Pro",
+      includedPro: "Wszystko z Premium",
       pro: {
-        name: "Pro",
+        name: "Premium",
         description: "Rozszerzona prognoza do planowania tygodnia.",
-        button: "Wybierz Pro",
+        button: "Wybierz Premium",
       },
       proPlus: {
-        name: "Pro+",
+        name: "Premium+",
         description: "Szczegóły godzinowe i pełen zestaw danych pogodowych.",
-        button: "Wybierz Pro+",
+        button: "Wybierz Premium+",
       },
     },
 
@@ -275,7 +275,7 @@ export const pl = {
     comparison: {
       eyebrow: "PORÓWNANIE",
       titleFirst: "Co otrzymujesz",
-      titleSecond: "z Pro i Pro+?",
+      titleSecond: "z Premium i Premium+?",
       feature: "Funkcja",
     },
 
@@ -297,9 +297,9 @@ export const pl = {
         },
 
         difference: {
-          question: "Jaka jest różnica między Pro a Pro+?",
+          question: "Jaka jest różnica między Premium a Premium+?",
           answer:
-            "Pro odblokowuje 7-dniową prognozę z dziennymi opadami i wiatrem. Pro+ dodaje wykres godzinowy i godzinowe prawdopodobieństwo opadów.",
+            "Premium odblokowuje 7-dniową prognozę z dziennymi opadami i wiatrem. Premium+ dodaje wykres godzinowy i godzinowe prawdopodobieństwo opadów.",
         },
 
         hiddenFees: {
@@ -330,8 +330,7 @@ export const pl = {
   loading: {
     weather: "Ładowanie pogody...",
 
-    weatherDescription:
-      "Aktualne dane pogodowe pojawią się tutaj za kilka sekund.",
+    weatherDescription: "Aktualne dane pogodowe pojawią się tutaj za kilka sekund.",
   },
 
   locked: {
@@ -351,4 +350,4 @@ export const pl = {
 
     button: "Wróć na stronę główną",
   },
-} as const;
+} as const
