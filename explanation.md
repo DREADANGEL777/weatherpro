@@ -27,9 +27,9 @@ VITE_FIREBASE_APP_ID=
 ## 3. RevenueCat (billing)
 
 1. Create a RevenueCat project and add a **Web Billing** app (connect Stripe in test mode).
-2. Create two products: **Pro** and **Pro+** (monthly subscriptions).
-3. Entitlements: create `pro` (attach the Pro product) and `pro_plus` (attach the Pro+ product).
-4. Offerings: create an offering, mark it **current**, and add two custom packages with identifiers `pro` and `pro_plus`.
+2. In the RevenueCat Billing product catalog, create two monthly subscription products with identifiers `premium` and `premium_plus`. Set their customer-facing names to **WeatherPro Premium** and **WeatherPro Premium+**.
+3. Create entitlements `pro` and `pro_plus`; attach product `premium` to `pro`, and product `premium_plus` to `pro_plus`.
+4. Create an offering and mark it **current**. Add two custom packages with identifiers `premium` and `premium_plus`, attaching the matching product to each package. The app looks up packages by these identifiers.
 5. Copy the app's **public API key** (the Web Billing sandbox key while testing) into `.env`:
 
 ```
@@ -42,18 +42,18 @@ Restart `npm run dev` after editing `.env`.
 
 1. Open `/`. The forecast and chart are locked (Free plan).
 2. Click **Sign in** in the header and log in with Google. The button changes to **Sign out**.
-3. Open `/pricing`. Free, Pro and Pro+ cards show; prices come from RevenueCat.
-4. Click **Get Pro** or **Get Pro+**. If not signed in, it asks you to sign in first.
+3. Open `/pricing`. Free, Premium and Premium+ cards show; prices come from RevenueCat.
+4. Click **Get Premium** or **Get Premium+**. If not signed in, it asks you to sign in first.
 5. Complete checkout with a Stripe test card, for example `4242 4242 4242 4242`, any future expiry date and any CVC.
-6. Pro unlocks the 7-day forecast; Pro+ also unlocks the hourly chart. The purchased card shows **Current plan**.
+6. Premium unlocks the 7-day forecast; Premium+ also unlocks the hourly chart. The purchased card shows **Current plan**.
 7. Reload the page: your plan persists, because it is tied to your Firebase user id.
-8. Sign out: Pro and Pro+ content locks again. Sign back in: it unlocks again.
-9. As a Pro user, `/` shows an upgrade card in place of the hourly chart. Buying Pro+ from `/pricing` removes it.
+8. Sign out: Premium and Premium+ content locks again. Sign back in: it unlocks again.
+9. As a Premium subscriber, `/` shows an upgrade card in place of the hourly chart. Buying Premium+ from `/pricing` removes it.
 
 ## 5. Troubleshooting
 
 - **White screen:** check the browser console. Restart the dev server after changing `.env`.
-- **Button disabled on the pricing page:** the current offering has no `pro` / `pro_plus` package, or the RevenueCat key is wrong.
+- **Button disabled on the pricing page:** the current offering has no `premium` / `premium_plus` package, or the RevenueCat key is wrong.
 - **Google popup blocked or `auth/unauthorized-domain`:** add the domain to Firebase authorized domains.
 - **Purchase succeeds but stays locked:** entitlement identifiers must be exactly `pro` and `pro_plus`.
 

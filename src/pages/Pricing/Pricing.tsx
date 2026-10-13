@@ -23,7 +23,7 @@ const plans = [
   {
     id: "pro",
     tier: "pro",
-    packageId: "pro",
+    packageId: "premium",
     fallbackPrice: 99,
     popular: false,
     includes: "includedFree",
@@ -32,7 +32,7 @@ const plans = [
   {
     id: "proPlus",
     tier: "pro_plus",
-    packageId: "pro_plus",
+    packageId: "premium_plus",
     fallbackPrice: 199,
     popular: true,
     includes: "includedPro",
