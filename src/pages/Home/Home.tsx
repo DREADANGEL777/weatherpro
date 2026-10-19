@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import SEO from "../../components/SEO";
 import { Header } from "../../components/Header/Header";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
 import { CurrentWeather } from "../../components/CurrentWeather/CurrentWeather";
@@ -15,9 +16,9 @@ import { useWeather } from "../../hooks/useWeather";
 import "./Home.css";
 
 export function Home() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
-  const { hasPro, hasProPlus } = useSubscription()
+  const { hasPro, hasProPlus } = useSubscription();
 
   const lockKey = !hasPro ? "premiumLock" : !hasProPlus ? "proPlusLock" : null;
 
@@ -66,91 +67,99 @@ export function Home() {
   };
 
   return (
-    <div className="home">
-      <Header />
+    <>
+      <SEO
+        title="WeatherPro — Current Weather & Forecasts"
+        description="Check current weather conditions and forecasts with WeatherPro."
+        lang={i18n.resolvedLanguage || i18n.language || "en"}
+      />
 
-      <main className="home__main">
-        <section className="home__hero">
-          <div className="home__hero-content">
-            <h1 className="home__title">
-              {t("home.titleFirst")}
-              <br />
-              <span>{t("home.titleSecond")}</span>
-            </h1>
+      <div className="home">
+        <Header />
 
-            <p className="home__description">{t("home.description")}</p>
+        <main className="home__main">
+          <section className="home__hero">
+            <div className="home__hero-content">
+              <h1 className="home__title">
+                {t("home.titleFirst")}
+                <br />
+                <span>{t("home.titleSecond")}</span>
+              </h1>
 
-            <SearchBar
-              locations={locations}
-              loading={loading}
-              searchLoading={searchLoading}
-              onSearch={search}
-              onSelectLocation={selectLocation}
-            />
-          </div>
-        </section>
+              <p className="home__description">{t("home.description")}</p>
 
-        <section className="home__weather">
-          {weather ? (
-            <>
-              <CurrentWeather
-                weather={weather}
-                location={location}
+              <SearchBar
+                locations={locations}
                 loading={loading}
+                searchLoading={searchLoading}
+                onSearch={search}
+                onSelectLocation={selectLocation}
               />
-
-              <WeatherDetails weather={weather} />
-
-              {hasPro && <Forecast weather={weather} />}
-
-              {hasProPlus && <WeatherChart weather={weather} />}
-
-              {lockKey && (
-                <section className="home__premium-lock">
-                  <div className="home__premium-lock-icon">✦</div>
-
-                  <div className="home__premium-lock-content">
-                    <span className="home__premium-lock-label">
-                      {t(`home.${lockKey}.label`)}
-                    </span>
-
-                    <h2>{t(`home.${lockKey}.title`)}</h2>
-
-                    <p>{t(`home.${lockKey}.description`)}</p>
-                  </div>
-
-                  <a href="/pricing" className="home__premium-lock-button">
-                    {t(`home.${lockKey}.button`)}
-                    <span>→</span>
-                  </a>
-                </section>
-              )}
-
-              <PremiumCard />
-            </>
-          ) : (
-            <div className="home__weather-placeholder">
-              <span>☀️</span>
-
-              <h2>{t("home.loading.title")}</h2>
-
-              <p>{t("home.loading.description")}</p>
             </div>
-          )}
-        </section>
-      </main>
+          </section>
 
-      {/* Scroll to top */}
-      <button
-        type="button"
-        className={`home__scroll-top ${
-          showScrollTop ? "home__scroll-top--visible" : ""
-        }`}
-        onClick={scrollToTop}
-        aria-label="Scroll to top"
-      >
-        <span className="home__scroll-top-arrow">↑</span>
-      </button>
-    </div>
+          <section className="home__weather">
+            {weather ? (
+              <>
+                <CurrentWeather
+                  weather={weather}
+                  location={location}
+                  loading={loading}
+                />
+
+                <WeatherDetails weather={weather} />
+
+                {hasPro && <Forecast weather={weather} />}
+
+                {hasProPlus && <WeatherChart weather={weather} />}
+
+                {lockKey && (
+                  <section className="home__premium-lock">
+                    <div className="home__premium-lock-icon">✦</div>
+
+                    <div className="home__premium-lock-content">
+                      <span className="home__premium-lock-label">
+                        {t(`home.${lockKey}.label`)}
+                      </span>
+
+                      <h2>{t(`home.${lockKey}.title`)}</h2>
+
+                      <p>{t(`home.${lockKey}.description`)}</p>
+                    </div>
+
+                    <a href="/pricing" className="home__premium-lock-button">
+                      {t(`home.${lockKey}.button`)}
+                      <span>→</span>
+                    </a>
+                  </section>
+                )}
+
+                <PremiumCard />
+              </>
+            ) : (
+              <div className="home__weather-placeholder">
+                <span>☀️</span>
+
+                <h2>{t("home.loading.title")}</h2>
+
+                <p>{t("home.loading.description")}</p>
+              </div>
+            )}
+          </section>
+        </main>
+
+        {/* Scroll to top */}
+        <button
+          type="button"
+          className={`home__scroll-top ${
+            showScrollTop ? "home__scroll-top--visible" : ""
+          }`}
+          onClick={scrollToTop}
+          aria-label="Scroll to top"
+        >
+          <span className="home__scroll-top-arrow">↑</span>
+        </button>
+      </div>
+    </>
   );
 }

@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import { useAuth } from "../../hooks/useAuth";
@@ -20,17 +20,6 @@ export function Header() {
             Weather<span>Pro</span>
           </span>
         </Link>
-
-        <nav className="header__nav">
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              `header__link ${isActive ? "header__link--active" : ""}`
-            }
-          >
-            {t("header.weather")}
-          </NavLink>
-        </nav>
 
         <LanguageSwitcher />
 
