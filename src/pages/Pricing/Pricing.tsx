@@ -160,6 +160,7 @@ export function Pricing() {
         title="WeatherPro Pricing — Free, Pro & Pro+ Plans"
         description="Compare WeatherPro Free, Pro, and Pro+ plans. Explore weather forecasts, detailed weather data, and premium features."
         lang={i18n.resolvedLanguage || i18n.language || "en"}
+        canonical="https://weatherpro.site/pricing"
       />
 
       <div className="pricing">

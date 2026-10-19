@@ -8,6 +8,8 @@ type SEOProps = {
   canonical?: string;
 };
 
+const SITE_URL = "https://weatherpro.site";
+
 function setMeta(
   selector: string,
   attribute: "name" | "property",
@@ -22,7 +24,7 @@ function setMeta(
     document.head.appendChild(element);
   }
 
-  element.setAttribute("content", content);
+  element.content = content;
 }
 
 export default function SEO({
@@ -47,6 +49,13 @@ export default function SEO({
 
     setMeta('meta[property="og:type"]', "property", "og:type", "website");
 
+    setMeta(
+      'meta[property="og:site_name"]',
+      "property",
+      "og:site_name",
+      "WeatherPro",
+    );
+
     setMeta('meta[property="og:title"]', "property", "og:title", title);
 
     setMeta(
@@ -54,6 +63,13 @@ export default function SEO({
       "property",
       "og:description",
       description,
+    );
+
+    setMeta(
+      'meta[property="og:url"]',
+      "property",
+      "og:url",
+      canonical ?? `${SITE_URL}${window.location.pathname}`,
     );
 
     setMeta(
@@ -78,17 +94,14 @@ export default function SEO({
       'link[rel="canonical"]',
     );
 
-    if (canonical) {
-      if (!canonicalElement) {
-        canonicalElement = document.createElement("link");
-        canonicalElement.rel = "canonical";
-        document.head.appendChild(canonicalElement);
-      }
-
-      canonicalElement.href = canonical;
-    } else if (canonicalElement) {
-      canonicalElement.remove();
+    if (!canonicalElement) {
+      canonicalElement = document.createElement("link");
+      canonicalElement.rel = "canonical";
+      document.head.appendChild(canonicalElement);
     }
+
+    canonicalElement.href =
+      canonical ?? `${SITE_URL}${window.location.pathname}`;
   }, [title, description, noIndex, lang, canonical]);
 
   return null;

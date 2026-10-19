@@ -72,6 +72,7 @@ export function Home() {
         title="WeatherPro — Current Weather & Forecasts"
         description="Check current weather conditions and forecasts with WeatherPro."
         lang={i18n.resolvedLanguage || i18n.language || "en"}
+        canonical="https://weatherpro.site/"
       />
 
       <div className="home">
