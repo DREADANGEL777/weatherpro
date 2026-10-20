@@ -17,6 +17,7 @@ import "./Home.css";
 
 export function Home() {
   const { t, i18n } = useTranslation();
+  const [showGeoHelp, setShowGeoHelp] = useState(false);
 
   const { hasPro, hasProPlus } = useSubscription();
 
@@ -32,6 +33,9 @@ export function Home() {
     searchLoading,
     search,
     selectLocation,
+    geolocationStatus,
+    requestLocation,
+    dismissGeolocationNotice,
   } = useWeather();
 
   useEffect(() => {
@@ -77,6 +81,79 @@ export function Home() {
 
       <div className="home">
         <Header />
+
+        {(geolocationStatus === "denied" ||
+          geolocationStatus === "unavailable") && (
+          <section className="geo-notice" role="status" aria-live="polite">
+            <div className="geo-notice__icon" aria-hidden="true">
+              📍
+            </div>
+
+            <div className="geo-notice__content">
+              <h2>
+                {geolocationStatus === "denied"
+                  ? t("geolocation.deniedTitle")
+                  : t("geolocation.unavailableTitle")}
+              </h2>
+              <p>
+                {geolocationStatus === "denied"
+                  ? t("geolocation.deniedDescription")
+                  : t("geolocation.unavailableDescription")}
+              </p>
+
+              {geolocationStatus === "denied" && (
+                <button
+                  type="button"
+                  className="geo-notice__button geo-notice__button--secondary"
+                  onClick={() => setShowGeoHelp((value) => !value)}
+                >
+                  {showGeoHelp
+                    ? t("geolocation.hideInstructions")
+                    : t("geolocation.showInstructions")}
+                </button>
+              )}
+
+              {showGeoHelp && geolocationStatus === "denied" && (
+                <div className="geo-notice__help">
+                  <ol>
+                    {(
+                      t("geolocation.instructions", {
+                        returnObjects: true,
+                      }) as string[]
+                    ).map((instruction, index) => (
+                      <li key={index}>{instruction}</li>
+                    ))}
+                  </ol>
+                </div>
+              )}
+
+              <div className="geo-notice__actions">
+                <button
+                  type="button"
+                  className="geo-notice__button"
+                  onClick={() => {
+                    setShowGeoHelp(false);
+                    requestLocation();
+                  }}
+                  disabled={geolocationStatus === "checking"}
+                >
+                  {t("geolocation.retry")}
+                </button>
+
+                <button
+                  type="button"
+                  className="geo-notice__dismiss"
+                  onClick={() => {
+                    setShowGeoHelp(false);
+                    dismissGeolocationNotice();
+                  }}
+                >
+                  {t("geolocation.close")}
+                </button>
+              </div>
+            </div>
+          </section>
+        )}
 
         <main className="home__main">
           <section className="home__hero">

@@ -36,6 +36,25 @@ export const pl = {
     },
   },
 
+  geolocation: {
+    deniedTitle: "Zezwól na dostęp do lokalizacji",
+    unavailableTitle: "Nie udało się ustalić Twojej lokalizacji",
+    deniedDescription:
+      "Obecnie pokazujemy pogodę w Kijowie. Zezwól na dostęp do lokalizacji w ustawieniach przeglądarki, aby zobaczyć pogodę dla swojego miejsca pobytu.",
+    unavailableDescription:
+      "Obecnie pokazujemy pogodę w Kijowie. Sprawdź ustawienia lokalizacji lub spróbuj ponownie.",
+    showInstructions: "Jak zezwolić na dostęp?",
+    hideInstructions: "Ukryj instrukcję",
+    instructions: [
+      "Kliknij ikonę ustawień witryny obok paska adresu.",
+      "Znajdź opcję „Lokalizacja”.",
+      "Wybierz „Zezwalaj”.",
+      "Wróć tutaj i kliknij przycisk poniżej.",
+    ],
+    retry: "Spróbuj ponownie",
+    close: "Zamknij",
+  },
+
   search: {
     placeholder: "Wpisz nazwę miasta...",
     button: "Szukaj",
@@ -207,7 +226,8 @@ export const pl = {
       eyebrow: "WEATHERPRO PREMIUM",
       titleFirst: "Wybierz swój",
       titleSecond: "poziom pogody",
-      description: "Otrzymuj więcej danych, więcej prognoz i większą kontrolę nad pogodą.",
+      description:
+        "Otrzymuj więcej danych, więcej prognoz i większą kontrolę nad pogodą.",
     },
 
     plans: {
@@ -331,7 +351,8 @@ export const pl = {
   loading: {
     weather: "Ładowanie pogody...",
 
-    weatherDescription: "Aktualne dane pogodowe pojawią się tutaj za kilka sekund.",
+    weatherDescription:
+      "Aktualne dane pogodowe pojawią się tutaj za kilka sekund.",
   },
 
   locked: {
@@ -351,4 +372,4 @@ export const pl = {
 
     button: "Wróć na stronę główną",
   },
-} as const
+} as const;

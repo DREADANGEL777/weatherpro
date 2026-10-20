@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from "react"
-import { useTranslation } from "react-i18next"
+import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
-import i18n from "../../i18n"
+import i18n from "../../i18n";
 
-import "./LanguageSwitcher.css"
+import "./LanguageSwitcher.css";
 
 const languageOptions = [
   {
@@ -31,38 +31,52 @@ const languageOptions = [
     label: "Español",
     flag: "🇪🇸",
   },
-] as const
+  {
+    code: "fr",
+    label: "Français",
+    flag: "🇫🇷",
+  },
+  {
+    code: "pt",
+    label: "Português",
+    flag: "🇵🇹",
+  },
+] as const;
 
 export function LanguageSwitcher() {
-  const { i18n: currentI18n } = useTranslation()
+  const { i18n: currentI18n } = useTranslation();
 
-  const switcherRef = useRef<HTMLDivElement>(null)
-  const [isOpen, setIsOpen] = useState(false)
+  const switcherRef = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (!isOpen) return
+    if (!isOpen) return;
 
     const handlePointerDown = (event: PointerEvent) => {
-      if (switcherRef.current && !switcherRef.current.contains(event.target as Node)) {
-        setIsOpen(false)
+      if (
+        switcherRef.current &&
+        !switcherRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
       }
-    }
+    };
 
-    document.addEventListener("pointerdown", handlePointerDown)
+    document.addEventListener("pointerdown", handlePointerDown);
 
     return () => {
-      document.removeEventListener("pointerdown", handlePointerDown)
-    }
-  }, [isOpen])
+      document.removeEventListener("pointerdown", handlePointerDown);
+    };
+  }, [isOpen]);
 
   const currentLanguage =
-    languageOptions.find((item) => item.code === currentI18n.language) ?? languageOptions[0]
+    languageOptions.find((item) => item.code === currentI18n.language) ??
+    languageOptions[0];
 
   const handleSelect = (language: (typeof languageOptions)[number]["code"]) => {
-    void i18n.changeLanguage(language)
+    void i18n.changeLanguage(language);
 
-    setIsOpen(false)
-  }
+    setIsOpen(false);
+  };
 
   return (
     <div className="language-switcher" ref={switcherRef}>
@@ -91,7 +105,9 @@ export function LanguageSwitcher() {
               type="button"
               key={item.code}
               className={`language-switcher__option ${
-                item.code === currentLanguage.code ? "language-switcher__option--active" : ""
+                item.code === currentLanguage.code
+                  ? "language-switcher__option--active"
+                  : ""
               }`}
               onClick={() => handleSelect(item.code)}
             >
@@ -107,5 +123,5 @@ export function LanguageSwitcher() {
         </div>
       )}
     </div>
-  )
+  );
 }

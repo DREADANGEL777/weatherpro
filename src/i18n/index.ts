@@ -6,10 +6,12 @@ import { en } from "./locales/en";
 import { pl } from "./locales/pl";
 import { de } from "./locales/de";
 import { es } from "./locales/es";
+import { fr } from "./locales/fr";
+import { pt } from "./locales/pt";
 
 const LANGUAGE_STORAGE_KEY = "weatherpro-language";
 
-const supportedLanguages = ["uk", "en", "pl", "de", "es"] as const;
+const supportedLanguages = ["uk", "en", "pl", "de", "es", "fr", "pt"] as const;
 
 type SupportedLanguage = (typeof supportedLanguages)[number];
 
@@ -37,6 +39,12 @@ void i18n.use(initReactI18next).init({
     },
     es: {
       translation: es,
+    },
+    fr: {
+      translation: fr,
+    },
+    pt: {
+      translation: pt,
     },
   },
 

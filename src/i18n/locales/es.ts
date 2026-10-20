@@ -32,9 +32,30 @@ export const es = {
 
     loading: {
       title: "Cargando el tiempo...",
-      description: "Los datos meteorológicos actuales aparecerán aquí en unos segundos.",
+      description:
+        "Los datos meteorológicos actuales aparecerán aquí en unos segundos.",
     },
   },
+
+  geolocation: {
+    deniedTitle: "Permite el acceso a la ubicación",
+    unavailableTitle: "No se pudo determinar tu ubicación",
+    deniedDescription:
+      "Actualmente mostramos el tiempo en Kyiv. Permite el acceso a la ubicación en la configuración del navegador para ver el tiempo de tu ubicación actual.",
+    unavailableDescription:
+      "Actualmente mostramos el tiempo en Kyiv. Comprueba la configuración de ubicación o inténtalo de nuevo.",
+    showInstructions: "¿Cómo puedo permitir el acceso?",
+    hideInstructions: "Ocultar instrucciones",
+    instructions: [
+      "Haz clic en el icono de configuración del sitio junto a la barra de direcciones.",
+      "Busca la opción «Ubicación».",
+      "Selecciona «Permitir».",
+      "Vuelve aquí y pulsa el botón de abajo.",
+    ],
+    retry: "Intentar de nuevo",
+    close: "Cerrar",
+  },
+
   search: {
     placeholder: "Introduce el nombre de la ciudad...",
     button: "Buscar",
@@ -94,7 +115,8 @@ export const es = {
     details: {
       eyebrow: "WEATHER DATA",
       title: "Detalles del tiempo",
-      subtitle: "Información detallada sobre las condiciones meteorológicas actuales",
+      subtitle:
+        "Información detallada sobre las condiciones meteorológicas actuales",
 
       pressure: "Presión",
       gusts: "Ráfagas de viento",
@@ -194,10 +216,12 @@ export const es = {
       chartsDescription: "Temperatura y cambios meteorológicos por hora",
 
       precipitation: "Probabilidad de precipitación",
-      precipitationDescription: "Información precisa sobre posibles precipitaciones",
+      precipitationDescription:
+        "Información precisa sobre posibles precipitaciones",
 
       advanced: "Datos avanzados",
-      advancedDescription: "Rachas de viento, presión y datos meteorológicos adicionales",
+      advancedDescription:
+        "Rachas de viento, presión y datos meteorológicos adicionales",
     },
   },
 
@@ -206,7 +230,8 @@ export const es = {
       eyebrow: "WEATHERPRO PREMIUM",
       titleFirst: "Elige tu",
       titleSecond: "nivel meteorológico",
-      description: "Obtén más datos, más pronósticos y más control sobre el tiempo.",
+      description:
+        "Obtén más datos, más pronósticos y más control sobre el tiempo.",
     },
 
     plans: {
@@ -243,7 +268,8 @@ export const es = {
 
     premium: {
       popular: "MÁS POPULAR",
-      description: "Acceso completo a datos meteorológicos y pronósticos avanzados.",
+      description:
+        "Acceso completo a datos meteorológicos y pronósticos avanzados.",
       per: "por {{period}}",
       saving: "ahorra {{amount}} UAH",
       allFree: "Todo lo incluido en el plan gratuito",
@@ -304,7 +330,8 @@ export const es = {
 
         hiddenFees: {
           question: "¿Hay costes ocultos?",
-          answer: "No. Antes del pago verás el precio completo del plan seleccionado.",
+          answer:
+            "No. Antes del pago verás el precio completo del plan seleccionado.",
         },
       },
     },
@@ -313,7 +340,8 @@ export const es = {
       badge: "WEATHERPRO PREMIUM",
       titleFirst: "El tiempo se vuelve",
       titleSecond: "mucho más interesante.",
-      description: "Prueba Premium y obtén el máximo de información meteorológica.",
+      description:
+        "Prueba Premium y obtén el máximo de información meteorológica.",
       button: "Elegir Premium",
     },
   },
@@ -329,7 +357,8 @@ export const es = {
   loading: {
     weather: "Cargando el tiempo...",
 
-    weatherDescription: "Los datos meteorológicos actuales aparecerán aquí en unos segundos.",
+    weatherDescription:
+      "Los datos meteorológicos actuales aparecerán aquí en unos segundos.",
   },
 
   locked: {
@@ -349,4 +378,4 @@ export const es = {
 
     button: "Volver al inicio",
   },
-} as const
+} as const;

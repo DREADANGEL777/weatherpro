@@ -36,6 +36,25 @@ export const en = {
     },
   },
 
+  geolocation: {
+    deniedTitle: "Allow location access",
+    unavailableTitle: "Unable to determine your location",
+    deniedDescription:
+      "We're currently showing the weather in Kyiv. Allow location access in your browser settings to see the weather for your current location.",
+    unavailableDescription:
+      "We're currently showing the weather in Kyiv. Check your location settings or try again.",
+    showInstructions: "How do I allow access?",
+    hideInstructions: "Hide instructions",
+    instructions: [
+      "Click the site settings icon next to the address bar.",
+      'Find the "Location" setting.',
+      'Select "Allow".',
+      "Return here and click the button below.",
+    ],
+    retry: "Try again",
+    close: "Close",
+  },
+
   search: {
     placeholder: "Enter city name...",
     button: "Search",
@@ -196,7 +215,8 @@ export const en = {
       chartsDescription: "Temperature and weather changes by hour",
 
       precipitation: "Precipitation probability",
-      precipitationDescription: "Accurate information about possible precipitation",
+      precipitationDescription:
+        "Accurate information about possible precipitation",
 
       advanced: "Advanced data",
       advancedDescription: "Wind gusts, pressure and additional weather data",
@@ -208,7 +228,8 @@ export const en = {
       eyebrow: "WEATHERPRO PREMIUM",
       titleFirst: "Choose your",
       titleSecond: "weather level",
-      description: "Get more data, more forecasts, and more control over the weather.",
+      description:
+        "Get more data, more forecasts, and more control over the weather.",
     },
 
     plans: {
@@ -306,7 +327,8 @@ export const en = {
 
         hiddenFees: {
           question: "Are there any hidden fees?",
-          answer: "No. You will see the full price of the selected plan before payment.",
+          answer:
+            "No. You will see the full price of the selected plan before payment.",
         },
       },
     },
@@ -332,7 +354,8 @@ export const en = {
   loading: {
     weather: "Loading weather...",
 
-    weatherDescription: "Current weather data will appear here in a few seconds.",
+    weatherDescription:
+      "Current weather data will appear here in a few seconds.",
   },
 
   locked: {
@@ -352,4 +375,4 @@ export const en = {
 
     button: "Back to home",
   },
-} as const
+} as const;

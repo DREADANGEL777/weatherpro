@@ -32,8 +32,28 @@ export const de = {
 
     loading: {
       title: "Wetter wird geladen...",
-      description: "Die aktuellen Wetterdaten werden in wenigen Sekunden hier angezeigt.",
+      description:
+        "Die aktuellen Wetterdaten werden in wenigen Sekunden hier angezeigt.",
     },
+  },
+
+  geolocation: {
+    deniedTitle: "Standortzugriff erlauben",
+    unavailableTitle: "Standort konnte nicht ermittelt werden",
+    deniedDescription:
+      "Aktuell zeigen wir das Wetter in Kyjiw an. Erlaube den Standortzugriff in deinen Browsereinstellungen, um das Wetter für deinen aktuellen Standort zu sehen.",
+    unavailableDescription:
+      "Aktuell zeigen wir das Wetter in Kyjiw an. Überprüfe deine Standorteinstellungen oder versuche es erneut.",
+    showInstructions: "Wie erlaube ich den Zugriff?",
+    hideInstructions: "Anleitung ausblenden",
+    instructions: [
+      "Klicke auf das Website-Einstellungssymbol neben der Adressleiste.",
+      "Suche nach der Einstellung „Standort“.",
+      "Wähle „Zulassen“.",
+      "Kehre hierher zurück und klicke auf die Schaltfläche unten.",
+    ],
+    retry: "Erneut versuchen",
+    close: "Schließen",
   },
 
   search: {
@@ -195,7 +215,8 @@ export const de = {
       chartsDescription: "Temperatur und Wetterveränderungen nach Stunden",
 
       precipitation: "Niederschlagswahrscheinlichkeit",
-      precipitationDescription: "Genaue Informationen über mögliche Niederschläge",
+      precipitationDescription:
+        "Genaue Informationen über mögliche Niederschläge",
 
       advanced: "Erweiterte Daten",
       advancedDescription: "Windböen, Luftdruck und zusätzliche Wetterdaten",
@@ -207,7 +228,8 @@ export const de = {
       eyebrow: "WEATHERPRO PREMIUM",
       titleFirst: "Wähle dein",
       titleSecond: "Wetter-Level",
-      description: "Erhalte mehr Daten, mehr Vorhersagen und mehr Kontrolle über das Wetter.",
+      description:
+        "Erhalte mehr Daten, mehr Vorhersagen und mehr Kontrolle über das Wetter.",
     },
 
     plans: {
@@ -244,7 +266,8 @@ export const de = {
 
     premium: {
       popular: "AM BELIEBTESTEN",
-      description: "Vollständiger Zugriff auf erweiterte Wetterdaten und Vorhersagen.",
+      description:
+        "Vollständiger Zugriff auf erweiterte Wetterdaten und Vorhersagen.",
       per: "pro {{period}}",
       saving: "{{amount}} UAH sparen",
       allFree: "Alles aus dem kostenlosen Plan",
@@ -305,7 +328,8 @@ export const de = {
 
         hiddenFees: {
           question: "Gibt es versteckte Gebühren?",
-          answer: "Nein. Vor der Zahlung siehst du den vollständigen Preis des ausgewählten Plans.",
+          answer:
+            "Nein. Vor der Zahlung siehst du den vollständigen Preis des ausgewählten Plans.",
         },
       },
     },
@@ -314,7 +338,8 @@ export const de = {
       badge: "WEATHERPRO PREMIUM",
       titleFirst: "Das Wetter wird",
       titleSecond: "viel interessanter.",
-      description: "Probiere Premium aus und erhalte maximale Wetterinformationen.",
+      description:
+        "Probiere Premium aus und erhalte maximale Wetterinformationen.",
       button: "Premium auswählen",
     },
   },
@@ -331,7 +356,8 @@ export const de = {
   loading: {
     weather: "Wetter wird geladen...",
 
-    weatherDescription: "Die aktuellen Wetterdaten werden in wenigen Sekunden hier angezeigt.",
+    weatherDescription:
+      "Die aktuellen Wetterdaten werden in wenigen Sekunden hier angezeigt.",
   },
 
   locked: {
@@ -351,4 +377,4 @@ export const de = {
 
     button: "Zur Startseite",
   },
-} as const
+} as const;
