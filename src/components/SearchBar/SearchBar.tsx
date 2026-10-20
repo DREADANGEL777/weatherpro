@@ -84,6 +84,21 @@ export function SearchBar({
             autoComplete="off"
           />
 
+          {query.length > 0 && (
+            <button
+              type="button"
+              className="search-bar__clear"
+              onClick={() => {
+                setQuery("");
+                setIsFocused(false);
+              }}
+              aria-label="Clear search"
+              title="Clear search"
+            >
+              ✕
+            </button>
+          )}
+
           {searchLoading && <span className="search-bar__loader">⏳</span>}
         </div>
 
