@@ -135,7 +135,6 @@ export function Home() {
                     setShowGeoHelp(false);
                     requestLocation();
                   }}
-                  disabled={geolocationStatus === "checking"}
                 >
                   {t("geolocation.retry")}
                 </button>
@@ -226,7 +225,6 @@ export function Home() {
           </section>
         </main>
 
-        {/* Scroll to top */}
         <button
           type="button"
           className={`home__scroll-top ${
