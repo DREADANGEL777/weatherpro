@@ -8,6 +8,7 @@ import SEO from "../../components/SEO";
 import { Header } from "../../components/Header/Header";
 import { useAuth } from "../../hooks/useAuth";
 import { useSubscription } from "../../hooks/useSubscription";
+import { Footer } from "../../components/Footer/Footer";
 
 import "./Pricing.css";
 
@@ -291,6 +292,8 @@ export function Pricing() {
             })}
           </section>
         </main>
+
+        <Footer />
       </div>
     </>
   );

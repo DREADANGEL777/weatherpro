@@ -1,0 +1,118 @@
+.site-footer {
+  width: 100%;
+  margin-top: 48px;
+  border-top: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(8, 15, 30, 0.45);
+}
+
+.site-footer__inner {
+  width: min(1180px, calc(100% - 48px));
+  min-height: 88px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.site-footer__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: inherit;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: opacity 0.2s ease;
+}
+
+.site-footer__brand:hover {
+  opacity: 0.8;
+}
+
+.site-footer__brand-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  background: rgba(96, 165, 250, 0.12);
+  color: #60a5fa;
+  font-size: 19px;
+}
+
+.site-footer__copyright {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.site-footer__links {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.site-footer__links a {
+  color: #94a3b8;
+  font-size: 13px;
+  line-height: 1.6;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.site-footer__links a:hover {
+  color: #e2e8f0;
+}
+
+.site-footer a:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+
+@media (max-width: 760px) {
+  .site-footer__inner {
+    width: min(100% - 32px, 560px);
+    padding: 24px 0;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .site-footer__links {
+    justify-content: center;
+    gap: 12px 20px;
+  }
+
+  .site-footer__copyright {
+    order: 3;
+  }
+}
+
+@media (max-width: 360px) {
+  .site-footer__inner {
+    width: calc(100% - 24px);
+  }
+
+  .site-footer__links {
+    gap: 10px 14px;
+  }
+
+  .site-footer__links a {
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-footer__brand,
+  .site-footer__links a {
+    transition: none;
+  }
+}

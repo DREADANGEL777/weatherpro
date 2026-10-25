@@ -1,0 +1,166 @@
+.legal-page {
+  min-height: 70vh;
+  padding: 48px 24px 80px;
+  color: #e2e8f0;
+}
+
+.legal-content {
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.legal-back {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 32px;
+  color: #94a3b8;
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.legal-back:hover {
+  color: #60a5fa;
+}
+
+.legal-header {
+  padding-bottom: 28px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.legal-eyebrow {
+  color: #60a5fa;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.legal-header h1 {
+  margin: 12px 0;
+  color: #f8fafc;
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 750;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+}
+
+.legal-updated {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.legal-intro {
+  margin: 28px 0 36px;
+  color: #cbd5e1;
+  font-size: 17px;
+  line-height: 1.85;
+}
+
+.legal-section {
+  margin-top: 32px;
+}
+
+.legal-section h2 {
+  margin: 0 0 14px;
+  color: #f1f5f9;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.legal-section h3 {
+  margin: 20px 0 8px;
+  color: #e2e8f0;
+  font-size: 16px;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+.legal-section p,
+.legal-section li {
+  color: #aebdd0;
+  font-size: 15px;
+  line-height: 1.85;
+}
+
+.legal-section p {
+  margin: 0 0 14px;
+}
+
+.legal-section ul {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0 18px;
+  padding-left: 24px;
+}
+
+.legal-section li {
+  padding-left: 4px;
+}
+
+.legal-section a,
+.legal-bottom-link a {
+  color: #7db7ff;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: color 0.2s ease;
+}
+
+.legal-section a:hover,
+.legal-bottom-link a:hover {
+  color: #bfdbfe;
+  text-decoration: underline;
+}
+
+.legal-bottom-link {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(148, 163, 184, 0.2);
+  font-size: 14px;
+}
+
+.legal-back:focus-visible,
+.legal-section a:focus-visible,
+.legal-bottom-link a:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+
+@media (max-width: 600px) {
+  .legal-page {
+    padding: 28px 18px 56px;
+  }
+
+  .legal-back {
+    margin-bottom: 24px;
+  }
+
+  .legal-intro {
+    font-size: 16px;
+  }
+
+  .legal-section {
+    margin-top: 28px;
+  }
+
+  .legal-section h2 {
+    font-size: 19px;
+  }
+
+  .legal-section p,
+  .legal-section li {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .legal-back,
+  .legal-section a,
+  .legal-bottom-link a {
+    transition: none;
+  }
+}

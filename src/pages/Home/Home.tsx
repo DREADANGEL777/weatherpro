@@ -8,7 +8,8 @@ import { CurrentWeather } from "../../components/CurrentWeather/CurrentWeather";
 import { WeatherDetails } from "../../components/WeatherDetails/WeatherDetails";
 import { Forecast } from "../../components/Forecast/Forecast";
 import { WeatherChart } from "../../components/WeatherChart/WeatherChart";
-import { PremiumCard } from "../../components/PremiumCard/PremiumCard";
+import { PremiumCard } from "../../components/PremiumCard/PremiumCard"
+import { Footer } from "../../components/Footer/Footer";;
 
 import { useSubscription } from "../../hooks/useSubscription";
 import { useWeather } from "../../hooks/useWeather";
@@ -235,6 +236,8 @@ export function Home() {
         >
           <span className="home__scroll-top-arrow">↑</span>
         </button>
+
+         <Footer />
       </div>
     </>
   );
