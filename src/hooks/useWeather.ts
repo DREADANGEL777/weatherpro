@@ -14,7 +14,6 @@ const DEFAULT_LOCATION: Location = {
 };
 
 export type GeolocationStatus =
-  | "checking"
   | "success"
   | "denied"
   | "unavailable"
@@ -31,7 +30,7 @@ export function useWeather() {
   const [error, setError] = useState<string | null>(null);
 
   const [geolocationStatus, setGeolocationStatus] =
-    useState<GeolocationStatus>("checking");
+    useState<GeolocationStatus>("dismissed");
 
   const loadWeather = useCallback(async (selectedLocation: Location) => {
     setLoading(true);
@@ -89,8 +88,6 @@ export function useWeather() {
       void loadWeather(DEFAULT_LOCATION);
       return;
     }
-
-    setGeolocationStatus("checking");
 
     navigator.geolocation.getCurrentPosition(
       async (position) => {
