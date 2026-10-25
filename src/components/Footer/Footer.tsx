@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
 
 import "./Footer.css";
 
 export function Footer() {
-  const { i18n } = useTranslation();
+//   const { i18n } = useTranslation();
   const year = new Date().getFullYear();
 
   return (
