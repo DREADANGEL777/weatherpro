@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "./Footer.css";
 
 export function Footer() {
-//   const { i18n } = useTranslation();
+  //   const { i18n } = useTranslation();
   const year = new Date().getFullYear();
 
   return (
@@ -16,7 +16,7 @@ export function Footer() {
           aria-label="WeatherPro home"
         >
           <span className="site-footer__brand-icon" aria-hidden="true">
-            ☀
+            🌤
           </span>
           <span>WeatherPro</span>
         </Link>
@@ -28,6 +28,7 @@ export function Footer() {
         <nav className="site-footer__links" aria-label="Legal links">
           <Link to="/terms">Terms of Service</Link>
           <Link to="/privacy">Privacy Policy</Link>
+          <Link to="/refund">Refund Policy</Link>
           <a href="mailto:lasercuttingadmin4225@gmail.com">
             lasercuttingadmin4225@gmail.com
           </a>
