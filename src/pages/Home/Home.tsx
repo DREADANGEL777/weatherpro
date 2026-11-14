@@ -176,7 +176,7 @@ export function Home() {
             </div>
           </section>
 
-          <section className="home__weather">
+          <section className="home__weather idk">
             {weather ? (
               <>
                 <CurrentWeather
