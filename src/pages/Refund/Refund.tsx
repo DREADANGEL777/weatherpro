@@ -147,11 +147,11 @@ export function Refund() {
           <section className="legal-section">
             <h2>6. Payment processing</h2>
             <p>
-              Payments and refunds may be processed by Paddle or another payment
+              Payments and refunds may be processed by Creem or another payment
               provider identified during checkout.
             </p>
             <p>
-              Where Paddle acts as the Merchant of Record, it may handle payment
+              Where Creem acts as the Merchant of Record, it may handle payment
               processing, applicable taxes, billing, and refunds in accordance
               with its applicable terms and policies.
             </p>

@@ -9,6 +9,7 @@ import {
 
 import { useAuth } from "../hooks/useAuth"
 import { initializeRevenueCat, isRevenueCatConfigured } from "../services/revenuecat"
+import { getCreemSubscription, type CreemTier } from "../services/creem"
 
 export type SubscriptionError = "config" | "load" | "purchase"
 
@@ -50,6 +51,7 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true)
   const [purchasing, setPurchasing] = useState(false)
   const [error, setError] = useState<SubscriptionError | null>(null)
+  const [creemTier, setCreemTier] = useState<CreemTier>("free")
 
   const uid = user?.uid ?? null
 
@@ -63,21 +65,38 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
 
       if (!uid) {
         setCustomerInfo(null)
+        setCreemTier("free")
         setLoading(false)
 
         return
       }
 
       const purchases = initializeRevenueCat(uid)
-
-      if (!purchases) {
-        setError(isRevenueCatConfigured() ? "load" : "config")
-        setLoading(false)
-
-        return
-      }
+      if (!purchases) setError(isRevenueCatConfigured() ? "load" : "config")
 
       setLoading(true)
+
+      const checkoutIdKey = `creem_checkout_id_${uid}`
+      const checkoutIdFromUrl = new URLSearchParams(window.location.search).get("checkout_id")
+      if (checkoutIdFromUrl) localStorage.setItem(checkoutIdKey, checkoutIdFromUrl)
+      const checkoutId = checkoutIdFromUrl || localStorage.getItem(checkoutIdKey)
+
+      if (checkoutId) {
+        try {
+          const verifiedTier = await getCreemSubscription(checkoutId, uid)
+          if (!cancelled) setCreemTier(verifiedTier)
+        } catch (err) {
+          console.error("Failed to verify Creem subscription:", err)
+          if (!cancelled) setCreemTier("free")
+        }
+      } else {
+        setCreemTier("free")
+      }
+
+      if (!purchases) {
+        setLoading(false)
+        return
+      }
 
       try {
         const [info, offerings] = await Promise.all([
@@ -146,7 +165,10 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
     [uid, user],
   )
 
-  const tier = getTier(customerInfo)
+  const revenueCatTier = getTier(customerInfo)
+  const tier: Tier =
+    creemTier === "pro_plus" || revenueCatTier === "pro_plus" ? "pro_plus"
+      : creemTier === "pro" || revenueCatTier === "pro" ? "pro" : "free"
   const hasPro = tier !== "free"
   const hasProPlus = tier === "pro_plus"
 

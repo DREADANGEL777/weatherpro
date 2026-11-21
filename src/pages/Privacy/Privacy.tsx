@@ -131,7 +131,7 @@ export function Privacy() {
                 geocoding.
               </li>
               <li>
-                Paddle or another payment provider for checkout and subscription
+                Creem or another payment provider for checkout and subscription
                 payments.
               </li>
               <li>

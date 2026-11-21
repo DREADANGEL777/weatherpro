@@ -83,7 +83,7 @@ export function Terms() {
               the pricing or checkout page before you purchase.
             </p>
             <p>
-              Payments and subscription checkout may be processed by Paddle or
+              Payments and subscription checkout may be processed by Creem or
               another payment provider identified during checkout. The payment
               provider's applicable terms and policies may also apply to your
               transaction.

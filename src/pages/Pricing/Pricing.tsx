@@ -1,33 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { initializePaddle } from "@paddle/paddle-js";
-import type { Paddle } from "@paddle/paddle-js";
 
 import SEO from "../../components/SEO";
 import { Header } from "../../components/Header/Header";
 import { useAuth } from "../../hooks/useAuth";
 import { useSubscription } from "../../hooks/useSubscription";
+import { createCreemCheckout, type CreemPlan } from "../../services/creem";
 import { Footer } from "../../components/Footer/Footer";
 
 import "./Pricing.css";
-
-let paddleInstance: Paddle | undefined = undefined;
-const initPaddle = async () => {
-  if (paddleInstance) return paddleInstance;
-  const token = import.meta.env.VITE_PADDLE_CLIENT_TOKEN;
-  if (!token) return undefined;
-
-  paddleInstance = await initializePaddle({ token });
-  return paddleInstance;
-};
 
 const plans = [
   {
     id: "pro",
     tier: "pro",
-    priceId: "pri_01m5pdzwmay1et88p09feh9me5",
-    fallbackPrice: 99,
+    checkoutPlan: "pro" as const,
+    fallbackPrice: 3.99,
     popular: false,
     includes: "includedFree",
     features: ["sevenDayForecast", "dailyPrecipitation", "advancedWind"],
@@ -35,8 +24,8 @@ const plans = [
   {
     id: "proPlus",
     tier: "pro_plus",
-    priceId: "pri_01m5pe0rdp628bksmjaagp4k0b",
-    fallbackPrice: 199,
+    checkoutPlan: "proPlus" as const,
+    fallbackPrice: 5.99,
     popular: true,
     includes: "includedPro",
     features: ["hourlyChart", "hourlyPrecipitation"],
@@ -49,39 +38,23 @@ export function Pricing() {
   const { t, i18n } = useTranslation();
   const { user, signInWithGoogle } = useAuth();
   const { tier, loading } = useSubscription();
-  const [purchasing, setPurchasing] = useState(false);
+  const [purchasing, setPurchasing] = useState<CreemPlan | null>(null);
 
-  const handleSubscribe = async (priceId: string) => {
+  const handleSubscribe = async (plan: CreemPlan) => {
     if (!user) {
       await signInWithGoogle();
       return;
     }
 
     try {
-      setPurchasing(true);
-      const paddle = await initPaddle();
-
-      if (!paddle) {
-        alert("Paddle initialization failed. Check your client token.");
-        return;
-      }
-
-      paddle.Checkout.open({
-        items: [
-          {
-            priceId: priceId,
-            quantity: 1,
-          },
-        ],
-        customer: user.email ? { email: user.email } : undefined,
-        settings: {
-          successUrl: `${window.location.origin}/?success=true`,
-        },
-      });
+      setPurchasing(plan);
+      const checkoutUrl = await createCreemCheckout(plan, user);
+      window.location.assign(checkoutUrl);
     } catch (err) {
-      console.error("Checkout error:", err);
+      console.error("Creem checkout error:", err);
+      alert(err instanceof Error ? err.message : "Unable to start checkout.");
     } finally {
-      setPurchasing(false);
+      setPurchasing(null);
     }
   };
 
@@ -220,14 +193,14 @@ export function Pricing() {
                   ? t("pricing.plans.current")
                   : owned
                     ? t("pricing.plans.included")
-                    : purchasing
+                    : purchasing === plan.checkoutPlan
                       ? t("pricing.premium.processing")
                       : !user
                         ? t("pricing.premium.signIn")
                         : t(`pricing.plans.${plan.id}.button`);
 
               const disabled =
-                owned || purchasing || (Boolean(user) && loading);
+                owned || purchasing !== null || (Boolean(user) && loading);
 
               return (
                 <article
@@ -254,7 +227,7 @@ export function Pricing() {
                     </p>
                     <div className="pricing-card__price">
                       <strong>{plan.fallbackPrice}</strong>
-                      <span>{t("pricing.currency")}</span>
+                      <span>usd</span>
                     </div>
                     <p className="pricing-card__period">
                       {t("pricing.plans.perMonth")}
@@ -278,7 +251,7 @@ export function Pricing() {
                     type="button"
                     className={`pricing-card__button ${plan.popular ? "pricing-card__button--premium" : "pricing-card__button--secondary"}`}
                     disabled={disabled}
-                    onClick={() => void handleSubscribe(plan.priceId)}
+                    onClick={() => void handleSubscribe(plan.checkoutPlan)}
                   >
                     {label}
                     <span>→</span>
