@@ -14,13 +14,6 @@ const json = (body: unknown, status = 200) => new Response(JSON.stringify(body),
   headers: { "Content-Type": "application/json" },
 });
 
-function addCheckoutIdPlaceholder(successUrl: string): string {
-  const separator = successUrl.includes("?") ? "&" : "?";
-  return successUrl.includes("checkout_id=")
-    ? successUrl
-    : `${successUrl}${separator}checkout_id={checkout_id}`;
-}
-
 export const onRequestPost = async ({ request, env }: PagesContext) => {
   const apiKey = env.CREEM_API_KEY;
   const successUrl = env.CREEM_SUCCESS_URL;
@@ -47,7 +40,8 @@ export const onRequestPost = async ({ request, env }: PagesContext) => {
     headers: { "Content-Type": "application/json", "x-api-key": apiKey },
     body: JSON.stringify({
       product_id: productId,
-      success_url: addCheckoutIdPlaceholder(successUrl),
+      // Creem appends checkout_id and order_id to the success URL automatically.
+      success_url: successUrl,
       customer: { email: body.email },
       metadata: { referenceId: body.userId, plan: body.plan },
     }),

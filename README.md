@@ -69,7 +69,7 @@ Store the webhook secret as `CREEM_WEBHOOK_SECRET`. Verify the `creem-signature`
 
 After Creem redirects the user back, [SubscriptionContext.tsx](./src/context/SubscriptionContext.tsx) sends the checkout ID and Firebase user ID to [status.ts](./functions/api/creem/status.ts). The server retrieves the checkout from Creem, checks that the checkout metadata belongs to the signed-in user, and returns `pro` or `pro_plus`. The existing Premium feature guards then unlock immediately without trusting the browser success URL by itself.
 
-The checkout ID is stored per Firebase user in browser storage, so Premium remains available after a refresh. The server re-verifies it against Creem on each app load.
+The checkout ID is stored per Firebase user in browser storage, so Premium remains available after a refresh. The server re-verifies it against Creem on each app load, confirms the checkout metadata belongs to that Firebase user, and grants the selected tier for 30 days from the recorded payment/checkout completion time. `pro_plus` includes all `pro` features; after 30 days the server returns the free tier.
 
 ### 6. Keep access synchronized with webhook events
 

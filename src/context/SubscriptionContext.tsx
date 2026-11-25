@@ -32,6 +32,7 @@ interface SubscriptionContextValue {
   tier: Tier
   hasPro: boolean
   hasProPlus: boolean
+  expiresAt: string | null
   loading: boolean
   purchasing: boolean
   error: SubscriptionError | null
@@ -52,6 +53,7 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
   const [purchasing, setPurchasing] = useState(false)
   const [error, setError] = useState<SubscriptionError | null>(null)
   const [creemTier, setCreemTier] = useState<CreemTier>("free")
+  const [creemExpiresAt, setCreemExpiresAt] = useState<string | null>(null)
 
   const uid = user?.uid ?? null
 
@@ -66,6 +68,7 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
       if (!uid) {
         setCustomerInfo(null)
         setCreemTier("free")
+        setCreemExpiresAt(null)
         setLoading(false)
 
         return
@@ -83,14 +86,21 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
 
       if (checkoutId) {
         try {
-          const verifiedTier = await getCreemSubscription(checkoutId, uid)
-          if (!cancelled) setCreemTier(verifiedTier)
+          const subscription = await getCreemSubscription(checkoutId, uid)
+          if (!cancelled) {
+            setCreemTier(subscription.tier)
+            setCreemExpiresAt(subscription.expiresAt)
+          }
         } catch (err) {
           console.error("Failed to verify Creem subscription:", err)
-          if (!cancelled) setCreemTier("free")
+          if (!cancelled) {
+            setCreemTier("free")
+            setCreemExpiresAt(null)
+          }
         }
       } else {
         setCreemTier("free")
+        setCreemExpiresAt(null)
       }
 
       if (!purchases) {
@@ -177,6 +187,7 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
       tier,
       hasPro,
       hasProPlus,
+      expiresAt: creemExpiresAt,
       loading: loading || authLoading,
       purchasing,
       error,
@@ -184,7 +195,7 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
       packages,
       purchasePackage,
     }),
-    [tier, hasPro, hasProPlus, loading, authLoading, purchasing, error, customerInfo, packages, purchasePackage],
+    [tier, hasPro, hasProPlus, creemExpiresAt, loading, authLoading, purchasing, error, customerInfo, packages, purchasePackage],
   )
 
   return <SubscriptionContext.Provider value={value}>{children}</SubscriptionContext.Provider>

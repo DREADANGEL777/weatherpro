@@ -17,7 +17,7 @@ export async function createCreemCheckout(
     body: JSON.stringify({ plan, userId: user.uid, email: user.email }),
   });
   const responseText = await response.text();
-  let data: CreateCheckoutResponse = {};
+  let data: CreateCheckoutResponse;
   try {
     data = JSON.parse(responseText) as CreateCheckoutResponse;
   } catch {
@@ -31,18 +31,27 @@ export async function createCreemCheckout(
 
 interface CreemSubscriptionResponse {
   tier?: CreemTier;
+  expiresAt?: string;
   message?: string;
+}
+
+export interface CreemSubscription {
+  tier: CreemTier;
+  expiresAt: string | null;
 }
 
 export async function getCreemSubscription(
   checkoutId: string,
   userId: string,
-): Promise<CreemTier> {
+): Promise<CreemSubscription> {
   const params = new URLSearchParams({ checkout_id: checkoutId, user_id: userId });
   const response = await fetch(`/api/creem/status?${params.toString()}`);
   const data = (await response.json()) as CreemSubscriptionResponse;
 
   if (!response.ok) throw new Error(data.message || "Unable to verify Creem subscription.");
 
-  return data.tier || "free";
+  return {
+    tier: data.tier || "free",
+    expiresAt: data.expiresAt || null,
+  };
 }

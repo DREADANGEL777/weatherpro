@@ -7,6 +7,24 @@ interface CheckoutBody {
   email?: string | null
 }
 
+const ACCESS_DURATION_MS = 30 * 24 * 60 * 60 * 1000
+
+async function getCreemError(response: Response): Promise<string> {
+  const text = await response.text()
+  try {
+    const body = JSON.parse(text) as {
+      message?: string
+      error?: string
+      detail?: string
+      trace_id?: string
+    }
+    const reason = body.message ?? body.error ?? body.detail ?? 'Unknown Creem error'
+    return body.trace_id ? `${reason} (trace_id: ${body.trace_id})` : reason
+  } catch {
+    return text.slice(0, 240) || 'Unknown Creem error'
+  }
+}
+
 function creemDevelopmentApi(): Plugin {
   return {
     name: 'creem-development-api',
@@ -58,9 +76,8 @@ function creemDevelopmentApi(): Plugin {
             headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
             body: JSON.stringify({
               product_id: productId,
-              success_url: successUrl.includes('checkout_id=')
-                ? successUrl
-                : `${successUrl}${successUrl.includes('?') ? '&' : '?'}checkout_id={checkout_id}`,
+              // Creem appends checkout_id and order_id to the success URL automatically.
+              success_url: successUrl,
               customer: { email: body.email },
               metadata: { referenceId: body.userId, plan: body.plan },
             }),
@@ -108,16 +125,27 @@ function creemDevelopmentApi(): Plugin {
             { headers: { 'x-api-key': apiKey } },
           )
           if (!creemResponse.ok) {
-            sendJson({ message: 'Creem checkout could not be verified.' }, 502)
+            const reason = await getCreemError(creemResponse)
+            console.error('Creem checkout verification failed', {
+              status: creemResponse.status,
+              checkoutId,
+              reason,
+            })
+            sendJson({
+              message: `Creem checkout could not be verified (${creemResponse.status}): ${reason}`,
+            }, 502)
             return
           }
 
           const checkout = await creemResponse.json() as {
             status?: string
+            created_at?: string | number
+            completed_at?: string | number
+            paid_at?: string | number
             product?: string | { id?: string }
             metadata?: { referenceId?: string }
-            order?: { status?: string }
-            subscription?: { status?: string }
+            order?: { status?: string; created_at?: string | number; paid_at?: string | number }
+            subscription?: { status?: string; started_at?: string | number }
           }
           if (checkout.metadata?.referenceId !== userId) {
             sendJson({ message: 'This checkout does not belong to the signed-in user.' }, 403)
@@ -132,10 +160,32 @@ function creemDevelopmentApi(): Plugin {
             return
           }
 
+          const paidAtValue = checkout.paid_at
+            ?? checkout.completed_at
+            ?? checkout.order?.paid_at
+            ?? checkout.subscription?.started_at
+            ?? checkout.order?.created_at
+            ?? checkout.created_at
+          const parsedPaidAt = paidAtValue === undefined
+            ? Number.NaN
+            : typeof paidAtValue === 'number' ? paidAtValue : Date.parse(paidAtValue)
+          const paidAt = parsedPaidAt > 0 && parsedPaidAt < 1_000_000_000_000
+            ? parsedPaidAt * 1000
+            : parsedPaidAt
+          if (!Number.isFinite(paidAt)) {
+            sendJson({ tier: 'free' }, 200)
+            return
+          }
+          const expiresAt = paidAt + ACCESS_DURATION_MS
+          if (Date.now() >= expiresAt) {
+            sendJson({ tier: 'free', expiresAt: new Date(expiresAt).toISOString() }, 200)
+            return
+          }
+
           const productId = typeof checkout.product === 'string' ? checkout.product : checkout.product?.id
           const tier = productId === env.CREEM_PRODUCT_PRO_PLUS ? 'pro_plus'
             : productId === env.CREEM_PRODUCT_PRO ? 'pro' : 'free'
-          sendJson({ tier }, 200)
+          sendJson({ tier, expiresAt: new Date(expiresAt).toISOString() }, 200)
         } catch (error) {
           console.error('Creem development status check failed:', error)
           sendJson({ message: 'Could not connect to Creem.' }, 502)
